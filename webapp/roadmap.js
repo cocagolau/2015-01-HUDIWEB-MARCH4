@@ -1,3 +1,6 @@
+jQuery(document).ready(function($) {
+});
+
 angular.module('roadmap', [])
 .controller('roadmapCtrl', function() {
     // {content(string),order(number),due(datetime),pos(x,y)}
