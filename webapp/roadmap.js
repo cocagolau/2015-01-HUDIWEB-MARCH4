@@ -6,10 +6,12 @@ jQuery(document).ready(function($) {
         var initEl = $(this);
         var initElPos = getPosition(this);
         var initClickPos = {pageX:e.pageX, pageY:e.pageY};
+        var overEl;
 
         $(document).on('mousemove', function(e) {
             // init (//for check)
             $('.sortable').css("backgroundColor", 'white');
+            if(overEl) overEl.css("backgroundColor", 'red');
 
             var deltaClickPos = {pageX:e.pageX-initClickPos.pageX,
                 pageY:e.pageY-initClickPos.pageY};
@@ -17,8 +19,8 @@ jQuery(document).ready(function($) {
 
             var result = getMouseoveredIndex(e, $('.sortable'), initEl[0]);
             if(result >= 0) {
-                // for check
-                $('.sortable').eq(result).css("backgroundColor", 'red');
+                overEl = $('.sortable').eq(result);
+                // 마지막 오버 된 거 저장돼서 좋음!
             }
 
 
@@ -26,12 +28,17 @@ jQuery(document).ready(function($) {
             "top" : initElPos.top + deltaClickPos.pageY,
             "left": initElPos.left + deltaClickPos.pageX});
         });
+
+        $(document).on('mouseup', function(e) {
+            $(document).off('mousemove');
+            console.log(overEl);
+        });
     });
 
     var getMouseoveredIndex = function(e, jList, self) {
         // 일단 세로만.
         for(var i=0; i<jList.length; i++) {
-            console.log(self);
+            // console.log(self);
             if(jList[i] === self) continue;
             var elY1, elY2;
             elY1 = $(jList[i]).offset().top;
@@ -46,10 +53,6 @@ jQuery(document).ready(function($) {
         }
         return -1;
     };
-
-    $(document).on('mouseup', function(e) {
-        $(document).off('mousemove');
-    });
 
     var getPosition = function(el) {
         var position = {
