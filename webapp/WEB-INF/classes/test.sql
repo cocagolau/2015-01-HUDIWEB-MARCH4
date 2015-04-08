@@ -1,0 +1,1 @@
+insert into dodo values(1, "안녕");

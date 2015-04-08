@@ -7,7 +7,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `mydb` ;
 
 -- -----------------------------------------------------
 -- Schema mydb
@@ -29,23 +28,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`quest`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `mydb`.`quest` ;
-
-CREATE TABLE IF NOT EXISTS `mydb`.`quest` (
-  `qId` INT NOT NULL,
-  `pid` VARCHAR(45) NULL,
-  `posX` INT NULL,
-  `poxY` INT NULL,
-  `order` VARCHAR(45) NULL,
-  `contents` TEXT NULL,
-  `due` TIME NULL,
-  PRIMARY KEY (`qId`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `mydb`.`project`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `mydb`.`project` ;
@@ -56,6 +38,29 @@ CREATE TABLE IF NOT EXISTS `mydb`.`project` (
   `name` VARCHAR(45) NULL,
   `shared` VARCHAR(45) NULL,
   PRIMARY KEY (`pId`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`quest`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `mydb`.`quest` ;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`quest` (
+  `qId` INT NOT NULL,
+  `pId` INT NOT NULL,
+  `posX` INT NULL,
+  `poxY` INT NULL,
+  `order` VARCHAR(45) NULL,
+  `contents` TEXT NULL,
+  `due` TIME NULL,
+  PRIMARY KEY (`qId`),
+  INDEX `fk_quest_project1_idx` (`pId` ASC),
+  CONSTRAINT `fk_quest_project1`
+    FOREIGN KEY (`pId`)
+    REFERENCES `mydb`.`project` (`pId`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
