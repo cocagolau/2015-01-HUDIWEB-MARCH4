@@ -43,8 +43,7 @@ jQuery(document).ready(function($) {
             var elY1, elY2;
             elY1 = $(jList[i]).offset().top;
             var nextOffset = $(jList[i]).next().offset();
-            elY2 = (nextOffset) ? nextOffset.top :
-                (elY1 + jList[i].offsetHeight);
+            elY2 = elY1 + jList[i].offsetHeight;
             var eY = e.pageY;
             // console.log(elY1, elY2, eY);
             if(elY1 <= eY && elY2 >= eY) {
