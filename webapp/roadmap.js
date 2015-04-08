@@ -8,8 +8,8 @@ jQuery(document).ready(function($) {
         var initClickPos = {pageX:e.pageX, pageY:e.pageY};
         var overEl;
 
-        $(document).on('mousemove', function(e) {
-            // init (//for check)
+        $(document).on('mousemove.drag', function(e) {
+            // for check
             $('.sortable').css("backgroundColor", 'white');
             if(overEl) overEl.css("backgroundColor", 'red');
 
@@ -20,7 +20,6 @@ jQuery(document).ready(function($) {
             var result = getMouseoveredIndex(e, $('.sortable'), initEl[0]);
             if(result >= 0) {
                 overEl = $('.sortable').eq(result);
-                // 마지막 오버 된 거 저장돼서 좋음!
             }
 
 
@@ -29,8 +28,8 @@ jQuery(document).ready(function($) {
             "left": initElPos.left + deltaClickPos.pageX});
         });
 
-        $(document).on('mouseup', function(e) {
-            $(document).off('mousemove');
+        $(this).on('mouseup', function(e) {
+            $(document).off('mousemove.drag');
             console.log(overEl);
         });
     });
