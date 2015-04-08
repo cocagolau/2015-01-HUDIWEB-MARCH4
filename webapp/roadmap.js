@@ -13,6 +13,7 @@ jQuery(document).ready(function($) {
             $('.sortable').css("backgroundColor", 'white');
             if(overEl) overEl.css("backgroundColor", 'red');
 
+
             var deltaClickPos = {pageX:e.pageX-initClickPos.pageX,
                 pageY:e.pageY-initClickPos.pageY};
 
@@ -31,6 +32,11 @@ jQuery(document).ready(function($) {
         $(this).on('mouseup', function(e) {
             $(document).off('mousemove.drag');
             console.log(overEl);
+
+            $(this).insertBefore(overEl);
+            $(this).css({"position": "relative",
+            "top" : 0,
+            "left": 0});
         });
     });
 
