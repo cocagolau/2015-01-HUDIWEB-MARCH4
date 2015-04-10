@@ -11,11 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import march4.dao.ProjectDao;
 import march4.model.Project;
 import march4.util.Json;
 
-@WebServlet("/api/projectlist")
+@RequestMapping("/api/projectlist")
 public class ProjectListController extends HttpServlet {
 	
 	@Override

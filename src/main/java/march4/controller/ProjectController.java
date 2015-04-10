@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import march4.dao.ProjectDao;
 import march4.model.Project;
 import march4.util.Json;
@@ -19,9 +21,11 @@ public class ProjectController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		int id = Integer.parseInt(req.getParameter("projectId"));
+		String id = req.getParameter("projectId");
+		if(id == null) return;
+		
 		PrintWriter writer = resp.getWriter();
-		Json.builder.toJson(ProjectDao.getProjectById(id),writer);
+		Json.builder.toJson(ProjectDao.getProjectById(Integer.parseInt(id)),writer);
 	}
 	
 	@Override
