@@ -9,18 +9,19 @@ jQuery(document).ready(function($) {
         var overEl;
 
         $(document).on('mousemove.drag', function(e) {
-            // for check
-            $('.sortable').css("backgroundColor", 'white');
-            if(overEl) overEl.css("backgroundColor", 'red');
-
-
             var deltaClickPos = {pageX:e.pageX-initClickPos.pageX,
                 pageY:e.pageY-initClickPos.pageY};
 
 
             var result = getMouseoveredIndex(e, $('.sortable'), initEl[0]);
             if(result >= 0) {
-                overEl = $('.sortable').eq(result);
+                var currentOverEl = $('.sortable').eq(result);
+                if(!currentOverEl.is(overEl)) {
+                    overEl = currentOverEl;
+                    // for check
+                    $('.sortable').css("backgroundColor", 'white');
+                    if(overEl) overEl.css("backgroundColor", 'red');
+                }
             }
 
 
