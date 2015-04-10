@@ -29,7 +29,7 @@ public class UserDao extends JdbcDaoSupport {
 			@Override
 			public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 				return new User(
-						rs.getInt("no"),
+						rs.getInt("userId"),
 						rs.getString("name"));
 			}
 		};
