@@ -54,5 +54,5 @@ local.properties
 .texlipse
 
 #tomcat
-tomcat:8080/
+tomcat*/
 webapp/WEB-INF/classes
