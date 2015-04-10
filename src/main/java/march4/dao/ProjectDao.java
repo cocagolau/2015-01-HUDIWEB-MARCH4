@@ -11,11 +11,15 @@ public class ProjectDao {
 		MemoryDB.putProject(project);
 	}
 	
-	public static Project getUserById(int id) {
+	public static Project getProjectById(int id) {
 		return MemoryDB.getProjectById(id);
 	}
 	
 	public static Map<Integer, Project> getProjectByOwner(User owner){
 		return MemoryDB.getAllProjectByOwner(owner);
+	}
+
+	public static Map<Integer, Project> getAllProjects() {
+		return MemoryDB.getAllProjects();
 	}
 }

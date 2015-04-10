@@ -47,4 +47,8 @@ public class MemoryDB {
 		}
 		return result;
 	}
+	
+	public static Map<Integer, Project> getAllProjects() {
+		return projects;
+	}
 }
