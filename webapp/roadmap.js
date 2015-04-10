@@ -49,18 +49,20 @@ jQuery(document).ready(function($) {
         });
     });
 
+    // 일단 세로만.
     var getMouseoveredIndex = function(e, jList, self) {
-        // 일단 세로만.
+        var eY = e.pageY;
+        
+        function getBound(el) {
+            var top = el.offset().top;
+            var down = top + el.outerHeight();
+            return {top:top, down:down};
+        }
+        
         for(var i=0; i<jList.length; i++) {
-            // console.log(self);
             if(jList[i] === self) continue;
-            var elY1, elY2;
-            elY1 = $(jList[i]).offset().top;
-            var nextOffset = $(jList[i]).next().offset();
-            elY2 = elY1 + jList.eq(i).outerHeight();
-            var eY = e.pageY;
-            // console.log(elY1, elY2, eY);
-            if(elY1 <= eY && elY2 >= eY) {
+            var bound = getBound(jList.eq(i));
+            if(bound.top <= eY && eY <= bound.down) {
                 return i;
             }
         }
