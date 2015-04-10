@@ -13,7 +13,7 @@ import march4.dao.ProjectDao;
 import march4.model.Project;
 import march4.util.Json;
 
-@WebServlet("/api/user")
+@WebServlet("/api/project")
 public class ProjectController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)

@@ -15,7 +15,7 @@ import march4.dao.ProjectDao;
 import march4.model.Project;
 import march4.util.Json;
 
-@WebServlet("/api/userlist")
+@WebServlet("/api/projectlist")
 public class ProjectListController extends HttpServlet {
 	
 	@Override
