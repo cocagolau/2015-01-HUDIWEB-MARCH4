@@ -19,8 +19,10 @@ jQuery(document).ready(function($) {
                 if(!currentOverEl.is(overEl)) {
                     overEl = currentOverEl;
                     // for check
-                    $('.sortable').css("backgroundColor", 'white');
-                    if(overEl) overEl.css("backgroundColor", 'red');
+                    $(".sortable").css("backgroundColor", "white");
+                    // $(".sortable:gt("+(result-1)+")").css("backgroundColor", "yellow");
+                    $(".sortable").filter(":eq("+result+"), :gt("+result+")").not(initEl).css("backgroundColor", "yellow");
+                    // if(overEl) overEl.css("backgroundColor", 'red');
                 }
             }
 
