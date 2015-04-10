@@ -14,7 +14,7 @@ import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 public class UserDao extends JdbcDaoSupport {
-	//@PostConstruct
+	@PostConstruct
 	public void initialize() {
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
 		populator.addScript(new ClassPathResource("test.sql"));
@@ -23,7 +23,7 @@ public class UserDao extends JdbcDaoSupport {
 	
 	public User findByNo(String no){
 		
-		String sql = "select * from dodo where no = ?";
+		String sql = "select * from user where no = ?";
 		RowMapper<User> rowMapper = new RowMapper<User>() {
 
 			@Override

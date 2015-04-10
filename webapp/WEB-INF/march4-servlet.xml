@@ -12,7 +12,7 @@
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/WEB-INF/jsp/" p:suffix=".jsp" />
-	
+
 	<mvc:resources location="/images/" mapping="/images/**" />
 	<mvc:resources location="/stylesheets/" mapping="/stylesheets/**" />
 	<mvc:resources location="/javascripts/" mapping="/javascripts/**" />
