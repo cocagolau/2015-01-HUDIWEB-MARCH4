@@ -1,3 +1,7 @@
+/* todo
+* 무조건 insertBefore여서 맨 밑으로 안 들어가짐
+*/
+
 jQuery(document).ready(function($) {
     $('.sortableContainer').on('mousedown', '.sortable', function(e) {
         e.stopPropagation();
@@ -18,11 +22,12 @@ jQuery(document).ready(function($) {
                 var currentOverEl = $('.sortable').eq(result);
                 if(!currentOverEl.is(overEl)) {
                     overEl = currentOverEl;
-                    // for check
-                    $(".sortable").css("backgroundColor", "white");
-                    // $(".sortable:gt("+(result-1)+")").css("backgroundColor", "yellow");
-                    $(".sortable").filter(":eq("+result+"), :gt("+result+")").not(initEl).css("backgroundColor", "yellow");
-                    // if(overEl) overEl.css("backgroundColor", 'red');
+                    // init
+                    $(".sortable")
+                        .filter(":lt("+result+")").not(initEl).css({"position":"relative", "top":"0"});
+                    // push down
+                    $(".sortable").filter(":eq("+result+"), :gt("+result+")")
+                        .css({"position":"relative", "top":initEl.outerHeight()});
                 }
             }
 
@@ -35,7 +40,8 @@ jQuery(document).ready(function($) {
         $(this).on('mouseup', function(e) {
             $(document).off('mousemove.drag');
             console.log(overEl);
-
+            
+            $(".sortable").css({"position":"relative", "top":"0"});
             $(this).insertBefore(overEl);
             $(this).css({"position": "relative",
             "top" : 0,
@@ -51,7 +57,7 @@ jQuery(document).ready(function($) {
             var elY1, elY2;
             elY1 = $(jList[i]).offset().top;
             var nextOffset = $(jList[i]).next().offset();
-            elY2 = elY1 + jList[i].offsetHeight;
+            elY2 = elY1 + jList.eq(i).outerHeight();
             var eY = e.pageY;
             // console.log(elY1, elY2, eY);
             if(elY1 <= eY && elY2 >= eY) {
