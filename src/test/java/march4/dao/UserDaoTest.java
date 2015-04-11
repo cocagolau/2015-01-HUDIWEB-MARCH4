@@ -1,10 +1,9 @@
-package net.march4.support;
+package march4.dao;
 
 import static org.junit.Assert.assertNotNull;
 
 import javax.sql.DataSource;
 
-import march4.dao.UserDao;
 import march4.model.User;
 
 import org.junit.Test;
@@ -17,8 +16,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:/applicationContext.xml")
-public class ApplicationContextTest {
-	private static final Logger log = LoggerFactory.getLogger(ApplicationContextTest.class);
+public class UserDaoTest {
+	private static final Logger log = LoggerFactory.getLogger(UserDaoTest.class);
 	
 	@Autowired
 	private DataSource dataSource;
@@ -26,17 +25,22 @@ public class ApplicationContextTest {
 	@Autowired
 	private UserDao userDao;
 	
-
 	@Test
 	public void dataSource(){
 		assertNotNull(dataSource);
 	}
 	
 	@Test
-	public void findByNo(){
-		User user = userDao.findByNo("2");
-		log.debug("User : {}", user);
+	public void insertUSER() {
+		User user = new User( 3, "email", "password");
+		userDao.insert(user);
+		log.debug("Insert user : {}", user);
 	}
 	
-
+	
+	@Test
+	public void findByNo(){
+		User user = userDao.selectUserById(1);
+		log.debug("Select user : {}", user);
+	}
 }
