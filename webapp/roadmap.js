@@ -1,5 +1,6 @@
 /* todo
 * 무조건 insertBefore여서 맨 밑으로 안 들어가짐
+* 삭제, 수정 구현
 */
 
 jQuery(document).ready(function($) {
