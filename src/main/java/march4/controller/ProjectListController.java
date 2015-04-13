@@ -17,7 +17,7 @@ import march4.dao.ProjectDao;
 import march4.model.Project;
 import march4.util.Json;
 
-@RequestMapping("/api/projectlist")
+@WebServlet("/api/project/list")
 public class ProjectListController extends HttpServlet {
 	
 	@Override
@@ -27,6 +27,5 @@ public class ProjectListController extends HttpServlet {
 		PrintWriter writer = resp.getWriter();
 		List<Project> list = new ArrayList<Project>(ProjectDao.getAllProjects().values());
 		Json.builder.toJson(list,writer);
-		Json.builder.toJson(list,System.out);
 	}
 }

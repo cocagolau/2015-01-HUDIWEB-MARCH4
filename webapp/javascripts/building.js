@@ -1,12 +1,12 @@
 var projectApi = "/api/project";
-var projectListapi = "/api/projectlist";
+var projectListapi = "/api/project/list";
 var myApp = angular.module('buildingManagement', []);
 
 myApp.controller('AddBuildingFormController', function($http) {
 	this.buildings = [];
 	this.newBuilding = {};
 	
-	this.getbuildings = function(){
+	this.getBuildings = function(){
 		$http.get(projectListapi).success(function(data, status, headers, config){
 			this.buildings = data;
 		}.bind(this))
@@ -16,15 +16,15 @@ myApp.controller('AddBuildingFormController', function($http) {
 	};
 	
 	this.submit = function() {
-		$http.post(projectApi,this.newbuilding)
+		$http.post(projectApi,this.newBuilding)
 			.success(function(data, status, headers, config) {
-				this.getbuildings();
-				this.newbuilding = {};
+				this.getBuildings();
+				this.newBuilding = {};
 			}.bind(this))
 		    .error(function(data, status, headers, config) {
 		    	alert("AJAX failed!");
 		    });
 	}
 	
-	this.getbuildings();
+	this.getBuildings();
 });

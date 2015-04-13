@@ -32,8 +32,8 @@ public class ProjectController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		
-		Project newUser = Json.builder.fromJson(req.getReader(), Project.class);
-		ProjectDao.addProject(newUser);
+		Project newProject = Json.builder.fromJson(req.getReader(), Project.class);
+		ProjectDao.addProject(newProject);
 		doGet(req,resp);
 	}
 }

@@ -14,13 +14,13 @@
 	<div>
 		<div class="addBuilding" ng-controller="AddBuildingFormController as bldgCtrl">
 			<h1>빌딩</h1>
-			<form id="register-form" name="registerForm" method="post" ng-submit="bldgCtrl.submit()" novalidate>
+			<form id="register-form" name="registerForm" method="post" ng-submit="registerForm.$valid && bldgCtrl.submit()" novalidate>
 				<label for="project-id">ID</label><br />
-				<input ng-model="bldgCtrl.newBuilding.projectId" id="project-id" type="password" name="projectId" required /><br />
+				<input ng-model="bldgCtrl.newBuilding.projectId" id="project-id" type="number" name="projectId" required /><br />
 				<label for="project-name">이름</label><br />
 				<input ng-model="bldgCtrl.newBuilding.name" id="project-name" name="name" type="text" required /><br />
 				<label for="project-email">소유자</label><br />
-				<input ng-model="rbldgCtrl.newBuilding.owner" id="project-owner" name="owner" type="email" required /><br />
+				<input ng-model="bldgCtrl.newBuilding.ownerId" id="project-owner" name="ownerId" type="email" required /><br />
 				<input type="submit" />
 			</form>
 			
@@ -33,7 +33,7 @@
 						<dt>이름</dt>
 						<dd>{{building.name}}</dd>
 						<dt>소유자</dt>
-						<dd>{{building.owner}}</dd>
+						<dd>{{building.ownerId}}</dd>
 					</dl>
 				</li>
 			</ul>

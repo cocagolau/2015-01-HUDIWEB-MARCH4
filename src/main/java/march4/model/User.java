@@ -2,10 +2,10 @@ package march4.model;
 
 public class User {
 	
-	private int userId;
+	private String userId;
 	private String name;
 	
-	public User(int userId, String name){
+	public User(String userId, String name){
 		this.userId = userId;
 		this.name = name;
 	}
@@ -18,7 +18,7 @@ public class User {
 		this.name = name;
 	}
 
-	public int getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 

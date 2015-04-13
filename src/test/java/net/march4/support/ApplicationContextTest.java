@@ -29,12 +29,4 @@ public class ApplicationContextTest {
 	public void dataSource(){
 		assertNotNull(dataSource);
 	}
-	
-	@Test
-	public void findByNo(){
-		User user = userDao.findByNo(2);
-		log.debug("User : {}", user);
-	}
-	
-
 }

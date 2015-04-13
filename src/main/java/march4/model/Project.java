@@ -1,26 +1,36 @@
 package march4.model;
 
+import march4.dao.UserDao;
+
 public class Project {
 	private int projectId;
-	private User owner;
+	private String ownerId;
 	private String name;
 	
-	public Project(int projectId, User owner, String name) {
+	public Project(int projectId, String ownerId, String name) {
 		this.projectId = projectId;
-		this.owner = owner;
+		this.ownerId = ownerId;
 		this.name = name;
+	}
+	
+	public Project(int projectId, User owner, String name) {
+		this(projectId, owner.getUserId(), name);
 	}
 	
 	public int getProjectId() {
 		return this.projectId;
 	}
 	
-	public User getOwner() {
-		return owner;
+	public String getOwnerId() {
+		return this.ownerId;
 	}
 
-	public void setOwner(User owner) {
-		this.owner = owner;
+	public void setOwnerId(User owner) {
+		this.ownerId = owner.getUserId();
+	}
+	
+	public void setOwnerId(String ownerId) {
+		this.ownerId = ownerId;
 	}
 
 	public String getName() {
@@ -33,7 +43,7 @@ public class Project {
 
 	@Override
 	public String toString() {
-		return "Project [projectId=" + projectId + ", owner=" + owner
+		return "Project [projectId=" + projectId + ", owner=" + ownerId
 				+ ", name=" + name + "]";
 	}
 }

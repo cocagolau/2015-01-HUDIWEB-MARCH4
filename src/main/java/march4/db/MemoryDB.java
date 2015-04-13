@@ -8,7 +8,7 @@ import march4.model.User;
 
 public class MemoryDB {
 	private static Map<Integer,Project> projects = new HashMap<Integer, Project>();
-	private static Map<Integer,User> users = new HashMap<Integer, User>();
+	private static Map<String,User> users = new HashMap<String, User>();
 	
 	/*userAPI*/
 	public static User getUserById(String key) {
@@ -23,7 +23,7 @@ public class MemoryDB {
 		return users.put(user.getUserId(), user);
 	}
 	
-	public static Map<Integer, User> getAllUsers() {
+	public static Map<String, User> getAllUsers() {
 		for (User user : users.values()) {
 			System.out.println(user);
 		}
@@ -42,7 +42,7 @@ public class MemoryDB {
 	public static Map<Integer, Project> getAllProjectByOwner(User owner) {
 		Map<Integer,Project> result = new HashMap<Integer,Project>();
 		for (Project project : projects.values()) {
-			if(project.getOwner().equals(owner))
+			if(project.getOwnerId().equals(owner))
 				result.put(project.getProjectId(), project);
 		}
 		return result;

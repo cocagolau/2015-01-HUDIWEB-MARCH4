@@ -16,7 +16,7 @@ public class memoryDBTest {
 	
 	@Test
 	public void addProject(){
-		Project input = new Project(1,new User(123,"asdf"),"name");
+		Project input = new Project(1,new User("123","asdf"),"name");
 		ProjectDao.addProject(input);
 		Project output = MemoryDB.getProjectById(1);
 		assertSame(input, output);
