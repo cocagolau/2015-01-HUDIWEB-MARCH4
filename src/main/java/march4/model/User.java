@@ -1,7 +1,6 @@
 package march4.model;
 
 public class User {
-
 	private int uid;
 	private String email;
 	private String pw;
@@ -37,7 +36,13 @@ public class User {
 		this.pw = pw;
 	}
 	
-	
-	
+	@Override
+	public boolean equals(Object obj) {
+		return this.uid == ((User)obj).uid;
+	}
 
+	@Override
+	public String toString() {
+		return "User [userId=" + uid + ", name=" + email + ", pw=" + pw + "]";
+	}
 }

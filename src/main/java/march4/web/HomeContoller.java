@@ -9,7 +9,6 @@ public class HomeContoller {
 	@RequestMapping("/")
 	public String home(){
 		return "index";
-		
 	}
 	
 }
