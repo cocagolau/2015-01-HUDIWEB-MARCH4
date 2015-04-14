@@ -9,6 +9,7 @@
 	<configs>
 		<config>webapp/WEB-INF/march4-servlet.xml</config>
 		<config>src/main/resources/applicationContext.xml</config>
+		<config>webapp/WEB-INF/application-context.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
