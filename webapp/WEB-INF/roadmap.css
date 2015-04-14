@@ -1,0 +1,7 @@
+.sortable {
+    border: 1px solid black;
+}
+
+.sortable .placeholder {
+    background-color: yellow;
+}

@@ -12,6 +12,8 @@ pom.xml.next
 release.properties
 dependency-reduced-pom.xml
 
+## log ##
+logs/
 
 ### Eclipse ###
 *.pydevproject
@@ -52,4 +54,5 @@ local.properties
 .texlipse
 
 #tomcat
-tomcat:8080/
+tomcat*/
+webapp/WEB-INF/classes
