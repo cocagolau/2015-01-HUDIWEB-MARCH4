@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <title>빌딩</title>
-<link rel="stylesheet" href="stylesheets/style.css" />
+<link rel="stylesheet" href="/css/style.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-<script src="javascripts/building.js"></script>	
+<script src="/js/building.js"></script>	
 </head>
 <body ng-app="buildingManagement">
 	<div>
