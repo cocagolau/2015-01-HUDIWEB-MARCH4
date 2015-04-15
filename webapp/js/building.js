@@ -1,8 +1,8 @@
-var projectApi = "/api/project";
-var projectListapi = "/api/project/list";
-var myApp = angular.module('buildingManagement', []);
+march4.building.projectApi = "/api/project";
+march4.building.projectListapi = "/api/project/list";
+march4.building.myApp = angular.module('buildingManagement', []);
 
-myApp.controller('AddBuildingFormController', function($http) {
+march4.building.myApp.controller('AddBuildingFormController', function($http) {
 	this.buildings = [];
 	this.newBuilding = {};
 	

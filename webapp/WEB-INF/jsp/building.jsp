@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="/css/style.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="/js/script.js"></script>
 <script src="/js/building.js"></script>	
 </head>
 <body ng-app="buildingManagement">
