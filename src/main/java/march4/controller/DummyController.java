@@ -25,7 +25,7 @@ public class DummyController {
 			.getLogger(DummyController.class);
 
 	//기본적인 요청.
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
 	public String page(ModelMap model) {
 		log.debug("Admission to the defaultPage method!");
 		model.addAttribute("dummyName", "default");
@@ -40,23 +40,7 @@ public class DummyController {
 		return "dummy";
 	}
 
-	//json으로 전송.
-	@RequestMapping(value = "/json", method = RequestMethod.GET)
-	public @ResponseBody Dummy getJson() {
-		Dummy dummy = new Dummy(1, "dummy");
-		log.debug("convert json data : {}", dummy.toString());
-		return dummy;
-	}
 
-	//map을 사용한 json 전송.
-	@RequestMapping(value = "/jsonmap", method = RequestMethod.GET)
-	public @ResponseBody Map<String, Object> getJsonMap() {
-		Map<String, Object> jsonObject = new HashMap<String, Object>();
-		jsonObject.put("no", 1);
-		jsonObject.put("name", "dummy");
-		log.debug("convert json data : {}", jsonObject);
-		return jsonObject;
-	}
 
 	@RequestMapping(value = "/response", method = RequestMethod.GET)
 	public String response(HttpServletResponse resp) {
@@ -77,5 +61,21 @@ public class DummyController {
 		return "redirect:/dummy/response";
 	}
 	
-	
+//	//json으로 전송.
+//	@RequestMapping(value = "/json", method = RequestMethod.GET)
+//	public @ResponseBody Dummy getJson() {
+//		Dummy dummy = new Dummy(1, "dummy");
+//		log.debug("convert json data : {}", dummy.toString());
+//		return dummy;
+//	}
+//
+//	//map을 사용한 json 전송.
+//	@RequestMapping(value = "/jsonmap", method = RequestMethod.GET)
+//	public @ResponseBody Map<String, Object> getJsonMap() {
+//		Map<String, Object> jsonObject = new HashMap<String, Object>();
+//		jsonObject.put("no", 1);
+//		jsonObject.put("name", "dummy");
+//		log.debug("convert json data : {}", jsonObject);
+//		return jsonObject;
+//	}
 }
