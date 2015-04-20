@@ -5,10 +5,10 @@
 <head lang="ko">
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" type="text/css" href="./roadmap.css">
+    <link rel="stylesheet" type="text/css" href="/css/roadmap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="roadmap.js"></script>
+    <script src="/js/roadmap.js"></script>
 </head>
 <body>
     <div id="roadmapContainer" ng-controller="roadmapCtrl as rc">
