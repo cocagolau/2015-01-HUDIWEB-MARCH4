@@ -7,6 +7,7 @@
 <title>Request!</title>
 </head>
 <body>
+	<% %>
 	<form action="/dummy/request" method="POST">
 		<div>
 			<label>No : </label>
