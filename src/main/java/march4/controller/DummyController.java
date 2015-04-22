@@ -1,12 +1,13 @@
 package march4.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.sql.SQLException;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import march4.exception.NotFoundException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +23,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/dummy")
 public class DummyController {
-	private static final Logger log = LoggerFactory
-			.getLogger(DummyController.class);
-
-	//기본적인 요청. 브레이스를 쓰면 여러개의 주소 맵핑 가능.
+	private static final Logger log = LoggerFactory.getLogger(DummyController.class);
+	
+	// 기본적인 요청. 브레이스를 쓰면 여러개의 주소 맵핑 가능.
+	// http://localhost:8080/dummy
 	@RequestMapping(value = {"", "/"}, method = RequestMethod.GET)
 	public String page(ModelMap model) {
 		log.debug("Admission to the defaultPage method!");
@@ -55,9 +56,9 @@ public class DummyController {
 	//ModelAndView로 return하고 싶으면 이렇게.
 	@RequestMapping(value = "/mav", method = RequestMethod.GET)
 	public ModelAndView mav() {
-		ModelAndView modelandView = new ModelAndView("dummy");
-		modelandView.addObject("dummyName", "kuku");
-		return modelandView;
+		ModelAndView mav = new ModelAndView("dummy");
+		mav.addObject("dummyName", "kuku");
+		return mav;
 	}
 
 	//request example
@@ -128,7 +129,41 @@ public class DummyController {
 		}
 		resp.setStatus(HttpServletResponse.SC_OK);
 	}
- 
+	
+	//Error handling
+	//경우에 따라 에러 던지는 것을 관리하기 위함.
+	@RequestMapping(value = "/globalerror/{error}", method = RequestMethod.GET)
+	public void globalError(@PathVariable("error") String error, ModelMap model) throws Exception  {
+		log.debug("Global Exception Testpage {}", error);
+		
+		//Global exception
+		if(error.equals("sql")){
+			throw new SQLException("SQLException, error=" + error);
+		}else if(error.equals("io")){
+			throw new IOException("IOException, error=" + error);
+		}else if(error.equals("runtime")){
+			throw new RuntimeException("RunTimeException, error=" + error);
+		}else {
+			log.debug("Generic Exception!!");
+			throw new Exception("Generic Exception, error=" + error);
+		}
+	}
+	
+	//Error handling
+	//경우에 따라 에러 던지는 것을 관리하기 위함.
+	@RequestMapping(value = "/customerror/{error}", method = RequestMethod.GET)
+	public void CustomError(@PathVariable("error") String error, ModelMap model) throws Exception  {
+		log.debug("Custom Exception Testpage {}", error);
+		
+		//Custom exception
+		if(error.equals("404")){
+			throw new NotFoundException(error);
+		}else {
+			log.debug("Generic Exception!!");
+			throw new Exception("Generic Exception, error=" + error);
+		}
+	}
+
 	
 //---------------------------------------------------------------------	
 //	//json으로 전송.
