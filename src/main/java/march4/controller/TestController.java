@@ -11,4 +11,11 @@ public class TestController {
 		return "index";
 		
 	}
+	
+	@RequestMapping(value="/user/")
+	public String user(){
+		
+		return "world";
+		
+	}
 }

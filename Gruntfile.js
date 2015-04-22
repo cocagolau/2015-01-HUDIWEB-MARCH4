@@ -5,13 +5,13 @@ module.exports = function(grunt) {
 
         //vars
         dirs: { 
-            src    : 'src',
+            src    : 'websrc',
             js     : 'js',
             jsLib  : 'js/lib',
             css    : 'css',
             cssLib : 'css/lib',
             less   : 'less',
-            dist   : '../../../webapp'
+            dist   : 'webapp'
         },
         fileNames: {
             bower : '_bower'
@@ -47,7 +47,7 @@ module.exports = function(grunt) {
 
         template: {
 
-            dev: {
+            src: {
                 options: {
                     data: {
                         jsLibFile : '<%= fileNames.bower %>.js',
@@ -62,7 +62,28 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: '.',
-                    src: ['**/*.html.tpl'],
+                    src: ['**/*.tpl.html'],
+                    dest: '.',
+                    ext: '.html'
+                }],
+            },
+
+            dev: {
+                options: {
+                    data: {
+                        jsLibFile : '/<%= fileNames.bower %>.js',
+                        jsLibDir  : '/<%= dirs.jsLib %>',
+                        jsDir     : '/<%= dirs.js %>',
+                        cssLibDir : '/<%= dirs.cssLib %>',
+                        cssDir    : '/<%= dirs.css %>',
+                        encoding  : '<%= encoding %>',
+                        title     : 'march4'
+                    }
+                },
+                files: [{
+                    expand: true,
+                    cwd: '.',
+                    src: ['**/*.tpl.html'],
                     dest: '.',
                     ext: '.html'
                 }],
@@ -75,19 +96,19 @@ module.exports = function(grunt) {
                 {
                     expand: true, 
                     cwd: '<%= dirs.src %>/', 
-                    src: ['**/*.html'], 
+                    src: ['**/*.html','!**/*.tpl.html'], 
                     dest: '<%= dirs.dist %>/WEB-INF/jsp/', 
                     ext:'.jsp'
                 },
                 {
                     expand: true, 
-                    cwd: '<%= dirs.js %>/', 
+                    cwd: '<%= dirs.src %>/<%= dirs.js %>/', 
                     src: ['**/*'], 
                     dest: '<%= dirs.dist %>/<%= dirs.js %>/'
                 },
                 {
                     expand: true,
-                    cwd: '<%= dirs.css %>/', 
+                    cwd: '<%= dirs.src %>/<%= dirs.css %>/', 
                     src: ['**/*'], 
                     dest: '<%= dirs.dist %>/<%= dirs.css %>/'
                 }
@@ -102,5 +123,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-template');
     
-    grunt.registerTask('default', ['clean','jshint','bower_concat','template:dev','copy:dev']);
+    grunt.registerTask('default', ['clean','jshint','bower_concat','template:dev','copy:dev','template:src']);
 };

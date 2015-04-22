@@ -58,10 +58,10 @@ tomcat*/
 webapp/WEB-INF/classes
 
 #frontend tools
-src/main/frontend/node
-src/main/frontend/node_modules
-src/main/frontend/bower_components
-src/main/frontend/js/lib
+node
+node_modules
+bower_components
+websrc/js/lib
 webapp/js
 webapp/css
 webapp/WEB-INF/jsp/*.jsp

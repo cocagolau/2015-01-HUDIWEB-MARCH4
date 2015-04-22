@@ -1,5 +1,5 @@
 march4.building.projectApi = "/api/project";
-march4.building.projectListapi = "/api/project/list";
+march4.building.projectListApi = "/api/project/list";
 march4.building.myApp = angular.module('buildingManagement', []);
 
 march4.building.myApp.controller('AddBuildingFormController', function($http) {
@@ -7,7 +7,7 @@ march4.building.myApp.controller('AddBuildingFormController', function($http) {
 	this.newBuilding = {};
 	
 	this.getBuildings = function(){
-		$http.get(projectListapi).success(function(data, status, headers, config){
+		$http.get(march4.building.projectListApi).success(function(data, status, headers, config){
 			this.buildings = data;
 		}.bind(this))
 		.error(function(data, status, headers, config) {
@@ -16,7 +16,7 @@ march4.building.myApp.controller('AddBuildingFormController', function($http) {
 	};
 	
 	this.submit = function() {
-		$http.post(projectApi,this.newBuilding)
+		$http.post(march4.building.projectApi,this.newBuilding)
 			.success(function(data, status, headers, config) {
 				this.getBuildings();
 				this.newBuilding = {};
