@@ -213,7 +213,6 @@ module.exports = function(grunt) {
         'string-replace:jspTemplate',
         'copy:js',
         'copy:css',
-        'less',
-        'watch',
+        'less'
     ]);
 };
