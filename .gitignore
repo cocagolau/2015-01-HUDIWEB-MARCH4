@@ -61,4 +61,6 @@ webapp/WEB-INF/classes
 src/main/frontend/node
 src/main/frontend/node_modules
 src/main/frontend/bower_components
-
+src/main/frontend/js/lib
+webapp/js
+webapp/css
