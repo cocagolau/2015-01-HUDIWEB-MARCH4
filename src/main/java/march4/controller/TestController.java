@@ -15,7 +15,7 @@ public class TestController {
 	@RequestMapping(value="/user/")
 	public String user(){
 		
-		return "world";
+		return "world.tpl";
 		
 	}
 }

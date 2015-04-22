@@ -24,7 +24,7 @@ march4.building.myApp.controller('AddBuildingFormController', function($http) {
 		    .error(function(data, status, headers, config) {
 		    	console.log("AJAX failed!");
 		    });
-	}
+	};
 	
 	this.getBuildings();
 });

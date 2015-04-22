@@ -9,8 +9,9 @@ module.exports = function(grunt) {
             js     : 'js',
             jsLib  : 'js/lib',
             css    : 'css',
+            img    : 'img',
             cssLib : 'css/lib',
-            less   : 'less',
+            less   : 'css',
             dist   : 'webapp',
             jsp    : 'webapp/WEB-INF/jsp'
         },
@@ -28,7 +29,7 @@ module.exports = function(grunt) {
         clean: {
             all: [
                 '**/_bower*.*',
-                '<%= dirs.jsp %>/**/*',
+                '<%= dirs.jsp %>/**/*.tpl.jsp',
                 '<%= dirs.src %>/<%= dirs.cssLib %>/**/*',
                 '<%= dirs.dist %>/<%= dirs.css %>/**/*',
                 '<%= dirs.dist %>/<%= dirs.js %>/**/*'
@@ -73,7 +74,7 @@ module.exports = function(grunt) {
                     cwd: '<%= dirs.src %>/',
                     src: ['**/*.html'],
                     dest: '<%= dirs.jsp %>/',
-                    ext: '.jsp'
+                    ext: '.tpl.jsp'
                 }],
             }
         },
@@ -91,8 +92,16 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= dirs.src %>/<%= dirs.css %>/', 
-                    src: ['**/*'], 
+                    src: ['**/*.css'], 
                     dest: '<%= dirs.dist %>/<%= dirs.css %>/'
+                }]
+            },
+            img: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= dirs.src %>/<%= dirs.img %>/', 
+                    src: ['**/*'], 
+                    dest: '<%= dirs.dist %>/<%= dirs.img %>/'
                 }]
             },
         },
@@ -117,7 +126,32 @@ module.exports = function(grunt) {
             }
         },
 
+        less: {
+            all: {
+                options: {
+                    compress            : true,
+                    sourceMap           : true,
+                    sourceMapFileInline : true,
+                    outputSourceFiles   : true,
+                    plugins: [
+                        new (require('less-plugin-autoprefix'))({browsers: ["last 2 versions"]}),
+                        new (require('less-plugin-clean-css'))()
+                    ]
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= dirs.src %>/<%= dirs.less %>/',
+                    src: ['**/*.less'],
+                    dest: '<%= dirs.dist %>/<%= dirs.css %>/',
+                    ext: '.css'
+                }],
+            }
+        },
+
         watch: {
+            options: {
+              spawn: false
+            },
             js: {
                 files: ['<%= jshint.all %>'],
                 tasks: ['jshint','copy:js'],
@@ -133,6 +167,30 @@ module.exports = function(grunt) {
                     livereload: true
                 }
             },
+
+            css: {
+                files: ['<%= copy.css.files[0].cwd %>/<%= copy.css.files[0].src %>'],
+                tasks: ['copy:css'],
+                options: {
+                    livereload: true
+                }
+            },
+
+            img: {
+                files: ['<%= copy.img.files[0].cwd %>/<%= copy.img.files[0].src %>'],
+                tasks: ['copy:img'],
+                options: {
+                    livereload: true
+                }
+            },
+
+            less: {
+                files: ['<%= less.all.files[0].cwd %>/<%= less.all.files[0].src %>'],
+                tasks: ['less'],
+                options: {
+                    livereload: true
+                }
+            }
         }
     });
 
@@ -141,6 +199,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-template');
     grunt.loadNpmTasks('grunt-string-replace');
     
@@ -154,6 +213,7 @@ module.exports = function(grunt) {
         'string-replace:jspTemplate',
         'copy:js',
         'copy:css',
+        'less',
         'watch',
     ]);
 };
