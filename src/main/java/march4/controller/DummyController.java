@@ -163,6 +163,14 @@ public class DummyController {
 			throw new Exception("Generic Exception, error=" + error);
 		}
 	}
+	
+	//Angular-Ajax C-S
+	@RequestMapping(value = "ajax", method = RequestMethod.GET)
+	public String angularAjax(ModelMap model) {
+		log.debug("Admission to the defaultPage method!");
+		model.addAttribute("dummyName", "default");
+		return "dummyangularajax";
+	}
 
 	
 //---------------------------------------------------------------------	

@@ -1,25 +1,28 @@
 <html data-ng-app="FormApp">
-  <head>
+
+<head>
+    
     <title>Webforms demo - AngularJS</title>
+    <script src="/js/dummyangularajax.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
-    <script src="js/form.js"></script>
-  </head>
-  <body data-ng-controller="FormController">
+</head>
+
+<body data-ng-controller="FormController">
     <h1>Please enter your personal information:</h1>
     <ul>
-      <li data-ng-repeat="message in messages">{{message}}</li>
+        <li data-ng-repeat="message in messages">{{message}}</li>
     </ul>
     <div>
-      <label>First name:</label>
-      <input data-ng-model="data.firstName" type="text">
+        <label>First name:</label>
+        <input data-ng-model="data.firstName" type="text">
     </div>
     <div>
-      <label>Age:</label>
-      <input data-ng-model="data.age" type="text">
+        <label>Age:</label>
+        <input data-ng-model="data.age" type="text">
     </div>
     <div>
-      <input data-ng-click="submit()" type="button" 
-             value="Submit the form">
+        <input data-ng-click="submit()" type="button" value="Submit the form">
     </div>
-  </body>
+</body>
+
 </html>
