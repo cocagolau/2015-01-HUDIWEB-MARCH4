@@ -56,3 +56,6 @@ local.properties
 #tomcat
 tomcat*/
 webapp/WEB-INF/classes
+
+#frontend tools
+src/main/frontend/node
