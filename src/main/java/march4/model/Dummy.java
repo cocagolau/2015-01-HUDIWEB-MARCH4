@@ -1,24 +1,30 @@
 package march4.model;
 
 public class Dummy {
-	private int no;
+	private Integer no;
 	private String name;
-	
+
 	public Dummy(int no, String name) {
 		super();
 		this.no = no;
 		this.name = name;
 	}
-	
-	public int getNo() {
+
+	public Dummy() {
+	}
+
+	public Integer getNo() {
 		return no;
 	}
+
 	public void setNo(int no) {
 		this.no = no;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -28,4 +34,3 @@ public class Dummy {
 		return "Dummy [no=" + no + ", name=" + name + "]";
 	}
 }
-
