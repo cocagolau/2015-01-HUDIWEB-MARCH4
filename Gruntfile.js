@@ -11,7 +11,8 @@ module.exports = function(grunt) {
             css    : 'css',
             cssLib : 'css/lib',
             less   : 'less',
-            dist   : 'webapp'
+            dist   : 'webapp',
+            jsp    : 'webapp/WEB-INF/jsp'
         },
         fileNames: {
             bower : '_bower'
@@ -46,7 +47,6 @@ module.exports = function(grunt) {
         },
 
         template: {
-
             src: {
                 options: {
                     data: {
@@ -56,7 +56,8 @@ module.exports = function(grunt) {
                         cssLibDir : '<%= dirs.cssLib %>',
                         cssDir    : '<%= dirs.css %>',
                         encoding  : '<%= encoding %>',
-                        title     : 'march4'
+                        title     : 'march4',
+                        jspHeader : ''
                     }
                 },
                 files: [{
@@ -77,7 +78,8 @@ module.exports = function(grunt) {
                         cssLibDir : '/<%= dirs.cssLib %>',
                         cssDir    : '/<%= dirs.css %>',
                         encoding  : '<%= encoding %>',
-                        title     : 'march4'
+                        title     : 'march4',
+                        jspHeader : '<!--%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%-->'
                     }
                 },
                 files: [{
@@ -97,7 +99,7 @@ module.exports = function(grunt) {
                     expand: true, 
                     cwd: '<%= dirs.src %>/', 
                     src: ['**/*.html','!**/*.tpl.html'], 
-                    dest: '<%= dirs.dist %>/WEB-INF/jsp/', 
+                    dest: '<%= dirs.jsp %>/', 
                     ext:'.jsp'
                 },
                 {
@@ -115,6 +117,26 @@ module.exports = function(grunt) {
             ],
           },
         },
+
+        'string-replace': {
+            jspTemplate: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= copy.dev.files[0].dest %>',
+                    src: ['**/*<%= copy.dev.files[0].ext %>'], 
+                    dest: '<%= copy.dev.files[0].dest %>'
+                }],
+                options: {
+                    replacements: [{
+                        pattern: /<!--%/g,
+                        replacement: '<%'
+                    }, {
+                        pattern: /%-->/g,
+                        replacement: '%>'
+                    }]
+                }
+            }
+        },
     });
 
     grunt.loadNpmTasks('grunt-bower-concat');
@@ -122,6 +144,15 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-template');
+    grunt.loadNpmTasks('grunt-string-replace');
     
-    grunt.registerTask('default', ['clean','jshint','bower_concat','template:dev','copy:dev','template:src']);
+    grunt.registerTask('default', [
+        'clean',
+        'jshint',
+        'bower_concat',
+        'template:dev',
+        'copy:dev',
+        'string-replace:jspTemplate',
+        'template:src'
+    ]);
 };
