@@ -111,7 +111,14 @@
 					    <goals>
 					        <goal>bower</goal>
 					    </goals>
-					</execution>   
+					</execution>
+					
+					<execution>
+					    <id>grunt build</id>
+					    <goals>
+					        <goal>grunt</goal>
+					    </goals>
+					</execution>
 				</executions>
 		    </plugin>
 		</plugins>

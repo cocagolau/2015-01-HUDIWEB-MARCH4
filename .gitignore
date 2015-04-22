@@ -64,3 +64,4 @@ src/main/frontend/bower_components
 src/main/frontend/js/lib
 webapp/js
 webapp/css
+webapp/WEB-INF/jsp/*.jsp

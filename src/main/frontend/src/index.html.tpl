@@ -1,7 +1,8 @@
+<%= jspHeader %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="<%- encoding %>">
     <title><%- title %></title>
     <link rel="stylesheet" href="<%- cssDir %>/style.css">
     <script src="<%- jsLibDir %>/<%- jsLibFile %>"></script>
