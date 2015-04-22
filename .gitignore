@@ -60,3 +60,5 @@ webapp/WEB-INF/classes
 #frontend tools
 src/main/frontend/node
 src/main/frontend/node_modules
+src/main/frontend/bower_components
+

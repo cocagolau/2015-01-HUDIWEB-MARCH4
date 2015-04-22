@@ -105,6 +105,13 @@
 					        <goal>npm</goal>
 					    </goals>
 					</execution>
+					
+					<execution>
+					    <id>bower install</id>
+					    <goals>
+					        <goal>bower</goal>
+					    </goals>
+					</execution>   
 				</executions>
 		    </plugin>
 		</plugins>
