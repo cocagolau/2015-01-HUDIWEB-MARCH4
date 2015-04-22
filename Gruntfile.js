@@ -14,25 +14,31 @@ module.exports = function(grunt) {
             dist   : 'webapp',
             jsp    : 'webapp/WEB-INF/jsp'
         },
-        fileNames: {
-            bower : '_bower'
+        config: {
+            bowerFile   : '_bower',
+            encoding    : 'UTF-8',
+            livePort    : 35729,
+            projectName : 'march4'
+
         },
-        encoding : 'UTF-8',
+        
         
 
         //tasks
         clean: {
             all: [
                 '**/_bower*.*',
-                '<%= dirs.src %>/<%= dirs.jsLib %>/**/*',
-                '<%= dirs.src %>/<%= dirs.cssLib %>/**/*'
+                '<%= dirs.jsp %>/**/*',
+                '<%= dirs.src %>/<%= dirs.cssLib %>/**/*',
+                '<%= dirs.dist %>/<%= dirs.css %>/**/*',
+                '<%= dirs.dist %>/<%= dirs.js %>/**/*'
             ]
         },
 
         bower_concat: {
             all: {
-                dest: '<%= dirs.src %>/<%= dirs.jsLib %>/<%= fileNames.bower %>.js',
-                cssDest: '<%= dirs.src %>/<%= dirs.cssLib %>/<%= fileNames.bower %>.css'
+                dest: '<%= dirs.src %>/<%= dirs.jsLib %>/<%= config.bowerFile %>.js',
+                cssDest: '<%= dirs.src %>/<%= dirs.cssLib %>/<%= config.bowerFile %>.css'
             }
         },
 
@@ -47,84 +53,57 @@ module.exports = function(grunt) {
         },
 
         template: {
-            src: {
+            all: {
                 options: {
                     data: {
-                        jsLibFile : '<%= fileNames.bower %>.js',
-                        jsLibDir  : '<%= dirs.jsLib %>',
-                        jsDir     : '<%= dirs.js %>',
-                        cssLibDir : '<%= dirs.cssLib %>',
-                        cssDir    : '<%= dirs.css %>',
-                        encoding  : '<%= encoding %>',
-                        title     : 'march4',
-                        jspHeader : ''
-                    }
-                },
-                files: [{
-                    expand: true,
-                    cwd: '.',
-                    src: ['**/*.tpl.html'],
-                    dest: '.',
-                    ext: '.html'
-                }],
-            },
-
-            dev: {
-                options: {
-                    data: {
-                        jsLibFile : '/<%= fileNames.bower %>.js',
                         jsLibDir  : '/<%= dirs.jsLib %>',
                         jsDir     : '/<%= dirs.js %>',
                         cssLibDir : '/<%= dirs.cssLib %>',
                         cssDir    : '/<%= dirs.css %>',
-                        encoding  : '<%= encoding %>',
-                        title     : 'march4',
-                        jspHeader : '<!--%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%-->'
+                        jsLibFile : '<%= config.bowerFile %>.js',
+                        cssLibFile: '<%= config.bowerFile %>.css',
+                        encoding  : '<%= config.encoding %>',
+                        title     : '<%= config.projectName %>',
+                        jspHeader : '<!--%@ page language="java" contentType="text/html; charset=<%= config.encoding %>" pageEncoding="<%= config.encoding %>"%-->',
+                        liveReload: '<script src="//localhost:<%= config.livePort %>/livereload.js"></script>'
                     }
                 },
                 files: [{
                     expand: true,
-                    cwd: '.',
-                    src: ['**/*.tpl.html'],
-                    dest: '.',
-                    ext: '.html'
+                    cwd: '<%= dirs.src %>/',
+                    src: ['**/*.html'],
+                    dest: '<%= dirs.jsp %>/',
+                    ext: '.jsp'
                 }],
             }
         },
 
         copy: {
-          dev: {
-            files: [
-                {
-                    expand: true, 
-                    cwd: '<%= dirs.src %>/', 
-                    src: ['**/*.html','!**/*.tpl.html'], 
-                    dest: '<%= dirs.jsp %>/', 
-                    ext:'.jsp'
-                },
-                {
+            js: {
+                files: [{
                     expand: true, 
                     cwd: '<%= dirs.src %>/<%= dirs.js %>/', 
                     src: ['**/*'], 
                     dest: '<%= dirs.dist %>/<%= dirs.js %>/'
-                },
-                {
+                }]
+            },
+            css: {
+                files: [{
                     expand: true,
                     cwd: '<%= dirs.src %>/<%= dirs.css %>/', 
                     src: ['**/*'], 
                     dest: '<%= dirs.dist %>/<%= dirs.css %>/'
-                }
-            ],
-          },
+                }]
+            },
         },
 
         'string-replace': {
             jspTemplate: {
                 files: [{
                     expand: true,
-                    cwd: '<%= copy.dev.files[0].dest %>',
-                    src: ['**/*<%= copy.dev.files[0].ext %>'], 
-                    dest: '<%= copy.dev.files[0].dest %>'
+                    cwd: '<%= dirs.jsp %>',
+                    src: ['**/*.jsp'], 
+                    dest: '<%= dirs.jsp %>'
                 }],
                 options: {
                     replacements: [{
@@ -137,22 +116,44 @@ module.exports = function(grunt) {
                 }
             }
         },
+
+        watch: {
+            js: {
+                files: ['<%= jshint.all %>'],
+                tasks: ['jshint','copy:js'],
+                options: {
+                    livereload: true
+                }
+            },
+
+            html: {
+                files: ['<%= dirs.src %>/**/*.html'],
+                tasks: ['template','string-replace:jspTemplate'],
+                options: {
+                    livereload: true
+                }
+            },
+        }
     });
 
     grunt.loadNpmTasks('grunt-bower-concat');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-template');
     grunt.loadNpmTasks('grunt-string-replace');
     
+    
+
     grunt.registerTask('default', [
         'clean',
         'jshint',
         'bower_concat',
-        'template:dev',
-        'copy:dev',
+        'template',
         'string-replace:jspTemplate',
-        'template:src'
+        'copy:js',
+        'copy:css',
+        'watch',
     ]);
 };

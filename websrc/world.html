@@ -1,13 +1,13 @@
-
+<%= jspHeader %>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
-    <title>march4</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/lib/_bower.js"></script>
-    <script src="js/namespaces.js"></script>
-    <script src="js/building.js"></script>	
+	<meta charset="<%- encoding %>">
+    <title><%- title %></title>
+    <link rel="stylesheet" href="<%- cssDir %>/style.css">
+    <script src="<%- jsLibDir %>/<%- jsLibFile %>"></script>
+    <script src="<%- jsDir %>/namespaces.js"></script>
+    <script src="<%- jsDir %>/building.js"></script>	
 </head>
 <body ng-app="buildingManagement">
 	<div>
@@ -38,8 +38,6 @@
 			</ul>
 		</div>
 	</div>
-</body>
-</html>
-	
+	<%= liveReload%>
 </body>
 </html>

@@ -11,7 +11,7 @@ march4.building.myApp.controller('AddBuildingFormController', function($http) {
 			this.buildings = data;
 		}.bind(this))
 		.error(function(data, status, headers, config) {
-	    	alert("AJAX failed!");
+	    	console.log("AJAX failed!");
 	    });
 	};
 	
@@ -22,7 +22,7 @@ march4.building.myApp.controller('AddBuildingFormController', function($http) {
 				this.newBuilding = {};
 			}.bind(this))
 		    .error(function(data, status, headers, config) {
-		    	alert("AJAX failed!");
+		    	console.log("AJAX failed!");
 		    });
 	}
 	
