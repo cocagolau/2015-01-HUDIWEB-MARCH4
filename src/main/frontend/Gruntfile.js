@@ -6,11 +6,11 @@ module.exports = function(grunt) {
         //vars
         dirs: { 
             src    : 'src',
-            js     : '<%= dirs.src %>/js',
-            jsLib  : '<%= dirs.src %>/js/lib',
-            css    : '<%= dirs.src %>/css',
-            cssLib : '<%= dirs.src %>/css/lib',
-            less   : '<%= dirs.src %>/less',
+            js     : 'js',
+            jsLib  : 'js/lib',
+            css    : 'css',
+            cssLib : 'css/lib',
+            less   : 'less',
             dist   : '../../../webapp'
         },
         fileNames: {
@@ -23,19 +23,30 @@ module.exports = function(grunt) {
         clean: {
             all: [
                 '**/_bower*.*',
-                '<%= dirs.jsLib %>/**/*',
-                '<%= dirs.cssLib %>/**/*'
+                '<%= dirs.src %>/<%= dirs.jsLib %>/**/*',
+                '<%= dirs.src %>/<%= dirs.cssLib %>/**/*'
             ]
         },
 
         bower_concat: {
             all: {
-                dest: '<%= dirs.jsLib %>/<%= fileNames.bower %>.js',
-                cssDest: '<%= dirs.cssLib %>/<%= fileNames.bower %>.css'
+                dest: '<%= dirs.src %>/<%= dirs.jsLib %>/<%= fileNames.bower %>.js',
+                cssDest: '<%= dirs.src %>/<%= dirs.cssLib %>/<%= fileNames.bower %>.css'
             }
         },
 
+        jshint: {
+            options: {
+                force : true
+            },
+            all: [
+                'Gruntfile.js',
+                '<%= dirs.src %>/<%= dirs.js %>/*.js'
+            ]
+        },
+
         template: {
+
             dev: {
                 options: {
                     data: {
@@ -72,13 +83,13 @@ module.exports = function(grunt) {
                     expand: true, 
                     cwd: '<%= dirs.js %>/', 
                     src: ['**/*'], 
-                    dest: '<%= dirs.dist %>/js/'
+                    dest: '<%= dirs.dist %>/<%= dirs.js %>/'
                 },
                 {
                     expand: true,
                     cwd: '<%= dirs.css %>/', 
                     src: ['**/*'], 
-                    dest: '<%= dirs.dist %>/css/'
+                    dest: '<%= dirs.dist %>/<%= dirs.css %>/'
                 }
             ],
           },
@@ -88,7 +99,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-bower-concat');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-template');
     
-    grunt.registerTask('default', ['clean','bower_concat','template:dev','copy:dev']);
+    grunt.registerTask('default', ['clean','jshint','bower_concat','template:dev','copy:dev']);
 };
