@@ -2,7 +2,7 @@ var formApp = angular.module('FormApp', []);
 formApp.controller('FormController', [
   '$scope', '$window', '$http',
   function ($scope, $window, $http) {
-        $scope.messages = [];
+        $scope.messages = ["dd", "ss"];
         $scope.data = {};
         $scope.submit = function () {
             $http({
@@ -11,7 +11,7 @@ formApp.controller('FormController', [
                 data: $scope.data
             }).
             success(function (data, status, headers, config) {
-                $window.location.replace('/dummy/ajax');
+                //$window.location.replace('/dummy/ajax');
             }).
             error(function (data, status, headers, config) {
                 if (status == 400) {

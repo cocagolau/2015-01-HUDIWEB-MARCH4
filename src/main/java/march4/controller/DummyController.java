@@ -3,17 +3,22 @@ package march4.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import march4.exception.NotFoundException;
 
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -81,7 +86,8 @@ public class DummyController {
 
 	//non-Ajax
 	@RequestMapping(value = "/request", method = RequestMethod.POST)
-	public String request(@RequestParam("no") String no,
+	public String request(
+			@RequestParam("no") String no,
 			@RequestParam("name") String name) {
 		log.debug("no : {}", no);
 		log.debug("name : {}", name);
@@ -167,8 +173,22 @@ public class DummyController {
 	//Angular-Ajax C-S
 	@RequestMapping(value = "ajax", method = RequestMethod.GET)
 	public String angularAjax(ModelMap model) {
-		log.debug("Admission to the defaultPage method!");
-		model.addAttribute("dummyName", "default");
+		log.debug("Admission to the ajaxTestpage!!");
+		return "dummyangularajax";
+	}
+	
+	//Angular-Ajax C-S
+	@RequestMapping(value = "ajax/data", method = RequestMethod.POST)
+	public String angularPost(@RequestBody String body) {
+		log.debug("진입했다!!");
+		Map<String,String> map = new HashMap<String,String>();
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			//convert JSON string to Map
+			map = mapper.readValue(body, new TypeReference<HashMap<String,String>>(){});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "dummyangularajax";
 	}
 
