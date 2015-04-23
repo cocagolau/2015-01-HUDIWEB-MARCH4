@@ -1,5 +1,4 @@
 <html data-ng-app="FormApp">
-
 <head>
     <title>Webforms demo - AngularJS</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>

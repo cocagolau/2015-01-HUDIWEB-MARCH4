@@ -158,7 +158,7 @@ public class DummyController {
 	//Error handling
 	//경우에 따라 에러 던지는 것을 관리하기 위함.
 	@RequestMapping(value = "/customerror/{error}", method = RequestMethod.GET)
-	public void CustomError(@PathVariable("error") String error, ModelMap model) throws Exception  {
+	public void customError(@PathVariable("error") String error, ModelMap model) throws Exception  {
 		log.debug("Custom Exception Testpage {}", error);
 		
 		//Custom exception
@@ -190,6 +190,13 @@ public class DummyController {
 			e.printStackTrace();
 		}
 		return "dummyangularajax";
+	}
+	
+	@RequestMapping(value = "clientjson", method = RequestMethod.GET)
+	public String clientJson(ModelMap model) {
+		log.debug("줴이쓴!!");
+		model.addAttribute("dummyName", "default");
+		return "dummyangularjson";
 	}
 
 	
