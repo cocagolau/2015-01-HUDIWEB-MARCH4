@@ -1,9 +1,9 @@
-var app = angular.module("MyApp", []);
+var app = angular.module("DummyApp", []);
 
-app.controller("PostsCtrl", function ($scope, $http) {
+app.controller("DummyCtrl", function ($scope, $http) {
     $http.get('./json').
     success(function (data, status, headers, config) {
-        $scope.posts = data;
+        $scope.Dummies = data;
     }).
     error(function (data, status, headers, config) {
         alert('Unexpected server error.');

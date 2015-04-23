@@ -15,6 +15,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.type.TypeReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -178,18 +180,20 @@ public class DummyController {
 	}
 	
 	//Angular-Ajax C-S
+	@ResponseStatus(value = HttpStatus.OK)
 	@RequestMapping(value = "ajax/data", method = RequestMethod.POST)
 	public String angularPost(@RequestBody String body) {
 		log.debug("진입했다!!");
 		Map<String,String> map = new HashMap<String,String>();
 		ObjectMapper mapper = new ObjectMapper();
 		try {
-			//convert JSON string to Map
 			map = mapper.readValue(body, new TypeReference<HashMap<String,String>>(){});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "dummyangularajax";
+		log.debug("no : {}", map.get("no"));
+		log.debug("name : {}", map.get("name"));
+		return null;
 	}
 	
 	@RequestMapping(value = "clientjson", method = RequestMethod.GET)

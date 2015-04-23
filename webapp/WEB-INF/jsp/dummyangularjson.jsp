@@ -6,10 +6,10 @@
     <script src="/js/dummyangularjson.js"></script>
 </head>
 
-<body ng-app="MyApp">
-    <div ng-controller="PostsCtrl">
-        <ul ng-repeat="post in posts">
-            <li>{{post}}</li>
+<body ng-app="DummyApp">
+    <div ng-controller="DummyCtrl">
+        <ul ng-repeat="Dummy in Dummies">
+            <li>{{Dummy}}</li>
         </ul>
     </div>
 </body>
