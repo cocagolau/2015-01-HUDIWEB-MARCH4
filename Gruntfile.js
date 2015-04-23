@@ -38,8 +38,8 @@ module.exports = function(grunt) {
 
         bower_concat: {
             all: {
-                dest: '<%= dirs.src %>/<%= dirs.jsLib %>/<%= config.bowerFile %>.js',
-                cssDest: '<%= dirs.src %>/<%= dirs.cssLib %>/<%= config.bowerFile %>.css'
+                dest    : '<%= dirs.src %>/<%= dirs.jsLib %>/<%= config.bowerFile %>.js',
+                cssDest : '<%= dirs.src %>/<%= dirs.cssLib %>/<%= config.bowerFile %>.css'
             }
         },
 
@@ -65,16 +65,15 @@ module.exports = function(grunt) {
                         cssLibFile: '<%= config.bowerFile %>.css',
                         encoding  : '<%= config.encoding %>',
                         title     : '<%= config.projectName %>',
-                        jspHeader : '<!--%@ page language="java" contentType="text/html; charset=<%= config.encoding %>" pageEncoding="<%= config.encoding %>"%-->',
                         liveReload: '<script src="//localhost:<%= config.livePort %>/livereload.js"></script>'
                     }
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= dirs.src %>/',
-                    src: ['**/*.html'],
-                    dest: '<%= dirs.jsp %>/',
-                    ext: '.tpl.jsp'
+                    cwd  : '<%= dirs.src %>/',
+                    src  : ['**/*.html'],
+                    dest : '<%= dirs.jsp %>/',
+                    ext  : '.tpl.jsp'
                 }],
             }
         },
@@ -82,45 +81,60 @@ module.exports = function(grunt) {
         copy: {
             js: {
                 files: [{
-                    expand: true, 
-                    cwd: '<%= dirs.src %>/<%= dirs.js %>/', 
-                    src: ['**/*'], 
-                    dest: '<%= dirs.dist %>/<%= dirs.js %>/'
+                    expand : true, 
+                    cwd    : '<%= dirs.src %>/<%= dirs.js %>/', 
+                    src    : ['**/*'], 
+                    dest   : '<%= dirs.dist %>/<%= dirs.js %>/'
                 }]
             },
             css: {
                 files: [{
-                    expand: true,
-                    cwd: '<%= dirs.src %>/<%= dirs.css %>/', 
-                    src: ['**/*.css'], 
-                    dest: '<%= dirs.dist %>/<%= dirs.css %>/'
+                    expand : true,
+                    cwd    : '<%= dirs.src %>/<%= dirs.css %>/', 
+                    src    : ['**/*.css'], 
+                    dest   : '<%= dirs.dist %>/<%= dirs.css %>/'
                 }]
             },
             img: {
                 files: [{
-                    expand: true,
-                    cwd: '<%= dirs.src %>/<%= dirs.img %>/', 
-                    src: ['**/*'], 
-                    dest: '<%= dirs.dist %>/<%= dirs.img %>/'
+                    expand : true,
+                    cwd    : '<%= dirs.src %>/<%= dirs.img %>/', 
+                    src    : ['**/*'], 
+                    dest   : '<%= dirs.dist %>/<%= dirs.img %>/'
                 }]
             },
+        },
+
+        surround: {
+            options: {
+                prepend: '<!--%@ page language="java" contentType="text/html; charset=<%= config.encoding %>" pageEncoding="<%= config.encoding %>"%-->',
+            },
+            all: {
+                files: [{
+                    expand : true,
+                    cwd    : '<%= template.all.files[0].dest %>/',
+                    src    : ['**/*<%= template.all.files[0].ext%>'],
+                    dest   : '<%= template.all.files[0].dest %>/',
+                    ext    : '<%= template.all.files[0].ext%>'
+                }]
+            }
         },
 
         'string-replace': {
             jspTemplate: {
                 files: [{
-                    expand: true,
-                    cwd: '<%= dirs.jsp %>',
-                    src: ['**/*.jsp'], 
-                    dest: '<%= dirs.jsp %>'
+                    expand : true,
+                    cwd    : '<%= dirs.jsp %>',
+                    src    : ['**/*.jsp'], 
+                    dest   : '<%= dirs.jsp %>'
                 }],
                 options: {
                     replacements: [{
-                        pattern: /<!--%/g,
-                        replacement: '<%'
+                        pattern     : /<!--%/g,
+                        replacement : '<%'
                     }, {
-                        pattern: /%-->/g,
-                        replacement: '%>'
+                        pattern     : /%-->/g,
+                        replacement : '%>'
                     }]
                 }
             }
@@ -139,11 +153,11 @@ module.exports = function(grunt) {
                     ]
                 },
                 files: [{
-                    expand: true,
-                    cwd: '<%= dirs.src %>/<%= dirs.less %>/',
-                    src: ['**/*.less'],
-                    dest: '<%= dirs.dist %>/<%= dirs.css %>/',
-                    ext: '.css'
+                    expand : true,
+                    cwd    : '<%= dirs.src %>/<%= dirs.less %>/',
+                    src    : ['**/*.less'],
+                    dest   : '<%= dirs.dist %>/<%= dirs.css %>/',
+                    ext    : '.css'
                 }],
             }
         },
@@ -153,41 +167,41 @@ module.exports = function(grunt) {
               spawn: false
             },
             js: {
-                files: ['<%= jshint.all %>'],
-                tasks: ['jshint','copy:js'],
-                options: {
+                files   : ['<%= jshint.all %>'],
+                tasks   : ['jshint','copy:js'],
+                options : {
                     livereload: true
                 }
             },
 
             html: {
-                files: ['<%= dirs.src %>/**/*.html'],
-                tasks: ['template','string-replace:jspTemplate'],
-                options: {
+                files   : ['<%= dirs.src %>/**/*.html'],
+                tasks   : ['htmlToJsp'],
+                options : {
                     livereload: true
                 }
             },
 
             css: {
-                files: ['<%= copy.css.files[0].cwd %>/<%= copy.css.files[0].src %>'],
-                tasks: ['copy:css'],
-                options: {
+                files   : ['<%= copy.css.files[0].cwd %>/<%= copy.css.files[0].src %>'],
+                tasks   : ['copy:css'],
+                options : {
                     livereload: true
                 }
             },
 
             img: {
-                files: ['<%= copy.img.files[0].cwd %>/<%= copy.img.files[0].src %>'],
-                tasks: ['copy:img'],
-                options: {
+                files   : ['<%= copy.img.files[0].cwd %>/<%= copy.img.files[0].src %>'],
+                tasks   : ['copy:img'],
+                options : {
                     livereload: true
                 }
             },
 
             less: {
-                files: ['<%= less.all.files[0].cwd %>/<%= less.all.files[0].src %>'],
-                tasks: ['less'],
-                options: {
+                files   : ['<%= less.all.files[0].cwd %>/<%= less.all.files[0].src %>'],
+                tasks   : ['less'],
+                options : {
                     livereload: true
                 }
             }
@@ -201,16 +215,20 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-template');
+    grunt.loadNpmTasks('grunt-surround');
     grunt.loadNpmTasks('grunt-string-replace');
     
-    
+    grunt.registerTask('htmlToJsp', [
+        'template',
+        'surround',
+        'string-replace',
+    ]);
 
     grunt.registerTask('default', [
         'clean',
         'jshint',
         'bower_concat',
-        'template',
-        'string-replace:jspTemplate',
+        'htmlToJsp',
         'copy:js',
         'copy:css',
         'less'
