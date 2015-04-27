@@ -1,8 +1,10 @@
 package march4.dao;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 
-import march4.model.User;
+import march4.model.Dummy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -13,32 +15,36 @@ import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserDao {
-	
+public class DummyDao {
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
+
 	@PostConstruct
 	public void initialize() {
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-		// populator.addScript(new ClassPathResource("test.sql"));
 		DatabasePopulatorUtils.execute(populator, jdbcTemplate.getDataSource());
 	}
-	
 
-
-	public void insert(User user) {
-		String sql = "insert into user values(?, ?, ?)";
-		jdbcTemplate.update(sql, user.getUid(), user.getEmail(), user.getPw());
+	public void insert(Dummy dummy) {
+		String sql = "insert into dummy values(?, ?)";
+		jdbcTemplate.update(sql, dummy.getNo(), dummy.getName());
 	}
 
-	public User selectUserById(int uId) {
-		String sql = "select * from user where uId = ?";
+	public Dummy select(int no) {
+		String sql = "select * from dummy where no = ?";
 		try {
 			return jdbcTemplate.queryForObject(sql,
-					new BeanPropertyRowMapper<User>(User.class), uId);
+					new BeanPropertyRowMapper<Dummy>(Dummy.class), no);
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
+	}
+
+	public List<Dummy> selectAll() {
+		String sql = "select * from dummy";
+		List<Dummy> dummies = jdbcTemplate.query(sql,
+				new BeanPropertyRowMapper<Dummy>(Dummy.class));
+		return dummies;
 	}
 }

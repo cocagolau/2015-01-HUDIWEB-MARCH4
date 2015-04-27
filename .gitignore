@@ -56,3 +56,12 @@ local.properties
 #tomcat
 tomcat*/
 webapp/WEB-INF/classes
+
+#frontend tools
+node
+node_modules
+bower_components
+websrc/js/lib
+webapp/js
+webapp/css
+webapp/WEB-INF/jsp/*.jsp
