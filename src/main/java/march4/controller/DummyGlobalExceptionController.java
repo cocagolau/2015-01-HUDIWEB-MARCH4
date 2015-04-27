@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class DummyGlobalExceptionController {
 	private static final Logger log = LoggerFactory.getLogger(DummyGlobalExceptionController.class);
 	
-    @ExceptionHandler(Exception.class)
+    //@ExceptionHandler(Exception.class)
     public void handleException(Exception e) {
     	log.debug("Exeption!!");
     	log.debug("name : {}", e.getClass().getName());
@@ -25,22 +25,22 @@ public class DummyGlobalExceptionController {
     	log.debug("message : {}", e.getMessage());
     }
     
-    @ExceptionHandler(RuntimeException.class) 
+    //@ExceptionHandler(RuntimeException.class) 
     public ModelAndView handleRuntimeException(RuntimeException e) {
         ModelAndView mav = new ModelAndView("exceptionHandler");
         mav.addObject("data", e.getMessage());
         return mav;
     }
     
-	@ExceptionHandler(SQLException.class)
+	//@ExceptionHandler(SQLException.class)
 	public String handleSQLException(HttpServletRequest request, Exception ex){
 		log.debug("SQLException Occured:: URL="+request.getRequestURL());
 		return "dummyerror";
 	}
     
 	//ResponseStatus는 클라이언트에 상태 정보를 보내준다.
-    @ResponseStatus(value=HttpStatus.NOT_FOUND, reason="IOException occured")
-    @ExceptionHandler(IOException.class)
+    //@ResponseStatus(value=HttpStatus.NOT_FOUND, reason="IOException occured")
+    //@ExceptionHandler(IOException.class)
 	public void handleIOException(IOException e){
 		log.debug("IOException handler executed");
 		//returning 404 error code

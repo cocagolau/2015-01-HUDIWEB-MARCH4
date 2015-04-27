@@ -1,5 +1,7 @@
 package march4.dao;
 
+import java.util.List;
+
 import march4.model.Building;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +12,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class BuildingDao {
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	public void insert(Building building) {
 		String sql = "insert into project values(null, ?, ?, ?)";
-		jdbcTemplate.update(sql, building.getUid(), building.getName(), building.getShared());
+		jdbcTemplate.update(sql, building.getUid(), building.getName(),
+				building.getShared());
 	}
 
 	public Building select(int pid) {
@@ -27,5 +30,14 @@ public class BuildingDao {
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
+	}
+
+	public List<Building> getDefaultBuildingList(int uid) {
+		String sql = "select * from project where uid = ?";
+		Object[] args = new Object[] { uid };
+
+		List<Building> building = jdbcTemplate.query(sql, args,
+				new BeanPropertyRowMapper<Building>(Building.class));
+		return building;
 	}
 }

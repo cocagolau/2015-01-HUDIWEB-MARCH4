@@ -8,6 +8,8 @@
 
 	<context:component-scan base-package="march4.dao" />
 	<context:component-scan base-package="march4.controller" />
+	<context:component-scan base-package="march4.service" />
+	
 	<mvc:annotation-driven />
 	<bean id="viewResolver"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
