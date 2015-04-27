@@ -206,13 +206,19 @@ public class DummyController {
 	}
 	
 	//쿠키를 생성해서 클라이언트로 보낸다.
-	@RequestMapping(value = "cookie", method = RequestMethod.GET)
-	public void cookie(@CookieValue(value="dummy") String dummy, HttpServletResponse resp, ModelMap model){
+	@RequestMapping(value = "cookie/add", method = RequestMethod.GET)
+	public void cookieAdd(HttpServletResponse resp, ModelMap model){
+		CookieGenerator cookieGen = new CookieGenerator();
+		cookieGen.setCookieName("dummy");
+		cookieGen.addCookie(resp, "kuku");
+	}
+	
+	@RequestMapping(value = "cookie/del", method = RequestMethod.GET)
+	public void cookieDelete(@CookieValue(value="dummy") String dummy, HttpServletResponse resp, ModelMap model){
 		log.debug(dummy);
 		CookieGenerator cookieGen = new CookieGenerator();
 		cookieGen.setCookieName("dummy");
 		cookieGen.removeCookie(resp);
-		//cookieGen.addCookie(resp, "kuku");
 	}
 	
 
