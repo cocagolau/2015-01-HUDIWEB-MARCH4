@@ -33,7 +33,7 @@ public class QuestDaoTest {
 	
 	@Test
 	public void insert() {
-		Quest quest = new Quest(3, 1, 0, 0, 1, "tt", "2015-01-01 00:00:00");
+		Quest quest = new Quest(93, 1, 0, 0, 1, "tt", "2015-01-01 00:00:00");
 		questDao.insert(quest);
 		log.debug("Insert quest : {}", quest);
 	}

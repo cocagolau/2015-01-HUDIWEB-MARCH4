@@ -34,6 +34,8 @@ public class QuestDao {
 	}
 	
 	public void insertContentsOnly(Quest quest) {
+		System.out.println("questdao");
+		System.out.println(quest.getContents());
 		String sql = "insert into quest (contents) values(?)";
 		jdbcTemplate.update(sql, quest.getContents());
 	}
