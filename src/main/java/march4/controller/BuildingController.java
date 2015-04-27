@@ -37,9 +37,9 @@ public class BuildingController {
 		return "building";
 	}
 	
-	@ResponseStatus(value = HttpStatus.OK)
-	@RequestMapping(value = "/insert", method = RequestMethod.GET)
-	public void insertBuilding(@RequestBody String body, ModelMap model) {
+	//@ResponseStatus(value = HttpStatus.OK)
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public void addBuilding(@RequestBody String body, ModelMap model) {
 		log.debug("빌띵이 올라온다!!");
 		Map<String,String> map = new HashMap<String,String>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -72,4 +72,7 @@ public class BuildingController {
 		
 		return buildings;
 	}
+	
+	//삭제하는 것도 하나 만들어야 됨.
+	//수정은 뭘루하나???
 }

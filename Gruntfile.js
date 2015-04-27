@@ -73,7 +73,7 @@ module.exports = function(grunt) {
                     cwd  : '<%= dirs.src %>/',
                     src  : ['**/*.html'],
                     dest : '<%= dirs.jsp %>/',
-                    ext  : '.tpl.jsp'
+                    ext  : '.jsp'
                 }],
             }
         },

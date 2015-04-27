@@ -1,30 +1,27 @@
-march4.building.projectApi = "/api/project";
-march4.building.projectListApi = "/api/project/list";
-march4.building.myApp = angular.module('buildingManagement', []);
+var formApp = angular.module('DummyApp', []);
+formApp.controller('DummyController', [
+  '$scope', '$window', '$http',
+  function ($scope, $window, $http) {
+        $scope.data = {};
 
-march4.building.myApp.controller('AddBuildingFormController', function($http) {
-	this.buildings = [];
-	this.newBuilding = {};
-	
-	this.getBuildings = function(){
-		$http.get(march4.building.projectListApi).success(function(data, status, headers, config){
-			this.buildings = data;
-		}.bind(this))
-		.error(function(data, status, headers, config) {
-	    	console.log("AJAX failed!");
-	    });
-	};
-	
-	this.submit = function() {
-		$http.post(march4.building.projectApi,this.newBuilding)
-			.success(function(data, status, headers, config) {
-				this.getBuildings();
-				this.newBuilding = {};
-			}.bind(this))
-		    .error(function(data, status, headers, config) {
-		    	console.log("AJAX failed!");
-		    });
-	};
-	
-	this.getBuildings();
-});
+        //빌딩의 소유자를 보낸다.
+        
+        $scope.submit = function () {
+            $http({
+                method: 'POST',
+                url: '/building/default',
+                data: $scope.data
+            }).
+            success(function (data, status, headers, config) {
+                //$window.location.replace('/dummy/ajax');
+                $scope.Dummies = data;
+            }).
+            error(function (data, status, headers, config) {
+                if (status == 400) {
+                    $scope.messages = data;
+                } else {
+                    alert('Unexpected server error.');
+                }
+            });
+        };
+}]);
