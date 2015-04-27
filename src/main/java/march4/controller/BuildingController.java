@@ -67,6 +67,9 @@ public class BuildingController {
 			e.printStackTrace();
 		}
 		log.debug(map.get("uid"));
+		
+		//uid가 문자열일 때의 예외처리 필요.
+		//uid가 아무것도 없을 때 예외처리 필요.
 		List<Building> buildings = buildingService.getDefaultBuilding(Integer.parseInt(map.get("uid")));
 		log.debug("building {}", buildings);
 		
