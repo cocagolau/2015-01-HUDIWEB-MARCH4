@@ -51,18 +51,13 @@ public class BuildingController {
 		log.debug("no : {}", map.get("no"));
 		log.debug("name : {}", map.get("name"));
 		
-		
-		
 //		log.debug("빌띵이 들어간다!!!!");
 //		Building building = new Building();
 //		buildingService.insertBuilding(building);
 	}
 	
 	
-	
-	//////////////////////////////////////////////////
-	// json으로 전송.
-	@RequestMapping(value = "/kuku", method = RequestMethod.POST)
+	@RequestMapping(value = "/default", method = RequestMethod.POST)
 	public @ResponseBody List<Building> defaultBuilding(@RequestBody String body, String name) {
 		Map<String,String> map = new HashMap<String,String>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -72,21 +67,9 @@ public class BuildingController {
 			e.printStackTrace();
 		}
 		log.debug(map.get("uid"));
-		//먼저 uid를 ajax로 받는다.
-		
-		
-		//service
-		//받은 uid로 빌딩을 select 로 조회해서 가져와야 함.
 		List<Building> buildings = buildingService.getDefaultBuilding(Integer.parseInt(map.get("uid")));
-		log.debug("여긴 도달 하나요?? {}", buildings);
+		log.debug("building {}", buildings);
 		
-		//가져온 uidList json을 아래로 내려준다.
-		
-
 		return buildings;
 	}
-
-	
-	
-
 }
