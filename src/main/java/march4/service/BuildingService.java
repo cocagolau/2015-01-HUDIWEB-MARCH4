@@ -14,11 +14,15 @@ public class BuildingService {
 	@Autowired
 	BuildingDao buildingDao;
 
-	public void insertBuilding(Building building) {
-		buildingDao.insert(building);
+	public void addBuilding(Building building) {
+		buildingDao.add(building);
 	}
 
 	public List<Building> getDefaultBuilding(int uid) {
 		return buildingDao.getDefaultBuildingList(uid);
+	}
+
+	public void delBuilding(int pid) {
+		buildingDao.del(pid);
 	}
 }

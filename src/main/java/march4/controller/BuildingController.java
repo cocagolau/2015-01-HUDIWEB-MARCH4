@@ -37,7 +37,7 @@ public class BuildingController {
 		return "building";
 	}
 	
-	//@ResponseStatus(value = HttpStatus.OK)
+	@ResponseStatus(value = HttpStatus.OK)
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public void addBuilding(@RequestBody String body, ModelMap model) {
 		log.debug("빌띵이 올라온다!!");
@@ -48,12 +48,27 @@ public class BuildingController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		log.debug("no : {}", map.get("no"));
+		log.debug("uid : {}", map.get("uid"));
 		log.debug("name : {}", map.get("name"));
 		
-//		log.debug("빌띵이 들어간다!!!!");
-//		Building building = new Building();
-//		buildingService.insertBuilding(building);
+		log.debug("빌띵이 들어간다!!!!");
+		Building building = new Building(Integer.parseInt(map.get("uid")), map.get("name"), map.get("shared"));
+		buildingService.addBuilding(building);
+	}
+	
+	@ResponseStatus(value = HttpStatus.OK)
+	@RequestMapping(value = "/del", method = RequestMethod.POST)
+	public void delBuilding(@RequestBody String body, ModelMap model) {
+		Map<String,String> map = new HashMap<String,String>();
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			map = mapper.readValue(body, new TypeReference<HashMap<String,String>>(){});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		log.debug("빌띵을 지워버리게ㅅ쌋!!!!");
+		log.debug("pid : {}", map.get("pid"));
+		buildingService.delBuilding(Integer.parseInt(map.get("pid")));
 	}
 	
 	
@@ -75,7 +90,4 @@ public class BuildingController {
 		
 		return buildings;
 	}
-	
-	//삭제하는 것도 하나 만들어야 됨.
-	//수정은 뭘루하나???
 }
