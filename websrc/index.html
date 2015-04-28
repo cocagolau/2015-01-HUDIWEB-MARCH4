@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="<%- encoding %>">
+    <title><%- title %></title>
+    <link rel="stylesheet" href="<%- cssDir %>/style.css" />
+    <link rel="stylesheet" href="<%- cssDir %>/world.css" />
+    <script src="<%- jsLibDir %>/<%- jsLibFile %>"></script>
+    <script src="<%- jsDir %>/namespaces.js"></script>
+    <script src="<%- jsDir %>/frontpage.js"></script>	
+    <script src="<%- jsDir %>/urlmapping.js"></script>	
+</head>
+<body ng-app="march4">
+    <main ng-view></main>
+	<%= liveReload%>
+</body>
+</html>

@@ -65,3 +65,6 @@ websrc/js/lib
 webapp/js
 webapp/css
 webapp/WEB-INF/jsp/*.jsp
+
+#ctag
+tags
