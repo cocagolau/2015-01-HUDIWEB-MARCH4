@@ -14,7 +14,8 @@ public class DivController {
 	
 	@RequestMapping(value = {"", "/", "/*"})
 	public String index(){
-		return "index.tpl";
+		log.debug("index requested.");
+		return "index";
 	}
 	
 	@RequestMapping(value="/{divId}.div")
