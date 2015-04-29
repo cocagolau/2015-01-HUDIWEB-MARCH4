@@ -74,6 +74,12 @@ module.exports = function(grunt) {
                     src  : ['**/*.html'],
                     dest : '<%= dirs.jsp %>/',
                     ext  : '.jsp'
+                },{
+                    expand: true,
+                    cwd  : '<%= dirs.src %>/',
+                    src  : ['**/*.div'],
+                    dest : '<%= dirs.jsp %>/',
+                    ext  : '.div.jsp'
                 }],
             }
         },
@@ -116,6 +122,12 @@ module.exports = function(grunt) {
                     src    : ['**/*<%= template.all.files[0].ext%>'],
                     dest   : '<%= template.all.files[0].dest %>/',
                     ext    : '<%= template.all.files[0].ext%>'
+                },{
+                    expand : true,
+                    cwd    : '<%= template.all.files[1].dest %>/',
+                    src    : ['**/*<%= template.all.files[1].ext%>'],
+                    dest   : '<%= template.all.files[1].dest %>/',
+                    ext    : '<%= template.all.files[1].ext%>'
                 }]
             }
         },
@@ -175,7 +187,7 @@ module.exports = function(grunt) {
             },
 
             html: {
-                files   : ['<%= dirs.src %>/**/*.html'],
+                files   : ['<%= dirs.src %>/**/*.html','<%= dirs.src %>/**/*.div'],
                 tasks   : ['htmlToJsp'],
                 options : {
                     livereload: true
