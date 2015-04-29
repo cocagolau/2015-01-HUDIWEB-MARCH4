@@ -1,5 +1,4 @@
 <html data-ng-app="DummyApp">
-
 <head>
     <title>삘띵을 지어버르리렀다.</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
@@ -7,48 +6,5 @@
     <link rel="stylesheet" type="text/css" href="/css/building.css" />
 </head>
 
-<body data-ng-controller="DummyController">
-
-	<div>
-	    <div>
-	        <label>uid : </label>
-	        <input data-ng-model="data.uid" type="text">
-	    </div>
-	    <div>
-	        <input data-ng-click="default()" type="button" value="빌딩소환!!">
-	    </div>
-    </div>
-    
-    <div>
-    	<div>
-    	 	<label>uid : </label>
-	        <input data-ng-model="addData.uid" type="text">
-    	</div>
-    	<div>
-    	 	<label>name : </label>
-	        <input data-ng-model="addData.name" type="text">
-    	</div>
-    	<div>
-    	 	<label>shared : </label>
-	        <input data-ng-model="addData.shared" type="text">
-    	</div>
-    	<div>
-	        <input data-ng-click="add()" type="button" value="빌딩입력!!">
-	    </div>
-    </div>
-    
-    
-    <ul data-ng-repeat="Dummy in Dummies">
-        <li data-ng-class="{buildingBox : true}">
-            pid : {{Dummy.pid}} <br>
-            uid : {{Dummy.uid}} <br>
-            name : {{Dummy.name}} <br>
-            shared : {{Dummy.shared}} <br>
-            <input type="hidden" data-ng-model="delData.pid" value="kuku">
-            <input data-ng-click="del()" type="button" value="삭제">
-        </li>
-    </ul>
-   
-</body>
 
 </html>

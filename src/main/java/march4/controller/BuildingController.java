@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-@RequestMapping("/building")
+@RequestMapping(value = "/building", method = RequestMethod.POST, headers = {"content-type=application/json"})
 public class BuildingController {
 	
 	@Autowired

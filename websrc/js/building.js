@@ -1,7 +1,4 @@
-var formApp = angular.module('BuildingApp', []);
-formApp.controller('BuildingController', [
-  '$scope', '$window', '$http', '$timeout',
-  function ($scope, $window, $http, $timeout) {
+march4.controller.buildingController = function ($scope, $window, $http, $timeout) {
         $scope.data = {};
         $scope.addData = {};
         $scope.delData = {};
@@ -74,4 +71,4 @@ formApp.controller('BuildingController', [
                 }
             });
         };
-}]);
+};

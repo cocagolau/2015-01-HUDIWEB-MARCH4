@@ -18,6 +18,10 @@ march4.core.config(['$routeProvider', '$locationProvider', function($routeProvid
             templateUrl: '/project.div',
             controller: 'ProjectController'
         })
+        .when('/building', {
+            templateUrl: '/building.div',
+            controller: 'BuildingController'
+        })
         .otherwise({
             redirectTo: '/error/404'
         });
@@ -28,3 +32,4 @@ march4.core.config(['$routeProvider', '$locationProvider', function($routeProvid
 
 march4.core.controller('WorldController', march4.controller.worldController);
 march4.core.controller('ProjectController', march4.controller.projectController);
+march4.core.controller('BuildingController', march4.controller.buildingController);
