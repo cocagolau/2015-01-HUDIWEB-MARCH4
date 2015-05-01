@@ -58,7 +58,7 @@ public class BuildingController {
 	
 	@ResponseStatus(value = HttpStatus.OK)
 	@RequestMapping(value = "/del", method = RequestMethod.POST)
-	public void delBuilding(@RequestBody String body, ModelMap model) {
+	public @ResponseBody String delBuilding(@RequestBody String body, ModelMap model) {
 		Map<String,String> map = new HashMap<String,String>();
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -68,7 +68,15 @@ public class BuildingController {
 		}
 		log.debug("빌띵을 지워버리게ㅅ쌋!!!!");
 		log.debug("pid : {}", map.get("pid"));
-		buildingService.delBuilding(Integer.parseInt(map.get("pid")));
+		
+		try {
+			buildingService.delBuilding(Integer.parseInt(map.get("pid")));
+			return "true";
+		} catch (Exception e) {
+			log.debug("빌딩을 삭제하지 못했어!! 난 무능한 서버야!!");
+		}
+		return "false";
+			
 	}
 	
 	
