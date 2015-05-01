@@ -1,35 +1,51 @@
-march4.core = angular.module('march4', ['ngRoute']);
+(function () {
+    'use strict';
 
-march4.core.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
-    $routeProvider
-        .when('/',{
-            templateUrl: '/frontpage.div',
-            controller: march4.controller.frontController
-        })
-        .when('/world', {
-            templateUrl: '/world.div',
-            controller: 'WorldController'
-        })
-        .when('/world/:worldId', {
-            templateUrl: '/world.div',
-            controller: 'WorldController'
-        })
-        .when('/world/:worldId/project/:projectId', {
-            templateUrl: '/project.div',
-            controller: 'ProjectController'
-        })
-        .when('/building', {
-            templateUrl: '/building.div',
-            controller: 'BuildingController'
-        })
-        .otherwise({
-            redirectTo: '/error/404'
-        });
+    function addControllerJs(){
+        return {
+            load: function($q, $route, $rootScope) {
+                var deferred = $q.defer();
+                var controllerName = $route.current.$$route.controller;
+                $.getScript('/js/'+controllerName+'.js',function(){
+                    deferred.resolve();
+                });
 
-    $locationProvider.html5Mode(true).hashPrefix('!');
-}]);
+                return deferred.promise;
+            }
+        };
+    }
+
+    march4.app = angular.module('march4', ['ngRoute'], function($controllerProvider){
+        march4.app.$controllerProvider = $controllerProvider;
+    });
+
+    march4.app.config(['$routeProvider', '$locationProvider', '$controllerProvider', function($routeProvider, $locationProvider) {
+        $routeProvider
+            .when('/',{
+                templateUrl: '/div/frontpage',
+                controller: 'frontpageController',
+                resolve: addControllerJs()
+            })
+            .when('/world', {
+                templateUrl: '/div/world',
+                controller: 'worldController',
+                resolve: addControllerJs()
+            })
+            .when('/world/:worldId', {
+                templateUrl: '/div/world',
+                controller: 'worldController',
+                resolve: addControllerJs()
+            })
+            .when('/building', {
+                templateUrl: '/div/building',
+                controller: 'buildingController',
+                resolve: addControllerJs()
+            })
+            .otherwise({
+                redirectTo: document.location.pathname
+            });
 
 
-march4.core.controller('WorldController', march4.controller.worldController);
-march4.core.controller('ProjectController', march4.controller.projectController);
-march4.core.controller('BuildingController', march4.controller.buildingController);
+        $locationProvider.html5Mode(true).hashPrefix('!');      
+    }]);
+}());

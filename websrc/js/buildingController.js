@@ -1,4 +1,6 @@
-march4.controller.buildingController = function ($scope, $window, $http, $timeout) {
+(function(){
+    'use strict';
+    march4.app.$controllerProvider.register('buildingController',function ($scope, $window, $http, $timeout) {
         $scope.data = {};
         $scope.addData = {};
         $scope.delData = {};
@@ -71,4 +73,5 @@ march4.controller.buildingController = function ($scope, $window, $http, $timeou
                 }
             });
         };
-};
+    });
+}());

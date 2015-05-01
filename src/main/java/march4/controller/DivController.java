@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class DivController {
 	private static final Logger log = LoggerFactory.getLogger(DivController.class);
 	
-	@RequestMapping(value = {"", "/", "/*"})
+	@RequestMapping(value = {"","/","/*","/world/**","/building/**","/user/**"})
 	public String index(){
 		log.debug("index requested.");
 		return "index";
 	}
 	
-	@RequestMapping(value="/{divId}.div")
+	@RequestMapping(value="/div/{divId}")
 	public String div(@PathVariable("divId") String divId){
 		log.debug("div '"+divId+"' requested.");
-		return divId+".div";
+		return "div/"+divId;
 		
 	}
 }

@@ -29,7 +29,7 @@ module.exports = function(grunt) {
         clean: {
             all: [
                 '**/_bower*.*',
-                '<%= dirs.jsp %>/**/*.tpl.jsp',
+                '<%= dirs.jsp %>/**/*.jsp',
                 '<%= dirs.src %>/<%= dirs.cssLib %>/**/*',
                 '<%= dirs.dist %>/<%= dirs.css %>/**/*',
                 '<%= dirs.dist %>/<%= dirs.js %>/**/*'
@@ -49,7 +49,8 @@ module.exports = function(grunt) {
             },
             all: [
                 'Gruntfile.js',
-                '<%= dirs.src %>/<%= dirs.js %>/*.js'
+                '<%= dirs.src %>/<%= dirs.js %>/**/*.js',
+                '!<%= dirs.src %>/<%= dirs.js %>/lib/*.js'
             ]
         },
 
@@ -74,12 +75,6 @@ module.exports = function(grunt) {
                     src  : ['**/*.html'],
                     dest : '<%= dirs.jsp %>/',
                     ext  : '.jsp'
-                },{
-                    expand: true,
-                    cwd  : '<%= dirs.src %>/',
-                    src  : ['**/*.div'],
-                    dest : '<%= dirs.jsp %>/',
-                    ext  : '.div.jsp'
                 }],
             }
         },
@@ -122,12 +117,6 @@ module.exports = function(grunt) {
                     src    : ['**/*<%= template.all.files[0].ext%>'],
                     dest   : '<%= template.all.files[0].dest %>/',
                     ext    : '<%= template.all.files[0].ext%>'
-                },{
-                    expand : true,
-                    cwd    : '<%= template.all.files[1].dest %>/',
-                    src    : ['**/*<%= template.all.files[1].ext%>'],
-                    dest   : '<%= template.all.files[1].dest %>/',
-                    ext    : '<%= template.all.files[1].ext%>'
                 }]
             }
         },
@@ -178,17 +167,18 @@ module.exports = function(grunt) {
             options: {
               spawn: false
             },
-            js: {
-                files   : ['<%= jshint.all %>'],
-                tasks   : ['jshint','copy:js'],
+
+            html: {
+                files   : ['<%= dirs.src %>/**/*.html'],
+                tasks   : ['htmlToJsp'],
                 options : {
                     livereload: true
                 }
             },
 
-            html: {
-                files   : ['<%= dirs.src %>/**/*.html','<%= dirs.src %>/**/*.div'],
-                tasks   : ['htmlToJsp'],
+            js: {
+                files   : ['<%= jshint.all %>'],
+                tasks   : ['jshint','copy:js'],
                 options : {
                     livereload: true
                 }
