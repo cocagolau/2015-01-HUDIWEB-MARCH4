@@ -84,5 +84,8 @@ public class Quest {
 		this.due = due;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "Quest [contents="+contents+"]";
+	}
 }

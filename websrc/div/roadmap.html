@@ -1,0 +1,12 @@
+<form ng-submit="addQuest()" action="">
+	<label>내용</label> <input ng-model="newQuest.content" name="content" type="text">
+	<label>마감</label> <input ng-model="newQuest.due" name="due" type="datetime-local">
+	<!-- <input ng-model="newQuest.pos.x" name="posx" type="hidden" value="0"> -->
+	<!-- <input ng-model="newQuest.pos.y" name="posy" type="hidden" value="0"> -->
+	<input type="submit">
+</form>
+<ul class="sortableContainer">
+	<li class="sortable" ng-repeat="quest in quests">
+	<span>{{quest.content}}</span>
+	<span>{{quest.due}}</span></li>
+</ul>

@@ -79,27 +79,28 @@ jQuery(document).ready(function($) {
     };
 });
 
-angular.module('roadmap', [])
-.controller('roadmapCtrl', function($http) {
+march4.app.$controllerProvider.register('roadmapController', function($http, $scope, $routeParams) {
     // {content(string),order(number),due(datetime),pos(x,y)}
-    this.quests = [];
-    this.newQuest = {};
+    $scope.quests = [];
+    $scope.newQuest = {};
 
-    this.addQuest = function() {
-        console.log(this.newQuest);
-        this.quests.push(this.newQuest);
+    $scope.addQuest = function() {
+        console.log($scope.newQuest);
+        $scope.quests.push($scope.newQuest);
         
-        var data = {content:this.newQuest.content};
+        var data = {content:$scope.newQuest.content};
         $http.post(window.location.pathname, data)
         .success(function (data, status, headers, config) {
+        	console.log('good');
         })
-        .error(function (data, status, headers, config) {
-        	alert("AJAX failed!");
-        });
-        this.newQuest = {};
+//        .error(function (data, status, headers, config) {
+//        	debugger;
+//        });
+        $scope.newQuest = {};
     };
 
     // this.getLastOrder = function() {
     //     // for()
     // };
 });
+
