@@ -30,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.CookieGenerator;
 
 @Controller
-@RequestMapping("/dummy")
+@RequestMapping(value="/dummy", headers = {"content-type=application/json"})
 public class DummyController {
 	private static final Logger log = LoggerFactory.getLogger(DummyController.class);
 	

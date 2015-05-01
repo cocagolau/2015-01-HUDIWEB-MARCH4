@@ -41,6 +41,11 @@
                 controller: 'buildingController',
                 resolve: addControllerJs()
             })
+            .when('/dummy/:dummyId', {
+                templateUrl: '/div/dummy',
+                controller: 'dummyController',
+                resolve: addControllerJs()
+            })
             .otherwise({
                 redirectTo: document.location.pathname
             });
