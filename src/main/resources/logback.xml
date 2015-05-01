@@ -29,11 +29,11 @@
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="FILE" />
 	</logger>
-
-<!-- 	<root level="DEBUG">
+	<!-- 
+	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="FILE" />
 	</root>
- -->
+ 	-->
 	<!-- DEBUG < INFO < WARN < ERROR -->
 </configuration>

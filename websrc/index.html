@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="<%- encoding %>">
+    <title>
+        <%- title %>
+    </title>
+    <link rel="stylesheet" href="<%- cssDir %>/style.css" />
+    <script src="<%- jsLibDir %>/<%- jsLibFile %>"></script>
+    <script src="<%- jsDir %>/namespaces.js"></script>
+    <script src="<%- jsDir %>/urlMapping.js"></script>
+    <base href="/">
+</head>
+
+<body ng-app="march4">
+    <header id="main-header">
+        <h1>March4</h1>
+        <nav id="main-navigation">
+            <ul>
+                <li><a href="/">Home</a>
+                </li>
+                <li><a href="/user/1">User</a>
+                </li>
+                <li><a href="/world/1">World : my</a>
+                </li>
+                <li><a href="/world/my">World : my</a>
+                </li>
+                <li><a href="/building">building</a>
+                </li>
+                <li><a href="/dummy/1">dummy</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main ng-view></main>
+    <%=liveReload%>
+</body>
+
+</html>

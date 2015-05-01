@@ -33,7 +33,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `mydb`.`project` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`project` (
-  `pId` INT NOT NULL,
+  `pId` INT NOT NULL AUTO_INCREMENT,
   `uId` INT NULL,
   `name` VARCHAR(45) NULL,
   `shared` VARCHAR(45) NULL,

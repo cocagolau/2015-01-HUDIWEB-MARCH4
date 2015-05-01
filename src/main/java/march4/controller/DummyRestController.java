@@ -19,7 +19,7 @@ public class DummyRestController {
 
 	// json으로 전송.
 	@RequestMapping(value = "/json", method = RequestMethod.GET)
-	public Dummy getJson() {
+	public Dummy getJson(String name) {
 		Dummy dummy = new Dummy(1, "dummy");
 		log.debug("convert json data : {}", dummy.toString());
 		return dummy;
