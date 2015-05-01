@@ -92,10 +92,13 @@ march4.app.$controllerProvider.register('roadmapController', function($http, $sc
         $http.post(window.location.pathname, data)
         .success(function (data, status, headers, config) {
         	console.log('good');
+            console.log("!",data, status, headers, config,"!");
+            debugger;
         })
-//        .error(function (data, status, headers, config) {
-//        	debugger;
-//        });
+        .error(function (data, status, headers, config) {
+            console.log("!",data, status, headers, config,"!");
+        	debugger;
+        });
         $scope.newQuest = {};
     };
 
