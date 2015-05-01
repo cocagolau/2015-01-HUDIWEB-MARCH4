@@ -15,23 +15,27 @@
 
 <body ng-app="march4">
     <header id="main-header">
-        <h1>March4</h1>
-        <nav id="main-navigation">
-            <ul>
-                <li><a href="/">Home</a>
-                </li>
-                <li><a href="/user/1">User</a>
-                </li>
-                <li><a href="/world/1">World : my</a>
-                </li>
-                <li><a href="/world/my">World : my</a>
-                </li>
-                <li><a href="/building">building</a>
-                </li>
-                <li><a href="/dummy/1">dummy</a>
-                </li>
-            </ul>
-        </nav>
+        <div class="wrap">
+            <h1 id="main-title">
+                <a href="/">March4</a>
+            </h1>
+            <nav id="main-navigation">
+                <ul>
+                    <li><a href="/">Home</a>
+                    </li>
+                    <li><a href="/user/1">User</a>
+                    </li>
+                    <li><a href="/world/1">World : my</a>
+                    </li>
+                    <li><a href="/world/my">World : my</a>
+                    </li>
+                    <li><a href="/building">building</a>
+                    </li>
+                    <li><a href="/dummy/1">dummy</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </header>
     <main ng-view></main>
     <%=liveReload%>
