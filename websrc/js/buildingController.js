@@ -1,9 +1,7 @@
-(function(){
-    'use strict';
-    march4.app.$controllerProvider.register('buildingController',function ($scope, $window, $http, $timeout) {
-        $scope.data = {};
-        $scope.addData = {};
-        $scope.delData = {};
+march4.app.$controllerProvider.register('buildingController', function ($scope, $window, $http, $timeout) {
+    $scope.data = {};
+    $scope.addData = {};
+    $scope.delData = {};
 
     $scope.pageSet = {
         buildingBox: {
@@ -98,28 +96,25 @@
             }
         });
     };
-};
-=======
-        $scope.del = function (pid) {
-            $scope.delData.pid = pid;
-            $http({
-                method: 'POST',
-                url: '/building/del',
-                data: $scope.delData
-            }).
-            success(function (data, status, headers, config) {
-                //$window.location.replace('/dummy/ajax');
-                $scope.default();
-                //$scope.Dummies = data;
-            }).
-            error(function (data, status, headers, config) {
-                if (status == 400) {
-                    $scope.messages = data;
-                } else {
-                    alert('Unexpected server error.');
-                }
-            });
-        };
-    });
-}());
->>>>>>> master:websrc/js/buildingController.js
+
+    $scope.del = function (pid) {
+        $scope.delData.pid = pid;
+        $http({
+            method: 'POST',
+            url: '/building/del',
+            data: $scope.delData
+        }).
+        success(function (data, status, headers, config) {
+            //$window.location.replace('/dummy/ajax');
+            $scope.default();
+            //$scope.Dummies = data;
+        }).
+        error(function (data, status, headers, config) {
+            if (status == 400) {
+                $scope.messages = data;
+            } else {
+                alert('Unexpected server error.');
+            }
+        });
+    };
+});
