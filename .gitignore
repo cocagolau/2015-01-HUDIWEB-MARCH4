@@ -11,9 +11,11 @@ pom.xml.versionsBackup
 pom.xml.next
 release.properties
 dependency-reduced-pom.xml
+application-properties.xml
 
 ## log ##
 logs/
+npm-debug.log
 
 ### Eclipse ###
 *.pydevproject
