@@ -6,7 +6,6 @@
     });
 
     march4.app.controller('mainController',function($scope){
-    	$scope.user;
     });
 
     march4.app.controller('userController',function($scope){
