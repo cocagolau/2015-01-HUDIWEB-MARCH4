@@ -10,13 +10,12 @@ march4.app.$controllerProvider.register('buildingController', function ($scope, 
             margin: 20
         }
     };
-    
-    $scope.myStyle = function (no) {
 
+    $scope.myStyle = function (no) {
         var col = parseInt($(".buildingArea").outerWidth(true) / ($scope.pageSet.buildingBox.x + $scope.pageSet.buildingBox.margin));
 
-        var posX = parseInt(no % col) * $scope.pageSet.buildingBox.x + $scope.pageSet.buildingBox.margin * parseInt(no % col) ;
-        var posY = parseInt(no / col) * $scope.pageSet.buildingBox.y + $scope.pageSet.buildingBox.margin * parseInt(no / col) ;
+        var posX = parseInt(no % col) * $scope.pageSet.buildingBox.x + $scope.pageSet.buildingBox.margin * parseInt(no % col);
+        var posY = parseInt(no / col) * $scope.pageSet.buildingBox.y + $scope.pageSet.buildingBox.margin * parseInt(no / col);
 
         return {
             left: posX + "px",
@@ -24,8 +23,8 @@ march4.app.$controllerProvider.register('buildingController', function ($scope, 
         }
     };
 
-    $scope.recalc = function(no){
-        for(var i = no; i < $scope.Buildings.length; i++){
+    $scope.recalc = function (no) {
+        for (var i = no; i < $scope.Buildings.length; i++) {
             $scope.Buildings[i].no = i;
         }
     };

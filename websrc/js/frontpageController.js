@@ -1,6 +1,6 @@
 (function(){
     'use strict';
-    march4.app.$controllerProvider.register('frontpageController',function($scope){
+    march4.app.registerController('frontpageController',function($scope){
     	//TODO
 	});
 }());
