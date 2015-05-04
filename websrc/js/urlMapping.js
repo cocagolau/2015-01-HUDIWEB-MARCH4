@@ -15,12 +15,6 @@
         };
     }
 
-    march4.app = angular.module('march4', ['ngRoute'], function($controllerProvider){
-        march4.app.registerController = function(sName,fController){
-            $controllerProvider.register(sName,fController);
-        };
-    });
-
     march4.app.config(['$routeProvider', '$locationProvider', '$controllerProvider', function($routeProvider, $locationProvider) {
         $routeProvider
             .when('/',{
