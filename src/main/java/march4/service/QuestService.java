@@ -1,5 +1,7 @@
 package march4.service;
 
+import java.util.List;
+
 import march4.dao.QuestDao;
 import march4.model.Quest;
 
@@ -12,5 +14,9 @@ public class QuestService {
 	
 	public void insertContentsOnly(Quest quest) {
 		questDao.insertContentsOnly(quest);
+	}
+	
+	public List<Quest> selectBypID(String pId) {
+		return questDao.selectBypID(pId);
 	}
 }

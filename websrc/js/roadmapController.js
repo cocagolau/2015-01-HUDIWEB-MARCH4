@@ -89,17 +89,20 @@ march4.app.$controllerProvider.register('roadmapController', function($http, $sc
         $scope.quests.push($scope.newQuest);
         
         var data = {content:$scope.newQuest.content};
+        
         $http.post(window.location.pathname, data)
         .success(function (data, status, headers, config) {
-        	console.log('good');
-            console.log("!",data, status, headers, config,"!");
-            debugger;
+            console.log("good",data, status, headers, config,"!");
         })
         .error(function (data, status, headers, config) {
             console.log("!",data, status, headers, config,"!");
-        	debugger;
         });
+        
         $scope.newQuest = {};
+    };
+    
+    $scope.getQuests = function() {
+    	
     };
 
     // this.getLastOrder = function() {

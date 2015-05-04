@@ -56,4 +56,13 @@ public class QuestDao {
 		List<Quest> quests = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Quest>(Quest.class));
 		return quests;
 	}
+	
+	
+	public List<Quest> selectBypID(String pId) {
+		String sql = "select * from quest where pId = "+pId;
+		List<Quest> quests = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Quest>(Quest.class));
+		return quests;
+	}
+	
+	
 }
