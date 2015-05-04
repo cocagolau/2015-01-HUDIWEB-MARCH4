@@ -28,7 +28,7 @@
     </div>
 </div>
 <ul class="buildingArea">
-    <li data-ng-repeat="Building in Buildings" class="ani" data-ng-class="{buildingBox : true, hide : Building.hide}" ng-style="myStyle(Building.no)">{{myStyle(Building.no)}}
+    <li data-ng-repeat="Building in Buildings" class="ani" data-ng-class="{buildingBox : true, hide : Building.hide, delete : Building.delete}" ng-style="myStyle(Building.no)">{{myStyle(Building.no)}}
         pid : {{Building.pid}}
         <br> uid : {{Building.uid}}
         <br> name : {{Building.name}}
