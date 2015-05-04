@@ -69,3 +69,6 @@ webapp/WEB-INF/jsp/**/*.jsp
 
 #ctag
 tags
+
+#jdbc settings
+application-properties.xml
