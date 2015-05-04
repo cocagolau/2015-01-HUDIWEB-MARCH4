@@ -49,9 +49,5 @@
 
         $locationProvider.html5Mode(true).hashPrefix('!');      
     }]);
-<<<<<<< HEAD
 }());
- 
-=======
-}());
->>>>>>> master
+
