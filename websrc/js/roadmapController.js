@@ -79,7 +79,7 @@ jQuery(document).ready(function($) {
     };
 });
 
-march4.app.$controllerProvider.register('roadmapController', function($http, $scope, $routeParams) {
+march4.app.registerController('roadmapController', function($http, $scope, $routeParams) {
     // {content(string),order(number),due(datetime),pos(x,y)}
     $scope.quests = [];
     $scope.newQuest = {};
