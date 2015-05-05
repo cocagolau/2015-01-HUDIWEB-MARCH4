@@ -5,20 +5,13 @@
         return {
             load: function($q, $route, $rootScope) {
                 var deferred = $q.defer();
-                var headEl = document.getElementsByTagName('head')[0];
                 var controllerPath = '/js/';
                 var controllerName = $route.current.$$route.controller;
-                var script = document.createElement('script');
-
-                script.src = controllerPath+controllerName+'.js';
-                headEl.appendChild(script); 
                 
-                script.onreadystatechange = script.onload = function(){
-                    if (!this.readyState || this.readyState == "complete") {
-                        script.onload = script.onreadystatechange = null;
-                        deferred.resolve();
-                    }
-                }
+                march4.util.addScript(controllerPath+controllerName+'.js',function(){
+                    deferred.resolve();
+                });
+
                 return deferred.promise;
             }
         };
