@@ -1,6 +1,6 @@
 (function(){
     'use strict';
-    march4.app.$controllerProvider.register('buildingController',function ($scope, $window, $http, $timeout) {
+    march4.app.registerController('buildingController',function ($scope, $window, $http, $timeout) {
         $scope.data = {};
         $scope.addData = {};
         $scope.delData = {};
@@ -15,13 +15,16 @@
             success(function (data, status, headers, config) {
                 //$window.location.replace('/dummy/ajax');
                 $scope.Buildings = data;
+
+                function showBuildingsDelaying(i) {
+                    $scope.Buildings[i].hide = true;
+                    $timeout(function () {
+                        $scope.Buildings[i].hide = false;
+                    }, i * 100);
+                }
+                
                 for (var i = 0; i < $scope.Buildings.length; i++) {
-                    (function (i) {
-                        $scope.Buildings[i].hide = true;
-                        $timeout(function () {
-                            $scope.Buildings[i].hide = false;
-                        }, i * 100);
-                    }(i));
+                    showBuildingsDelaying(i);
                 }
             }).
             error(function (data, status, headers, config) {
