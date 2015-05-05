@@ -2,7 +2,7 @@ package march4.model;
 
 public class Quest {
 	// primitive type(int)은 db의 NULL 값을 만나면 TypeMismatchException 발생.
-	private Integer qId;
+//	private Integer qId;
 	private Integer pId;
 	private Integer posX;
 	private Integer posY;
@@ -13,13 +13,8 @@ public class Quest {
 	// RowMapper 에서 기본생성자 필요.
 	public Quest(){}
 	
-	public Quest(String contents) {
-		this.contents = contents;
-	}
-
-	public Quest(Integer qId, Integer pId, Integer posX, Integer posY, Integer order,
+	public Quest(Integer pId, Integer posX, Integer posY, Integer order,
 			String contents, String due) {
-		this.qId = qId;
 		this.pId = pId;
 		this.posX = posX;
 		this.posY = posY;
@@ -27,14 +22,24 @@ public class Quest {
 		this.contents = contents;
 		this.due = due;
 	}
-
-	public Integer getqId() {
-		return qId;
+	
+	public Quest(String pId, String posX, String posY, String order,
+			String contents, String due) {
+		this.pId = Integer.parseInt(pId);
+		this.posX = Integer.parseInt(posX);
+		this.posY = Integer.parseInt(posY);
+		this.order = Integer.parseInt(order);
+		this.contents = contents;
+		this.due = due;
 	}
 
-	public void setqId(Integer qId) {
-		this.qId = qId;
-	}
+//	public Integer getqId() {
+//		return qId;
+//	}
+//
+//	public void setqId(Integer qId) {
+//		this.qId = qId;
+//	}
 
 	public Integer getpId() {
 		return pId;

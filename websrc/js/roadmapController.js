@@ -80,7 +80,7 @@ jQuery(document).ready(function($) {
 });
 
 march4.app.registerController('roadmapController', function($http, $scope, $routeParams) {
-    // {content(string),order(number),due(datetime),pos(x,y)}
+	$scope.testdata = 50;
     $scope.quests = [];
     $scope.newQuest = {};
 
@@ -88,7 +88,7 @@ march4.app.registerController('roadmapController', function($http, $scope, $rout
         console.log($scope.newQuest);
         $scope.quests.push($scope.newQuest);
         
-        var data = {content:$scope.newQuest.content};
+        var data = $scope.newQuest;
         
         $http.post(window.location.pathname, data)
         .success(function (data, status, headers, config) {

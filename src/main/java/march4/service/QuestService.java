@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 public class QuestService {
 	@Autowired private QuestDao questDao;
 	
-	public void insertContentsOnly(Quest quest) {
-		questDao.insertContentsOnly(quest);
+	public void insert(Quest quest) {
+		questDao.insert(quest);
 	}
 	
 	public List<Quest> selectBypID(String pId) {

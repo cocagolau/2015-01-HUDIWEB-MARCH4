@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/projects/{pId}/quests", headers = {"content-type=application/json"})
 public class QuestController {
 	private static final Logger log = LoggerFactory
-			.getLogger(DummyController.class);
+			.getLogger(QuestController.class);
 	
 	@Autowired
 	QuestService q;
@@ -38,7 +38,7 @@ public class QuestController {
 	
 	@RequestMapping(value = {""}, method = RequestMethod.POST, produces="application/json")
 	@ResponseBody
-	public String request(@RequestBody String body) {
+	public String request(@RequestBody String body, @PathVariable String pId) {
 		log.debug("roadmap POST");
 		System.out.println(body);
 		
@@ -47,16 +47,24 @@ public class QuestController {
 		Quest newQuest = null;
 		try {
 			map = mapper.readValue(body, new TypeReference<HashMap<String,String>>(){});
-			System.out.println(map);
 			
-			String content = map.get("content");
+			log.debug(map.toString());
 			
-			newQuest = new Quest(content);
-			q.insertContentsOnly(newQuest);
-			System.out.println("reach at the end of try");
+			newQuest = new Quest(
+					pId,
+					map.get("posX"),
+					map.get("posY"),
+					map.get("order"),
+					map.get("content"),
+					map.get("due")
+			);
+			q.insert(newQuest);
+			
+			log.debug("reach at the end of try");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		System.out.println("reach at the end of method");
 		return "{\"result\":true}";
 	}
