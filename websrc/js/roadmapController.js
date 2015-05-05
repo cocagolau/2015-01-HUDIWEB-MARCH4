@@ -93,6 +93,7 @@ march4.app.$controllerProvider.register('roadmapController', function($http, $sc
         $http.post(window.location.pathname, data)
         .success(function (data, status, headers, config) {
             console.log("good",data, status, headers, config,"!");
+            $scope.getQuests();
         })
         .error(function (data, status, headers, config) {
             console.log("!",data, status, headers, config,"!");
@@ -104,9 +105,5 @@ march4.app.$controllerProvider.register('roadmapController', function($http, $sc
     $scope.getQuests = function() {
     	
     };
-
-    // this.getLastOrder = function() {
-    //     // for()
-    // };
 });
 

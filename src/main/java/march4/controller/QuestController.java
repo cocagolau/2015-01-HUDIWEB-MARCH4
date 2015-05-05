@@ -27,28 +27,12 @@ public class QuestController {
 	
 	@Autowired
 	QuestService q;
-
-//	@RequestMapping(value = {""}, method = RequestMethod.GET)
-//	public String page(ModelMap model) {
-//		log.debug("roadmap GET");
-//		model.addAttribute("dummyName", "default");
-//		return "roadmap";
-//	}
 	
 	@RequestMapping(value = {""}, method = RequestMethod.GET, produces="application/json")
 	@ResponseBody
 	public List<Quest> page(@PathVariable String pId) {
-		System.out.println("test");
-		
+		log.debug("roadmap GET");
 		return q.selectBypID(pId);
-//		return new HashMap<String, Quest>("1", list.get(0));
-		
-//		Map<String, Quest> result = new HashMap<String, Quest>();
-//		int count = 0;
-//		for (Quest q : list) {
-//			result.put(String.valueOf(count), q);
-//		}
-//		return result;
 	}
 	
 	
@@ -69,11 +53,11 @@ public class QuestController {
 			
 			newQuest = new Quest(content);
 			q.insertContentsOnly(newQuest);
-			System.out.println("testqwefohwae;fdjweal;kdf");
+			System.out.println("reach at the end of try");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("!");
+		System.out.println("reach at the end of method");
 		return "{\"result\":true}";
 	}
 }
