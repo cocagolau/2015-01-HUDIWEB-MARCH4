@@ -1,6 +1,5 @@
 (function () {
     'use strict';
-
     march4.app = angular.module('march4', ['ngRoute'], function($controllerProvider){
         march4.app.registerController = function(sName,fController){
             $controllerProvider.register(sName,fController);
@@ -17,8 +16,8 @@
     	$scope.email = "dummyUser@gmail.com";
     	$scope.user = {
     		avatarImg	: $scope.avatarImg,
-			name 		: $scope.name,
-			email 		: $scope.email
-    	};
+            name 		: $scope.name,
+            email 		: $scope.email
+        };
     });
 }());
