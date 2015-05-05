@@ -9,33 +9,53 @@
     <link rel="stylesheet" href="<%- cssDir %>/style.css" />
     <script src="<%- jsLibDir %>/<%- jsLibFile %>"></script>
     <script src="<%- jsDir %>/namespaces.js"></script>
+    <script src="<%- jsDir %>/main.js"></script>
     <script src="<%- jsDir %>/urlMapping.js"></script>
     <base href="/">
 </head>
 
 <body ng-app="march4">
-    <header id="main-header">
-        <h1>March4</h1>
-        <nav id="main-navigation">
-            <ul>
-                <li><a href="/">Home</a>
-                </li>
-                <li><a href="/user/1">User</a>
-                </li>
-                <li><a href="/world/1">World : my</a>
-                </li>
-                <li><a href="/world/my">World : my</a>
-                </li>
-                <li><a href="/building">building</a>
-                </li>
-                <li><a href="/projects/1/quests">dummy roadmap</a></li>
-                <li><a href="/dummy/1">dummy</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
-    <main ng-view></main>
+    <section ng-controller="mainController">
+        <header id="main-header">
+            <div class="wrap">
+                <h1 id="main-title">
+                    <a href="/">March4</a>
+                </h1>
+                
+                <section id="user-information" ng-controller="userController">
+                    <figure>
+                        <div class="avatar">
+                            <img width="32" height="32" src="{{user.avatarImg}}" alt="{{user.name}}">
+                        </div>
+                        <figcaption>
+                            <span class="name">{{user.name}}</span><br />
+                            <span class="email">{{user.email}}</span>
+                        </figcaption>
+                    </figure>
+                </section>
+                <!--//user-->
+
+                <nav id="main-navigation">
+                    <ul>
+                        <li><a href="/">Home</a>
+                        </li>
+                        <li><a href="/user/1">User</a>
+                        </li>
+                        <li><a href="/world/1">World : my</a>
+                        </li>
+                        <li><a href="/world/my">World : my</a>
+                        </li>
+                        <li><a href="/building">building</a>
+                        </li>
+                        <li><a href="/dummy/1">dummy</a>
+                        </li>
+                    </ul>
+                </nav>
+                <!--//navigation-->
+            </div>
+        </header>
+        <main ng-view></main>
+    </section>
     <%=liveReload%>
 </body>
-
 </html>

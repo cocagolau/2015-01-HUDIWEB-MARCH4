@@ -1,3 +1,3 @@
-march4.app.$controllerProvider.register('dummyController',function($scope,$routeParams){
+march4.app.registerController('dummyController',function($scope,$routeParams){
 	$scope.dummyId = $routeParams.dummyId;
 });
