@@ -10,14 +10,11 @@
     	$scope.user = {};
     });
 
-    march4.app.controller('userController',function($scope){
-    	$scope.avatarImg = "http://www.placehold.it/32x32";
-    	$scope.name = "dummyUser";
-    	$scope.email = "dummyUser@gmail.com";
-    	$scope.user = {
-    		avatarImg	: $scope.avatarImg,
-            name 		: $scope.name,
-            email 		: $scope.email
+    march4.app.controller('userController',function($scope,$rootScope){
+    	$scope.$parent.user = {
+            avatarImg	: "http://www.placehold.it/32x32",
+            name 		: "dummyUser",
+            email 		: "dummyUser@gmail.com"
         };
     });
 }());

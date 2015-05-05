@@ -1,9 +1,11 @@
 <link rel="stylesheet" href="<%- cssDir %>/dummy.css" />
 <h2>dummy</h2>
-<div>
-	dummyId : {{dummyId}}
-	<button ng-click="openPanel()">Open Panel</button>
-	<section class="panel" id="project-panel" ng-include="string" onload="string">
-		
+<span>dummyId : {{dummyId}}</span><br />
+
+<button ng-repeat="panel in panels" ng-click="openPanel(panel.ID)">Open Panel</button>
+
+<div class="perspective">
+	<section class="panel" id="dummy-panel" ng-include="'/div/dummyPanel'" ng-class="{active: panelOpened}">
+
 	</section>
-e</div>
+</div>

@@ -24,12 +24,7 @@
                 controller: 'frontpageController',
                 resolve: addControllerJs()
             })
-            .when('/world', {
-                templateUrl: '/div/world',
-                controller: 'worldController',
-                resolve: addControllerJs()
-            })
-            .when('/world/:worldId', {
+            .when('/world/:worldId?', {
                 templateUrl: '/div/world',
                 controller: 'worldController',
                 resolve: addControllerJs()
@@ -39,7 +34,7 @@
                 controller: 'buildingController',
                 resolve: addControllerJs()
             })
-            .when('/dummy/:dummyId', {
+            .when('/dummy/:dummyId?/:panel?/:panelId?', {
                 templateUrl: '/div/dummy',
                 controller: 'dummyController',
                 resolve: addControllerJs()
@@ -49,6 +44,18 @@
             });
 
 
-        $locationProvider.html5Mode(true).hashPrefix('!');      
+        $locationProvider.html5Mode(true).hashPrefix('!');
+    }]);
+
+    march4.app.run(['$route', '$rootScope', '$location', function ($route, $rootScope, $location) {
+        march4.util.setPathNoReloading = function (path) {
+            var lastRoute = $route.current;
+            var un = $rootScope.$on('$locationChangeSuccess', function () {
+                $route.current = lastRoute;
+                un();
+            });
+
+            return $location.path(path);
+        };
     }]);
 }());
