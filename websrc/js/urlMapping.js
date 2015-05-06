@@ -37,6 +37,11 @@
                 controller: 'buildingController',
                 resolve: addControllerJs()
             })
+            .when('/projects/:pId/quests', {
+            	templateUrl: '/div/roadmap',
+            	controller: 'roadmapController',
+            	resolve: addControllerJs()
+            })
             .when('/dummy/:dummyId', {
                 templateUrl: '/div/dummy',
                 controller: 'dummyController',

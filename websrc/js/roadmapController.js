@@ -79,27 +79,51 @@ jQuery(document).ready(function($) {
     };
 });
 
-angular.module('roadmap', [])
-.controller('roadmapCtrl', function($http) {
-    // {content(string),order(number),due(datetime),pos(x,y)}
-    this.quests = [];
-    this.newQuest = {};
+march4.app.registerController('roadmapController', function($http, $scope, $routeParams) {
+	$scope.testdata = 50;
+    $scope.quests = [];
+    $scope.newQuest = {};
+    $scope.path = window.location.pathname;
 
-    this.addQuest = function() {
-        console.log(this.newQuest);
-        this.quests.push(this.newQuest);
+    $scope.addQuest = function() {
+        console.log($scope.newQuest);
+        $scope.quests.push($scope.newQuest);
         
-        var data = {content:this.newQuest.content};
-        $http.post(window.location.pathname, data)
+        var data = $scope.newQuest;
+        
+        $http.post($scope.path, data)
         .success(function (data, status, headers, config) {
+        	console.log("post good", status,"!");
+            console.log(data);
+            console.log(headers);
+            console.log(config);
+            $scope.showQuests();
         })
         .error(function (data, status, headers, config) {
-        	alert("AJAX failed!");
+        	console.log("post bad", status,"!");
+            console.log(data);
+            console.log(headers);
+            console.log(config);
         });
-        this.newQuest = {};
+        
+        $scope.newQuest = {};
     };
-
-    // this.getLastOrder = function() {
-    //     // for()
-    // };
+    
+    $scope.showQuests = function() {
+    	console.log('getting quests');
+    	$http.get($scope.path)
+    	.success(function (data, status, headers, config) {
+            console.log("get good", status,"!");
+            console.log(data);
+            console.log(headers);
+            console.log(config);
+        })
+        .error(function (data, status, headers, config) {
+        	console.log("get bad", status,"!");
+            console.log(data);
+            console.log(headers);
+            console.log(config);
+        });
+    };
 });
+

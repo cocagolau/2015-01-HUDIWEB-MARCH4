@@ -27,17 +27,11 @@ public class QuestDao {
 	}
 
 	public int insert(Quest quest) {
-		String sql = "insert into quest values (?, ?, ?, ?, ?, ?, ?)";
-		jdbcTemplate.update(sql, quest.getqId(), quest.getpId(), 
+		System.out.println("hi");
+		String sql = "insert into quest values (NULL, ?, ?, ?, ?, ?, ?)";
+		jdbcTemplate.update(sql, quest.getpId(), 
 				quest.getPosX(), quest.getPosY(), quest.getOrder(), quest.getContents(), quest.getDue());
 		return 0; // lastInsertId(); 가져와서 Quest.setId(); 하고 싶음.
-	}
-	
-	public void insertContentsOnly(Quest quest) {
-		System.out.println("questdao");
-		System.out.println(quest.getContents());
-		String sql = "insert into quest (contents) values(?)";
-		jdbcTemplate.update(sql, quest.getContents());
 	}
 
 	public Quest select(int qId) {
@@ -56,4 +50,13 @@ public class QuestDao {
 		List<Quest> quests = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Quest>(Quest.class));
 		return quests;
 	}
+	
+	
+	public List<Quest> selectBypID(String pId) {
+		String sql = "select * from quest where pId = "+pId;
+		List<Quest> quests = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Quest>(Quest.class));
+		return quests;
+	}
+	
+	
 }

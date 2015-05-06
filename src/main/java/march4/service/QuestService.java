@@ -1,5 +1,7 @@
 package march4.service;
 
+import java.util.List;
+
 import march4.dao.QuestDao;
 import march4.model.Quest;
 
@@ -10,7 +12,11 @@ import org.springframework.stereotype.Service;
 public class QuestService {
 	@Autowired private QuestDao questDao;
 	
-	public void insertContentsOnly(Quest quest) {
-		questDao.insertContentsOnly(quest);
+	public void insert(Quest quest) {
+		questDao.insert(quest);
+	}
+	
+	public List<Quest> selectBypID(String pId) {
+		return questDao.selectBypID(pId);
 	}
 }
