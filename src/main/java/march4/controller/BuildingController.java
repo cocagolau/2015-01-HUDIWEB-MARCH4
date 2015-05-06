@@ -52,6 +52,9 @@ public class BuildingController {
 		log.debug("name : {}", map.get("name"));
 		
 		log.debug("빌띵이 들어간다!!!!");
+		
+		//여기에서 
+		
 		Building building = new Building(Integer.parseInt(map.get("uid")), map.get("name"), map.get("shared"));
 		buildingService.addBuilding(building);
 	}
@@ -76,7 +79,6 @@ public class BuildingController {
 			log.debug("빌딩을 삭제하지 못했어!! 난 무능한 서버야!!");
 		}
 		return "false";
-			
 	}
 	
 	

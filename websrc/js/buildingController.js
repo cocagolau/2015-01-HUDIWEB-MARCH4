@@ -11,16 +11,15 @@ march4.app.registerController('buildingController', function ($scope, $window, $
         }
     };
 
-    $scope.myStyle = function (no) {
+    $scope.setPosition = function () {
         var col = parseInt($(".buildingArea").outerWidth(true) / ($scope.pageSet.buildingBox.x + $scope.pageSet.buildingBox.margin));
 
-        var posX = parseInt(no % col) * $scope.pageSet.buildingBox.x + $scope.pageSet.buildingBox.margin * parseInt(no % col);
-        var posY = parseInt(no / col) * $scope.pageSet.buildingBox.y + $scope.pageSet.buildingBox.margin * parseInt(no / col);
-
-        return {
-            left: posX + "px",
-            top: posY + "px"
-        }
+        for (var i = 0; i < $(".buildingArea li").size(); i++) {
+            var posX = parseInt(i % col) * $scope.pageSet.buildingBox.x + $scope.pageSet.buildingBox.margin * parseInt(i % col);
+            var posY = parseInt(i / col) * $scope.pageSet.buildingBox.y + $scope.pageSet.buildingBox.margin * parseInt(i / col);
+            $(".buildingArea li").eq(i).css("left", posX);
+            $(".buildingArea li").eq(i).css("top", posY);
+        };
     };
 
     $scope.recalc = function (no) {
@@ -28,7 +27,6 @@ march4.app.registerController('buildingController', function ($scope, $window, $
             $scope.Buildings[i].no = i;
         }
     };
-
 
     //빌딩의 소유자를 보낸다. 
     $scope.default = function () {
@@ -38,17 +36,18 @@ march4.app.registerController('buildingController', function ($scope, $window, $
             data: $scope.data
         }).
         success(function (data, status, headers, config) {
-            //$window.location.replace('/dummy/ajax');
+            console.log(data);
             $scope.Buildings = data;
             for (var i = 0; i < $scope.Buildings.length; i++) {
                 (function (i) {
                     $scope.Buildings[i].hide = true;
-                    $scope.Buildings[i].no = i;
                     $timeout(function () {
                         $scope.Buildings[i].hide = false;
                     }, i * 150);
                 })(i);
-            }
+            };
+            $timeout($scope.setPosition, 0);
+
         }).
         error(function (data, status, headers, config) {
             if (status == 400) {
@@ -66,11 +65,9 @@ march4.app.registerController('buildingController', function ($scope, $window, $
             data: $scope.addData
         }).
         success(function (data, status, headers, config) {
-            $scope.default();
-            //$scope.Buildings.push($scope.data);
-            //$scope.Buildings[$scope.Buildings.length - 1].hide = true;
-            //$scope.Buildings[$scope.Buildings.length - 1].no = $scope.Buildings.length - 1;
-            //$scope.Buildings[$scope.Buildings.length - 1].hide = false;
+            debugger;
+            $scope.Buildings.push($scope.addData);
+            $timeout($scope.setPosition, 0);
         }).
         error(function (data, status, headers, config) {
             if (status == 400) {
@@ -81,7 +78,7 @@ march4.app.registerController('buildingController', function ($scope, $window, $
         });
     };
 
-    $scope.del = function (pid, no) {
+    $scope.del = function (pid, e) {
         $scope.delData.pid = pid;
         $http({
             method: 'POST',
@@ -89,10 +86,12 @@ march4.app.registerController('buildingController', function ($scope, $window, $
             data: $scope.delData
         }).
         success(function (data, status, headers, config) {
-            if (data) {
-                //debugger;
-                $scope.Buildings[no].delete = true;
-            }
+            $(e.target.parentElement).css("margin-top", 100);
+            $(e.target.parentElement).css("opacity", 0);
+            $timeout(function () {
+                e.target.parentElement.remove();
+                $timeout($scope.setPosition, 0);
+            }, 150);
         }).
         error(function (data, status, headers, config) {
             if (status == 400) {
@@ -102,4 +101,13 @@ march4.app.registerController('buildingController', function ($scope, $window, $
             }
         });
     };
+
+    $scope.resizeId;
+    $(window).resize(function () {
+        if ($scope.resizeId) $timeout.cancel($scope.resizeId);
+
+        $scope.resizeId = $timeout(function () {
+            $timeout($scope.setPosition, 0);
+        }, 500)
+    });
 });
