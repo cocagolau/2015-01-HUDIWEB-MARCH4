@@ -37,7 +37,7 @@
                 controller: 'buildingController',
                 resolve: addControllerJs()
             })
-            .when('/projects/:pId/quests', {
+            .when('/projects/:pId/quests/new', {
             	templateUrl: '/div/roadmap',
             	controller: 'roadmapController',
             	resolve: addControllerJs()

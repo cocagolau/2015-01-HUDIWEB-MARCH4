@@ -83,6 +83,7 @@ march4.app.registerController('roadmapController', function($http, $scope, $rout
 	$scope.testdata = 50;
     $scope.quests = [];
     $scope.newQuest = {};
+    $scope.path = window.location.pathname.split('/').slice(0,-1).join('/');
 
     $scope.addQuest = function() {
         console.log($scope.newQuest);
@@ -90,20 +91,39 @@ march4.app.registerController('roadmapController', function($http, $scope, $rout
         
         var data = $scope.newQuest;
         
-        $http.post(window.location.pathname, data)
+        $http.post($scope.path, data)
         .success(function (data, status, headers, config) {
-            console.log("good",data, status, headers, config,"!");
-            $scope.getQuests();
+        	console.log("post good", status,"!");
+            console.log(data);
+            console.log(headers);
+            console.log(config);
+            $scope.showQuests();
         })
         .error(function (data, status, headers, config) {
-            console.log("!",data, status, headers, config,"!");
+        	console.log("post bad", status,"!");
+            console.log(data);
+            console.log(headers);
+            console.log(config);
         });
         
         $scope.newQuest = {};
     };
     
-    $scope.getQuests = function() {
-    	
+    $scope.showQuests = function() {
+    	console.log('getting quests');
+    	$http.get($scope.path)
+    	.success(function (data, status, headers, config) {
+            console.log("get good", status,"!");
+            console.log(data);
+            console.log(headers);
+            console.log(config);
+        })
+        .error(function (data, status, headers, config) {
+        	console.log("get bad", status,"!");
+            console.log(data);
+            console.log(headers);
+            console.log(config);
+        });
     };
 });
 
