@@ -83,7 +83,7 @@ march4.app.registerController('roadmapController', function($http, $scope, $rout
 	$scope.testdata = 50;
     $scope.quests = [];
     $scope.newQuest = {};
-    $scope.path = window.location.pathname.split('/').slice(0,-1).join('/');
+    $scope.path = window.location.pathname;
 
     $scope.addQuest = function() {
         console.log($scope.newQuest);

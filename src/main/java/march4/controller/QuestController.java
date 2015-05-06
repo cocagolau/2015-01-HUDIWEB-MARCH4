@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-//@RequestMapping(value = "/projects/{pId}/quests", headers = {"content-type=application/json"})
 @RequestMapping(value = "/projects/{pId}/quests")
+@ResponseBody
 public class QuestController {
 	private static final Logger log = LoggerFactory
 			.getLogger(QuestController.class);
@@ -30,10 +30,9 @@ public class QuestController {
 	@Autowired
 	QuestService q;
 	
-	@RequestMapping(value = {""}, method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
+	@RequestMapping(value = {""}, method = RequestMethod.GET, headers = {"content-type=text/plain"}, produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<Quest> get(@PathVariable("pId") String pId) {
-		log.debug("roadmap get", pId);
+		log.debug("roadmap GET", pId);
 		return q.selectBypID(pId);
 	}
 	
@@ -45,14 +44,7 @@ public class QuestController {
 //		return q.selectByqID(pId, qId);
 //	}
 	
-//	@RequestMapping(value = {"/new"}, method = RequestMethod.GET)
-//	@ResponseBody
-//	public String getNewForm() {
-//		return "index"; // ??
-//	}
-	
 	@RequestMapping(value = {""}, method = RequestMethod.POST, headers = {"content-type=application/json"}, produces=MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
 	public String request(@RequestBody String body, @PathVariable String pId) {
 		log.debug("roadmap POST");
 		System.out.println(body);
