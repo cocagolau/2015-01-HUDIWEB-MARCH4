@@ -66,7 +66,7 @@ march4.app.registerController('buildingController', function ($scope, $window, $
         }).
         success(function (data, status, headers, config) {
             debugger;
-            $scope.Buildings.push($scope.addData);
+            $scope.Buildings.push(data);
             $timeout($scope.setPosition, 0);
         }).
         error(function (data, status, headers, config) {
@@ -78,7 +78,7 @@ march4.app.registerController('buildingController', function ($scope, $window, $
         });
     };
 
-    $scope.del = function (pid, e) {
+    $scope.del = function (pid, e, i) {
         $scope.delData.pid = pid;
         $http({
             method: 'POST',
@@ -86,10 +86,11 @@ march4.app.registerController('buildingController', function ($scope, $window, $
             data: $scope.delData
         }).
         success(function (data, status, headers, config) {
+            debugger;
             $(e.target.parentElement).css("margin-top", 100);
             $(e.target.parentElement).css("opacity", 0);
             $timeout(function () {
-                e.target.parentElement.remove();
+                $scope.Buildings.splice(i, 1);
                 $timeout($scope.setPosition, 0);
             }, 150);
         }).

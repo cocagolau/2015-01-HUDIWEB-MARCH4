@@ -39,7 +39,7 @@ public class BuildingController {
 	
 	@ResponseStatus(value = HttpStatus.OK)
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public void addBuilding(@RequestBody String body, ModelMap model) {
+	public @ResponseBody Building addBuilding(@RequestBody String body, ModelMap model) {
 		log.debug("빌띵이 올라온다!!");
 		Map<String,String> map = new HashMap<String,String>();
 		ObjectMapper mapper = new ObjectMapper();
@@ -53,10 +53,14 @@ public class BuildingController {
 		
 		log.debug("빌띵이 들어간다!!!!");
 		
-		//여기에서 
-		
 		Building building = new Building(Integer.parseInt(map.get("uid")), map.get("name"), map.get("shared"));
 		buildingService.addBuilding(building);
+		
+		//pid를 받아온다.
+		Building addBuilding = new Building(buildingService.getLastpId(), Integer.parseInt(map.get("uid")), map.get("name"), map.get("shared"));
+		//받아온 pid와 나머지 정보 조합하여 building만듬.
+		return addBuilding;
+		//그리고 그거 리턴.
 	}
 	
 	@ResponseStatus(value = HttpStatus.OK)

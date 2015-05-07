@@ -34,4 +34,9 @@ public class BuildingDao {
 				new BeanPropertyRowMapper<Building>(Building.class));
 		return building;
 	}
+	
+	public Integer getLastpid() {
+		String sql = "select last_insert_id() as pid";
+		return jdbcTemplate.queryForObject(sql, Integer.class);
+	}
 }
