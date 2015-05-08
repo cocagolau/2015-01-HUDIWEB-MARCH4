@@ -2,7 +2,6 @@ march4.app.registerController('buildingController', function ($scope, $window, $
     $scope.data = {};
     $scope.addData = {};
     $scope.delData = {};
-
     $scope.pageSet = {
         buildingBox: {
             x: 200,
@@ -10,7 +9,32 @@ march4.app.registerController('buildingController', function ($scope, $window, $
             margin: 20
         }
     };
+    
+    
+    $scope.dummyId = $routeParams.dummyId;
+	$scope.panelOpened = ($routeParams.panel == "panel");
+	$scope.panelID = $routeParams.panelId;
+    $scope.panels = [
+		{ID:0},{ID:1},{ID:2},{ID:3},{ID:4},{ID:5},{ID:6},{ID:7},{ID:8},{ID:9}
+	];
+    
+    $scope.openPanel = function(index){
+		if(index === undefined) return;
 
+		if(!$scope.panelOpened){
+			march4.util.setPathNoReloading($location.path().match(/(.*?)\/?$/)[1]+"/panel/"+index);
+			$scope.panelOpened = true;
+			$scope.panelID = index;
+		}
+	};
+
+	$scope.closePanel = function(){
+		if($scope.panelOpened){
+			march4.util.setPathNoReloading($location.path().replace(/\/panel\/.*/g,""));
+			$scope.panelOpened = false;
+		}
+	};
+    
     $scope.setPosition = function () {
         var col = parseInt($(".buildingArea").outerWidth(true) / ($scope.pageSet.buildingBox.x + $scope.pageSet.buildingBox.margin));
 
@@ -67,6 +91,12 @@ march4.app.registerController('buildingController', function ($scope, $window, $
         success(function (data, status, headers, config) {
             debugger;
             $scope.Buildings.push(data);
+            
+            $timeout(function () {
+                console.log("kuku");
+                $scope.Buildings[$scope.Buildings.length - 1].hide = true;
+                $scope.Buildings[$scope.Buildings.length - 1].hide = false;
+            }, 0);
             $timeout($scope.setPosition, 0);
         }).
         error(function (data, status, headers, config) {
@@ -86,7 +116,6 @@ march4.app.registerController('buildingController', function ($scope, $window, $
             data: $scope.delData
         }).
         success(function (data, status, headers, config) {
-            debugger;
             $(e.target.parentElement).css("margin-top", 100);
             $(e.target.parentElement).css("opacity", 0);
             $timeout(function () {
@@ -111,4 +140,8 @@ march4.app.registerController('buildingController', function ($scope, $window, $
             $timeout($scope.setPosition, 0);
         }, 500)
     });
+});
+
+march4.app.registerController('panelController',function($scope,$routeParams){
+
 });
