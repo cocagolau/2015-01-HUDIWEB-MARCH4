@@ -29,7 +29,7 @@
                 controller: 'worldController',
                 resolve: addControllerJs()
             })
-            .when('/building', {
+            .when('/building/:dummyId?', {
                 templateUrl: '/div/building',
                 controller: 'buildingController',
                 resolve: addControllerJs()

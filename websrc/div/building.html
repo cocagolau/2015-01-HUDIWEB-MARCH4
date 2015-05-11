@@ -1,39 +1,35 @@
 <link rel="stylesheet" href="<%- cssDir %>/building.css" />
-
-<div>
-    <div>
-        <label>uid : </label>
-        <input ng-model="data.uid" type="text">
-    </div>
-    <div>
-        <input ng-click="default()" type="button" value="빌딩소환!!">
+<div class="bd-addform bd-effect" ng-class="{bd_show : floatingForm.show}">
+    <div class="bd-content">
+        <h3>Create Building</h3>
+        <div>
+            <div>
+                <label>Name : </label>
+                <input ng-model="addData.name" type="text">
+            </div>
+            <div>
+                <label>shared : </label>
+                <input ng-model="addData.shared" type="text">
+            </div>
+            <div>
+                <input ng-click="add()" type="button" value="빌딩입력!!">
+            </div>
+        </div>
     </div>
 </div>
-
 <div>
-    <div>
-        <label>uid : </label>
-        <input ng-model="addData.uid" type="text">
-    </div>
-    <div>
-        <label>name : </label>
-        <input ng-model="addData.name" type="text">
-    </div>
-    <div>
-        <label>shared : </label>
-        <input ng-model="addData.shared" type="text">
-    </div>
-    <div>
-        <input ng-click="add()" type="button" value="빌딩입력!!">
-    </div>
-</div> 
-<ul class="buildingArea">
-    <li ng-repeat="Building in Buildings" class="ani" ng-class="{buildingBox : true, hide : Building.hide, delete : Building.delete}">
-        pid : {{Building.pid}}
-        <br> uid : {{Building.uid}}
-        <br> name : {{Building.name}}
-        <br> shared : {{Building.shared}}
-        <br>
-        <input ng-click="del(Building.pid, $event, $index)" type="button" value="삭제">
-    </li>
-</ul>
+    <button ng-click="openFloatingForm()">빌딩추가</button>
+</div>
+<div class="bd-overlay" ng-click="closeFloatingForm()"></div>
+<div>
+    <ul class="buildingArea">
+        <li ng-repeat="Building in Buildings" class="ani buildingBox" ng-class="{hide : Building.hide, delete : Building.delete}">
+            pid : {{Building.pid}}
+            <br> uid : {{Building.uid}}
+            <br> name : {{Building.name}}
+            <br> shared : {{Building.shared}}
+            <br>
+            <input ng-click="del(Building.pid, $event, $index)" type="button" value="삭제">
+        </li>
+    </ul>
+</div>

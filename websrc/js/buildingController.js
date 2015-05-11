@@ -1,7 +1,10 @@
-march4.app.registerController('buildingController', function ($scope, $window, $http, $timeout) {
+march4.app.registerController('buildingController', function ($scope, $window, $http, $timeout, $routeParams) {
     $scope.data = {};
     $scope.addData = {};
     $scope.delData = {};
+    $scope.floatingForm = {
+        show: false
+    };
     $scope.pageSet = {
         buildingBox: {
             x: 200,
@@ -11,7 +14,7 @@ march4.app.registerController('buildingController', function ($scope, $window, $
     };
     
     
-    $scope.dummyId = $routeParams.dummyId;
+    $scope.uid = { "uid" : $routeParams.dummyId };
 	$scope.panelOpened = ($routeParams.panel == "panel");
 	$scope.panelID = $routeParams.panelId;
     $scope.panels = [
@@ -52,12 +55,11 @@ march4.app.registerController('buildingController', function ($scope, $window, $
         }
     };
 
-    //빌딩의 소유자를 보낸다. 
     $scope.default = function () {
         $http({
             method: 'POST',
             url: '/building/default',
-            data: $scope.data
+            data: $scope.uid
         }).
         success(function (data, status, headers, config) {
             console.log(data);
@@ -83,13 +85,13 @@ march4.app.registerController('buildingController', function ($scope, $window, $
     };
 
     $scope.add = function () {
+        $scope.addData.uid = $scope.uid.uid;
         $http({
             method: 'POST',
             url: '/building/add',
             data: $scope.addData
         }).
         success(function (data, status, headers, config) {
-            debugger;
             $scope.Buildings.push(data);
             
             $timeout(function () {
@@ -140,7 +142,25 @@ march4.app.registerController('buildingController', function ($scope, $window, $
             $timeout($scope.setPosition, 0);
         }, 500)
     });
+    
+    $scope.openFloatingForm = function (){
+        $scope.floatingForm.show = true;
+        $(".bd-overlay").css("visibility", "visible");
+        $(".bd-overlay").css("opacity", 1);
+        
+        $("body").css("filter", "blur(3px)");
+    }
+    
+    $scope.closeFloatingForm = function(){
+        $scope.floatingForm.show = false;
+        $(".bd-overlay").css("visibility", "hidden");
+        $(".bd-overlay").css("opacity", 0);
+    }
+    
+    $scope.default();
 });
+
+
 
 march4.app.registerController('panelController',function($scope,$routeParams){
 
