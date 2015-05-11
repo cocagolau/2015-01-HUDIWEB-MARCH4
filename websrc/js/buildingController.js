@@ -95,7 +95,6 @@ march4.app.registerController('buildingController', function ($scope, $window, $
             $scope.Buildings.push(data);
             
             $timeout(function () {
-                console.log("kuku");
                 $scope.Buildings[$scope.Buildings.length - 1].hide = true;
                 $scope.Buildings[$scope.Buildings.length - 1].hide = false;
             }, 0);
@@ -147,14 +146,16 @@ march4.app.registerController('buildingController', function ($scope, $window, $
         $scope.floatingForm.show = true;
         $(".bd-overlay").css("visibility", "visible");
         $(".bd-overlay").css("opacity", 1);
-        
-        $("body").css("filter", "blur(3px)");
+        $("header").addClass("blur");
+        $(".bd-overlay ~ div").addClass("blur");
     }
     
     $scope.closeFloatingForm = function(){
         $scope.floatingForm.show = false;
         $(".bd-overlay").css("visibility", "hidden");
         $(".bd-overlay").css("opacity", 0);
+        $("header").removeClass("blur");
+        $(".bd-overlay ~ div").removeClass("blur");
     }
     
     $scope.default();
