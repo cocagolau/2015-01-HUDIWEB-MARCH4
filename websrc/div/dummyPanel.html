@@ -1,0 +1,15 @@
+<link rel="stylesheet" href="<%- cssDir %>/dummyPanel.css" />
+<div ng-controller="panelController" class="dummy-panel">
+	<button class="close" ng-click="$parent.closePanel()">Close</button>
+	<h3>panel</h3>
+	<dl>
+		<dt>panel ID</dt>
+		<dd>{{panelID}}</dd>
+		<dt>user name</dt>
+		<dd>{{user.name}}</dd>
+		<dt>user email</dt>
+		<dd>{{user.email}}</dd>
+		<dt></dt>
+		<dd></dd>
+	</dl>
+</div>

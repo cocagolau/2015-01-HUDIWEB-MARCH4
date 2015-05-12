@@ -1,5 +1,6 @@
 (function(){
     'use strict';
+
     march4.app.registerController('buildingController',function ($scope, $window, $http, $timeout) {
         $scope.data = {};
         $scope.addData = {};

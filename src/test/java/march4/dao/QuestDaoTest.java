@@ -30,7 +30,7 @@ public class QuestDaoTest {
 	public void dataSource(){
 		assertNotNull(dataSource);
 	}
-	
+
 	@Test
 	public void insert() {
 		Quest quest = new Quest(1, 0, 0, 1, "tt", "2015-01-01 00:00:00");
