@@ -1,5 +1,5 @@
 <form ng-submit="addQuest()">
-	<label>내용</label> <input ng-model="newQuest.content" name="content" type="text">
+	<label>내용</label> <input ng-model="newQuest.contents" name="contents" type="text">
 	<!-- [type=datetime-local]은 mysql.datetime 이랑 형식이 달라서 불편. 일단 text 로 테스트.
 	<label>마감</label> <input ng-model="newQuest.due" name="due" type="datetime-local"> -->
 	<label>마감</label> <input ng-model="newQuest.due" name="due" type="text">
@@ -17,13 +17,13 @@
 </form>
 <ul class="sortableContainer">
 	<p>
-	<span>{{newQuest.content}}</span>
+	<span>{{newQuest.contents}}</span>
 	<span>{{newQuest.due}}</span>
 	순서
 	<span>{{newQuest.order}}</span>
 	번째
 	</p>
 	<li class="sortable" ng-repeat="quest in quests">
-	<span>{{quest.content}}</span>
+	<span>{{quest.contents}}</span>
 	<span>{{quest.due}}</span></li>
 </ul>
