@@ -80,10 +80,13 @@ jQuery(document).ready(function($) {
 });
 
 march4.app.registerController('roadmapController', function($http, $scope, $routeParams) {
-	$scope.testdata = 50;
+	$scope.lastId = 0;
     $scope.quests = [];
-    $scope.newQuest = {};
     $scope.path = window.location.pathname;
+    
+    $scope.initQuests = function() {
+    	$scope.newQuest = {order:++($scope.lastId)};
+    };
 
     $scope.addQuest = function() {
         console.log($scope.newQuest);
@@ -106,7 +109,7 @@ march4.app.registerController('roadmapController', function($http, $scope, $rout
             console.log(config);
         });
         
-        $scope.newQuest = {};
+        $scope.initQuests();
     };
     
     $scope.showQuests = function() {
@@ -125,5 +128,13 @@ march4.app.registerController('roadmapController', function($http, $scope, $rout
             console.log(config);
         });
     };
+    
+    $scope.init = function() {
+    	$scope.showQuests();
+    	$scope.initQuests();
+    };
+    
+    $scope.init();
+    
 });
 

@@ -8,12 +8,21 @@
 	<input ng-model="newQuest.posY" name="posY" type="hidden" ng-value="testdata">
 	<input ng-model="newQuest.order" name="order" type="hidden" ng-value="testdata">
 	-->
+	<label>위치</label> 
 	<input ng-model="newQuest.posX" name="posX" type="number">
 	<input ng-model="newQuest.posY" name="posY" type="number">
-	<input ng-model="newQuest.order" name="order" type="number">
+	<input ng-model="newQuest.order" name="order" type="number" style="display:none;" ng-value="$scope.lastId">
+	<!-- <input ng-model="newQuest.order" name="order" type="hidden" ng-value="getOrder(newQuest.due)"> -->
 	<input type="submit">
 </form>
 <ul class="sortableContainer">
+	<p>
+	<span>{{newQuest.content}}</span>
+	<span>{{newQuest.due}}</span>
+	순서
+	<span>{{newQuest.order}}</span>
+	번째
+	</p>
 	<li class="sortable" ng-repeat="quest in quests">
 	<span>{{quest.content}}</span>
 	<span>{{quest.due}}</span></li>
