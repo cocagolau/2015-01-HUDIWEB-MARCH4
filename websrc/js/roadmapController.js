@@ -80,12 +80,13 @@ jQuery(document).ready(function($) {
 });
 
 march4.app.registerController('roadmapController', function($http, $scope, $routeParams) {
-	$scope.lastId = 0;
+	$scope.lastOrder = 0;
     $scope.quests = [];
     $scope.path = '/api'+window.location.pathname;
     
     $scope.initQuests = function() {
-    	$scope.newQuest = {order:++($scope.lastId)};
+    	console.log('init', $scope.lastOrder);
+    	$scope.newQuest = {order:++($scope.lastOrder)};
     };
 
     $scope.addQuest = function() {
@@ -115,16 +116,21 @@ march4.app.registerController('roadmapController', function($http, $scope, $rout
             console.log("get good", status,"!");
             console.log(data);
             $scope.quests = data;
+            $scope.lastOrder = data[data.length-1].order;
+            console.log('show', $scope.lastOrder);
+            
+            $scope.initQuests();
         })
         .error(function (data, status, headers, config) {
         	console.log("get bad", status,"!");
             console.log(data);
+            
+            $scope.initQuests();
         });
     };
     
     $scope.init = function() {
     	$scope.showQuests();
-    	$scope.initQuests();
     };
     
     $scope.init();
