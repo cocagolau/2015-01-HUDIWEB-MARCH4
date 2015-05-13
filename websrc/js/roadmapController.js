@@ -2,8 +2,16 @@
 * 무조건 insertBefore여서 맨 밑으로 안 들어가짐
 * 삭제, 수정 구현
 */
+$(document).ready(function(){
+    console.log('document ready');
+});
+$(window).load(function(){
+	console.log('window load');
+});
 
-jQuery(document).ready(function($) {
+function jquerythings() {
+	
+jQuery('main').ready(function($) {
     $('.sortableContainer').on('mousedown', '.sortable', function(e) {
         e.stopPropagation();
         e.preventDefault();
@@ -79,6 +87,8 @@ jQuery(document).ready(function($) {
     };
 });
 
+};
+
 march4.app.registerController('roadmapController', function($http, $scope, $routeParams) {
 	$scope.lastOrder = 0;
     $scope.quests = [];
@@ -134,6 +144,6 @@ march4.app.registerController('roadmapController', function($http, $scope, $rout
     };
     
     $scope.init();
-    
+    $scope.$on('$viewContentLoaded', jquerythings);
 });
 
