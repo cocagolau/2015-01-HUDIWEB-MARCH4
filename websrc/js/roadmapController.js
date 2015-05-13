@@ -98,15 +98,11 @@ march4.app.registerController('roadmapController', function($http, $scope, $rout
         .success(function (data, status, headers, config) {
         	console.log("post good", status,"!");
             console.log(data);
-            console.log(headers);
-            console.log(config);
             $scope.showQuests();
         })
         .error(function (data, status, headers, config) {
         	console.log("post bad", status,"!");
             console.log(data);
-            console.log(headers);
-            console.log(config);
         });
         
         $scope.initQuests();
@@ -118,14 +114,11 @@ march4.app.registerController('roadmapController', function($http, $scope, $rout
     	.success(function (data, status, headers, config) {
             console.log("get good", status,"!");
             console.log(data);
-            console.log(headers);
-            console.log(config);
+            $scope.quests = data;
         })
         .error(function (data, status, headers, config) {
         	console.log("get bad", status,"!");
             console.log(data);
-            console.log(headers);
-            console.log(config);
         });
     };
     
