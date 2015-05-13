@@ -82,7 +82,7 @@ jQuery(document).ready(function($) {
 march4.app.registerController('roadmapController', function($http, $scope, $routeParams) {
 	$scope.lastId = 0;
     $scope.quests = [];
-    $scope.path = window.location.pathname;
+    $scope.path = '/api'+window.location.pathname;
     
     $scope.initQuests = function() {
     	$scope.newQuest = {order:++($scope.lastId)};

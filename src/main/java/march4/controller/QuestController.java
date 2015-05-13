@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(value = "/projects/{pId}/quests")
+@RequestMapping(value = "/api/projects/{pId}/quests")
 @ResponseBody
 public class QuestController {
 	private static final Logger log = LoggerFactory
@@ -26,7 +26,7 @@ public class QuestController {
 	@Autowired
 	QuestService q;
 	
-	@RequestMapping(value = {""}, method = RequestMethod.GET, headers = {"content-type=text/plain"}, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = {""}, method = RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<Quest> get(@PathVariable("pId") String pId) {
 		log.debug("roadmap GET", pId);
 		return q.selectBypID(pId);
@@ -40,8 +40,9 @@ public class QuestController {
 //		return q.selectByqID(pId, qId);
 //	}
 	
-	@RequestMapping(value = {""}, method = RequestMethod.POST, headers = {"content-type=application/json"}, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = {""}, method = RequestMethod.POST, consumes="application/json", produces=MediaType.APPLICATION_JSON_VALUE)
 	public String request(@RequestBody Quest quest, @PathVariable int pId) {
+		log.debug("roadmap POST");
 		quest.setpId(pId);
 		q.insert(quest);
 		return "{\"result\":true}";
