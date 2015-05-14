@@ -20,9 +20,9 @@ USE `mydb` ;
 DROP TABLE IF EXISTS `mydb`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`user` (
-  `uId` INT NOT NULL,
-  `email` VARCHAR(45) NULL,
-  `pw` VARCHAR(45) NULL,
+  `uId` INT NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(45) NOT NULL,
+  `pw` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`uId`))
 ENGINE = InnoDB;
 

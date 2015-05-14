@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class DivController {
 	private static final Logger log = LoggerFactory.getLogger(DivController.class);
 	
-	@RequestMapping(value = {"","/","/world/**","/building/**","/user/**","/dummy/**","/projects/**"})
+	@RequestMapping(value = {"","/","/world/**","/building/**","/user/**","/dummy/**","/projects/**","/sign/**"})
 	public String index(){
 		log.debug("index requested.");
 		return "index";
