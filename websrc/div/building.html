@@ -10,7 +10,8 @@
                 <input ng-model="addData.shared" type="text" placeholder="shared">
             </div>
             <div>
-                <input ng-click="add()" type="button" value="Create"></button>
+                <input ng-click="add()" type="button" value="Create">
+                </button>
             </div>
         </div>
     </div>
@@ -21,13 +22,15 @@
 </div>
 <div>
     <ul class="buildingArea">
-        <li ng-repeat="Building in Buildings" class="ani buildingBox" ng-class="{hide : Building.hide, delete : Building.delete}">
+        <li ng-repeat="Building in Buildings" class="ani buildingBox" ng-class="{hide : Building.hide, delete : Building.delete}" ng-click="openPanel(2)">
             pid : {{Building.pid}}
             <br> uid : {{Building.uid}}
             <br> name : {{Building.name}}
             <br> shared : {{Building.shared}}
             <br>
             <input ng-click="del(Building.pid, $event, $index)" type="button" value="삭제">
+            <section class="panel" id="dummy-panel" ng-include="'/div/dummyPanel'" ng-class="{active: panelOpened}">
+            </section>
         </li>
     </ul>
-</div> 
+</div>

@@ -1,4 +1,4 @@
-march4.app.registerController('buildingController', function ($scope, $window, $http, $timeout, $routeParams) {
+march4.app.registerController('buildingController', function ($scope, $window, $http, $timeout, $routeParams ,$location) {
     $scope.data = {};
     $scope.addData = {};
     $scope.delData = {};
@@ -14,7 +14,7 @@ march4.app.registerController('buildingController', function ($scope, $window, $
     };
     
     
-    $scope.uid = { "uid" : $routeParams.dummyId };
+    $scope.uid = { "uid" : $routeParams.buildingId };
 	$scope.panelOpened = ($routeParams.panel == "panel");
 	$scope.panelID = $routeParams.panelId;
     $scope.panels = [
