@@ -1,7 +1,3 @@
-/* todo
-* 무조건 insertBefore여서 맨 밑으로 안 들어가짐
-* 삭제, 수정 구현
-*/
 $(document).ready(function(){
     console.log('document ready');
 });
@@ -20,7 +16,7 @@ jQuery('main').ready(function($) {
         var initElPos = getPosition(this);
         var initClickPos = {pageX:e.pageX, pageY:e.pageY};
         var overEl;
-
+        initEl.parent().append($('<li></li>').addClass('sortable temp').css({'height':10, 'visibility':'hidden'}));
         $(document).on('mousemove.drag', function(e) {
             var deltaClickPos = {pageX:e.pageX-initClickPos.pageX,
                 pageY:e.pageY-initClickPos.pageY};
@@ -55,6 +51,11 @@ jQuery('main').ready(function($) {
             $(this).css({"position": "relative",
             "top" : 0,
             "left": 0});
+            console.log('hi');
+            var t = initEl.siblings('.temp');
+            console.log(t);
+            t.remove();
+            console.log('ho');
         });
     });
 
@@ -87,7 +88,7 @@ jQuery('main').ready(function($) {
     };
 });
 
-};
+}
 
 march4.app.registerController('roadmapController', function($http, $scope, $routeParams) {
 	$scope.lastOrder = 0;
