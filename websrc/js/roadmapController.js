@@ -1,91 +1,87 @@
-$(document).ready(function(){
-    console.log('document ready');
-});
-$(window).load(function(){
-	console.log('window load');
-});
+
+
 
 function jquerythings() {
-	
+
 jQuery('main').ready(function($) {
-    $('.sortableContainer').on('mousedown', '.sortable', function(e) {
+
+      function swap($el1, $el2) {
+        $temp = $('<div>');
+        $el1.before($temp);
+        $el2.after($el1);
+        $temp.after($el2);
+        $temp.remove();
+      }
+
+        function isMouseOver (e, self) {
+          var top = self.offset().top;
+          var down = top + self.outerHeight();
+          return (top <= e.pageY && e.pageY <= down);
+        }
+
+
+      $('.sortableContainer').on('mousedown', '.sortable', function(e) {
         e.stopPropagation();
         e.preventDefault();
 
-        var initEl = $(this);
-        var initElPos = getPosition(this);
-        var initClickPos = {pageX:e.pageX, pageY:e.pageY};
-        var overEl;
-        initEl.parent().append($('<li></li>').addClass('sortable temp').css({'height':10, 'visibility':'hidden'}));
-        $(document).on('mousemove.drag', function(e) {
-            var deltaClickPos = {pageX:e.pageX-initClickPos.pageX,
-                pageY:e.pageY-initClickPos.pageY};
+        var $origin = $(this);
+        var $dummy = $origin.clone().css({'visibility':'hidden'});
+        
 
+        $origin.after($dummy);
+        dragStart(e,$origin);
+        $('body').append($origin);
+        
 
-            var result = getMouseoveredIndex(e, $('.sortable'), initEl[0]);
-            if(result >= 0) {
-                var currentOverEl = $('.sortable').eq(result);
-                if(!currentOverEl.is(overEl)) {
-                    overEl = currentOverEl;
-                    // init
-                    $(".sortable")
-                        .filter(":lt("+result+")").not(initEl).css({"position":"relative", "top":"0"});
-                    // push down
-                    $(".sortable").filter(":eq("+result+"), :gt("+result+")")
-                        .css({"position":"relative", "top":initEl.outerHeight()});
-                }
+        $('body').on('mousemove.sort', function(e) {
+          $('.sortable').each(function() {
+            if(isMouseOver(e, $(this))) {
+              swap($(this), $dummy);
             }
-
-
-            initEl.css({"position": "relative",
-            "top" : initElPos.top + deltaClickPos.pageY,
-            "left": initElPos.left + deltaClickPos.pageX});
+          });
         });
 
-        $(this).on('mouseup', function(e) {
-            $(document).off('mousemove.drag');
-            console.log(overEl);
+        $('body').on('mouseup.sort', function () {
+            swap($origin, $dummy);
+            $dummy.remove();
+            $('body').off('.sort');
+        });
+      });
+
+    function dragStart (e,$el) {
+        var cursorX = e.clientX;
+        var cursorY = e.clientY;
+
+        var elY = $el.offset().top - $(window).scrollTop();
+        var elX = $el.offset().left - $(window).scrollLeft();
+
+        var diffX = elX - cursorX;
+        var diffY = elY - cursorY;
+
+        var originalStyle = $el.attr('style') || "";
+        setPos(e);
+
+        $('body').on('mousemove.drag', function(e){
+            setPos(e);
+        });
+
+        function setPos(e){
+            cursorX = e.clientX;
+            cursorY = e.clientY;
             
-            $(".sortable").css({"position":"relative", "top":"0"});
-            $(this).insertBefore(overEl);
-            $(this).css({"position": "relative",
-            "top" : 0,
-            "left": 0});
-            console.log('hi');
-            var t = initEl.siblings('.temp');
-            console.log(t);
-            t.remove();
-            console.log('ho');
+            $el.css({
+                "position" : "fixed",
+                "top" : cursorY + diffY,
+                "left" : cursorX + diffX,
+            });
+        }
+
+        $('body').on('mouseup.drag', function (e) {
+            $el.attr('style', originalStyle);
+            $('body').off('.drag');
         });
-    });
+    }
 
-    // 일단 세로만.
-    var getMouseoveredIndex = function(e, jList, self) {
-        var eY = e.pageY;
-        
-        function getBound(el) {
-            var top = el.offset().top;
-            var down = top + el.outerHeight();
-            return {top:top, down:down};
-        }
-        
-        for(var i=0; i<jList.length; i++) {
-            if(jList[i] === self) continue;
-            var bound = getBound(jList.eq(i));
-            if(bound.top <= eY && eY <= bound.down) {
-                return i;
-            }
-        }
-        return -1;
-    };
-
-    var getPosition = function(el) {
-        var position = {
-            top : parseInt($(el).css('top')) || 0,
-            left : parseInt($(el).css('left')) || 0
-        };
-        return position;
-    };
 });
 
 }
@@ -94,7 +90,7 @@ march4.app.registerController('roadmapController', function($http, $scope, $rout
 	$scope.lastOrder = 0;
     $scope.quests = [];
     $scope.path = '/api'+window.location.pathname;
-    
+
     $scope.initQuests = function() {
     	console.log('init', $scope.lastOrder);
     	$scope.newQuest = {order:++($scope.lastOrder)};
@@ -103,9 +99,9 @@ march4.app.registerController('roadmapController', function($http, $scope, $rout
     $scope.addQuest = function() {
         console.log($scope.newQuest);
         $scope.quests.push($scope.newQuest);
-        
+
         var data = $scope.newQuest;
-        
+
         $http.post($scope.path, data)
         .success(function (data, status, headers, config) {
         	console.log("post good", status,"!");
@@ -116,10 +112,10 @@ march4.app.registerController('roadmapController', function($http, $scope, $rout
         	console.log("post bad", status,"!");
             console.log(data);
         });
-        
+
         $scope.initQuests();
     };
-    
+
     $scope.showQuests = function() {
     	console.log('getting quests');
     	$http.get($scope.path)
@@ -129,21 +125,21 @@ march4.app.registerController('roadmapController', function($http, $scope, $rout
             $scope.quests = data;
             $scope.lastOrder = data[data.length-1].order;
             console.log('show', $scope.lastOrder);
-            
+
             $scope.initQuests();
         })
         .error(function (data, status, headers, config) {
         	console.log("get bad", status,"!");
             console.log(data);
-            
+
             $scope.initQuests();
         });
     };
-    
+
     $scope.init = function() {
     	$scope.showQuests();
     };
-    
+
     $scope.init();
     $scope.$on('$viewContentLoaded', jquerythings);
 });
