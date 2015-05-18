@@ -44,43 +44,43 @@ function Sortable($baseEl) {
     this.isHover = false;
 }
 
-//Sortable.prototype.sortStart = ;
+function Draggable(el,dropFunc) {
+    var dropFunc = dropFunc || function(){};
+    var that = this;
+    this.$el = $(el);
+    this.$el.on('mousedown',function(e) {
+        e.preventDefault();
 
-Sortable.prototype.dragStart = function(e, $el) {
-    var cursorX = e.clientX;
-    var cursorY = e.clientY;
-    var elY = $el.offset().top - $(window).scrollTop();
-    var elX = $el.offset().left - $(window).scrollLeft();
-    var diffX = elX - cursorX;
-    var diffY = elY - cursorY;
-    var originalStyle = $el.attr('style') || "";
-    setPos(e);
-    $('body').on('mousemove.drag', function(e) {
+        var cursorX = e.clientX;
+        var cursorY = e.clientY;
+        var elY = that.$el.offset().top - $(window).scrollTop();
+        var elX = that.$el.offset().left - $(window).scrollLeft();
+        var diffX = elX - cursorX;
+        var diffY = elY - cursorY;
+        var originalStyle = that.$el.attr('style') || "";
         setPos(e);
-    });
-
-    function setPos(e) {
-        cursorX = e.clientX;
-        cursorY = e.clientY;
-        $el.css({
-            "position": "fixed",
-            "top": cursorY + diffY,
-            "left": cursorX + diffX,
+        $(document).on('mousemove.drag', function(e) {
+            setPos(e);
         });
-    }
-    $('body').on('mouseup.drag', function(e) {
-        $el.attr('style', originalStyle);
-        $('body').off('.drag');
-    });
-};
 
-function jquerythings() {
-    jQuery('main').ready(function($) {
-        $('.sortable').each(function () {
-            new Sortable($(this));
+        function setPos(e) {
+            cursorX = e.clientX;
+            cursorY = e.clientY;
+            that.$el.css({
+                "position": "fixed",
+                "top": cursorY + diffY,
+                "left": cursorX + diffX,
+            });
+        }
+        $(document).on('mouseup.drag mouseleave.drag', function(e) {
+            that.$el.attr('style', originalStyle);
+            $(document).off('.drag');
+            dropFunc(e,that.$el);
         });
     });
 }
+
+
 march4.app.registerController('roadmapController', function($http, $scope, $routeParams) {
     $scope.lastOrder = 0;
     $scope.quests = [];
@@ -124,10 +124,9 @@ march4.app.registerController('roadmapController', function($http, $scope, $rout
         $scope.showQuests();
     };
 
-    $scope.asdf = function(el){
-        new Sortable(el);
+    $scope.makeItDraggable = function(el){
+        new Draggable(el);
     };
 
     $scope.init();
-    $scope.$on('$viewContentLoaded', jquerythings);
 });
