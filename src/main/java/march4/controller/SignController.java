@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,7 +39,7 @@ public class SignController {
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public @ResponseBody String signUp(@RequestBody String body, String name) {
+	public @ResponseBody String signUp(@ModelAttribute User usera, @RequestBody String body, String name) {
 		Map<String, String> map = new HashMap<String, String>();
 		ObjectMapper mapper = new ObjectMapper();
 		try {
@@ -60,13 +61,23 @@ public class SignController {
 		//// 가입 시킨다.
 		
 		//이메일이 존재한다!!
-		if(userDao.existEmail(email)){
-			log.debug("이미 존재하는 이메일 입니다!!");
-			return "false";
-		}
+//		if(userDao.existEmail(email)){
+//			log.debug("이미 존재하는 이메일 입니다!!");
+//			return "false";
+//		}
 		
 		User user = new User(email, password);
- 		userDao.signup(user);
+		try {
+		
+	 		userDao.signup(user);
+	 		System.out.println("this");
+		} catch (Exception e) {
+			log.debug("이메일이 이미 존재합니다. 회원가입에 실패합니다.");
+			
+			
+		}
+		
+		
  		log.debug("회원가입 완료!! : {}", user.toString());
  		
 		return "true";
