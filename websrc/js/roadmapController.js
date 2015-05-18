@@ -1,4 +1,5 @@
 function swap($el1, $el2) {
+    if (!$el1 || !$el2) return;
     $temp = $('<div>');
     $el1.before($temp);
     $el2.after($el1);
@@ -12,45 +13,48 @@ function isMouseOver(event, $self) {
     return (top <= event.pageY && event.pageY <= down);
 }
 
-function Sortable($baseEl) {
-    var that = this;
-    
-    $baseEl.on('mousedown',function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        
-        var $origin = $(this);
-        var $dummy = $origin.clone().css({
-            'visibility': 'hidden'
-        });
-        
-        $origin.after($dummy);
-        that.dragStart(e, $origin);
-
-        $('body').on('mousemove.sort', function(e) {
-            $('.sortable').each(function() {
-                if (isMouseOver(e, $(this))) {
-                    swap($(this), $dummy);
-                }
-            });
-        });
-        $('body').on('mouseup.sort', function() {
-            swap($origin, $dummy);
-            $dummy.remove();
-            $('body').off('.sort');
-        });
-    });
-
-    this.isHover = false;
-}
-
-function Draggable(el,dropFunc) {
-    var dropFunc = dropFunc || function(){};
+function Sortable(el) {
     var that = this;
     this.$el = $(el);
-    this.$el.on('mousedown',function(e) {
-        e.preventDefault();
+    this.$dummy = null;
 
+    this.sortableList.push(this.$el);
+    new Draggable(el, function() {
+        that.$dummy = that.$el.clone().css({
+            'visibility': 'hidden'
+        });
+        that.$el.after(that.$dummy);
+        $(document).on('mousemove.sort', function(e) {
+            for (var i = 0; i < that.sortableList.length; i++) {
+                if (!that.$el.is(that.sortableList[i])) {
+                    if (isMouseOver(e, that.sortableList[i])) {
+                        that.constructor.prototype.exchangeEl = that.sortableList[i];
+                    }
+                }
+            }
+        });
+    }, function(e, $el) {
+        swap(that.exchangeEl, that.$dummy);
+        that.constructor.prototype.exchangeEl = null;
+    }, function() {
+        swap(that.$el, that.$dummy);
+        that.$dummy.remove();
+        $(document).off('.sort');
+    });
+}
+Sortable.prototype.exchangeEl = null;
+Sortable.prototype.sortableList = [];
+
+function Draggable(el, downFunc, moveFunc, upFunc) {
+    var that = this;
+
+    downFunc = downFunc || function() {};
+    moveFunc = moveFunc || function() {};
+    upFunc = upFunc || function() {};
+    
+    this.$el = $(el);
+    this.$el.on('mousedown', function(e) {
+        downFunc(e, that.$el);
         var cursorX = e.clientX;
         var cursorY = e.clientY;
         var elY = that.$el.offset().top - $(window).scrollTop();
@@ -60,6 +64,7 @@ function Draggable(el,dropFunc) {
         var originalStyle = that.$el.attr('style') || "";
         setPos(e);
         $(document).on('mousemove.drag', function(e) {
+            moveFunc(e, that.$el);
             setPos(e);
         });
 
@@ -75,12 +80,11 @@ function Draggable(el,dropFunc) {
         $(document).on('mouseup.drag mouseleave.drag', function(e) {
             that.$el.attr('style', originalStyle);
             $(document).off('.drag');
-            dropFunc(e,that.$el);
+            upFunc(e, that.$el);
         });
+        e.preventDefault();
     });
 }
-
-
 march4.app.registerController('roadmapController', function($http, $scope, $routeParams) {
     $scope.lastOrder = 0;
     $scope.quests = [];
@@ -123,10 +127,8 @@ march4.app.registerController('roadmapController', function($http, $scope, $rout
     $scope.init = function() {
         $scope.showQuests();
     };
-
-    $scope.makeItDraggable = function(el){
-        new Draggable(el);
+    $scope.makeItDraggable = function(el) {
+        new Sortable(el);
     };
-
     $scope.init();
 });
