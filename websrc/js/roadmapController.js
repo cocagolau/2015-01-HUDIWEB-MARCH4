@@ -31,7 +31,8 @@
                 console.log("get good", status, "!");
                 console.log(data);
                 $scope.quests = data;
-                $scope.lastOrder = data[data.length - 1].order;
+                $scope.lastOrder = parseInt(data[data.length - 1].order);
+                if(typeof($scope.lastOrder) !== 'number') $scope.lastOrder = 0;
                 console.log('show', $scope.lastOrder);
                 $scope.initQuests();
             }).error(function(data, status, headers, config) {
@@ -41,6 +42,7 @@
             });
         };
         $scope.init = function() {
+        	$scope.initQuests();
             $scope.showQuests();
         };
         $scope.makeItSortable = function(el) {
