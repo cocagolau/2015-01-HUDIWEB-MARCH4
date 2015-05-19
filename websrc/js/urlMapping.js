@@ -24,10 +24,6 @@
 					templateUrl : '/div/frontpage',
 					controller : 'frontpageController',
 					resolve : addControllerJs()
-				}).when('/sign/', {
-					templateUrl : '/div/sign',
-					controller : 'signController',
-					resolve : addControllerJs()
 				}).when('/world/:worldId?', {
 					templateUrl : '/div/world',
 					controller : 'worldController',

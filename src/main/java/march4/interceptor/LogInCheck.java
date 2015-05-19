@@ -17,8 +17,8 @@ public class LogInCheck extends HandlerInterceptorAdapter {
 		log.debug("enter interceptor ----------------------");
 		log.debug("session : {}", request.getSession().getAttribute("email"));
 		if (request.getSession().getAttribute("email") == null) {
-			//response.sendRedirect("/");
-			//return false;
+			response.sendRedirect("/");
+			return false;
 		}
 		return true;
 	}

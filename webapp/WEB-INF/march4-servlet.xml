@@ -20,7 +20,12 @@
 
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/sign/**" />
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/"/>
+			<mvc:exclude-mapping path="/js/**"/>
+			<mvc:exclude-mapping path="/img/**"/>
+			<mvc:exclude-mapping path="/css/**"/>
+			<mvc:exclude-mapping path="/div/**"/>
 			<bean class="march4.interceptor.LogInCheck"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
