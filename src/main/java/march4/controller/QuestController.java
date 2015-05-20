@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -46,5 +47,10 @@ public class QuestController {
 		quest.setpId(pId);
 		q.insert(quest);
 		return "{\"result\":true}";
+	}
+	
+	@RequestMapping(value = "/{qId}/swap", method = RequestMethod.PUT)
+	public String test(@PathVariable("qId") int qId1, @RequestParam("qId") int qId2) {
+		return q.swapOrder(qId1, qId2);
 	}
 }

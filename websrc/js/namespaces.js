@@ -86,10 +86,12 @@ march4.util.Draggable = function(el, downFunc, moveFunc, upFunc) {
 };
 
 
-march4.util.Sortable = function(el) {
+march4.util.Sortable = function(el, upFunc) {
     var that = this;
     this.$el = $(el);
     this.$dummy = null;
+    
+    upFunc = upFunc || function() {};
 
     this.sortableList.push(this.$el);
     new march4.util.Draggable(el, function() {
@@ -110,10 +112,11 @@ march4.util.Sortable = function(el) {
     }, function(e, $el) {
         march4.util.swap(that.exchangeEl, that.$dummy);
         that.constructor.prototype.exchangeEl = null;
-    }, function() {
+    }, function(e) {
         march4.util.swap(that.$el, that.$dummy);
         that.$dummy.remove();
         $(document).off('.sort');
+        upFunc(0,0);
     });
 };
 

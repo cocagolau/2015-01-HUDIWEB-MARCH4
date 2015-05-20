@@ -44,4 +44,14 @@ public class QuestDaoTest {
 //		List<Quest> quest = questDao.selectAll();
 		log.debug("Select quest : {}", quest);
 	}
+	
+	@Test
+	public void getOrder() {
+		System.out.println(questDao.getOrderOf(1));
+	}
+	
+	@Test
+	public void getMaxOrder() {
+		System.out.println(questDao.getMaxOrder());
+	}
 }
