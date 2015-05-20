@@ -1,0 +1,89 @@
+<!--start  tooltips above login form -->
+<div id="">
+	<div class="container">
+		<div class="">
+			<div
+				ng-class="{ 'alert': flash, 
+               'alert-success': flash.type === 'success', 
+               'alert-danger': flash.type === 'error' }"
+				ng-if="flash" ng-bind="flash.message"></div>
+				
+			<!--start login container -->
+			<div ng-view></div>
+			<!--end login container -->
+		</div>
+	</div>
+</div>
+<!--end tooltips above login form -->
+
+<script src="/js/loginService/app.js"></script>
+<script src="/js/loginService/authentication.service.js"></script>
+<script src="/js/loginService/flash.service.js"></script>
+<script src="/js/loginService/user.service.js"></script>
+
+<!--start sign in form -->
+<!-- 회원가입
+<div class="">
+	<form class="">
+		<div class="">
+			<div class="">
+				<div class="">
+					<input ng-model="user.email" type="text" class="" id="email">
+					<label for="Username">email</label>
+
+				</div>
+				<div class="">
+					<input ng-model="user.password" type="password" class=""
+						id="password"> <label for="Password">password</label>
+				</div>
+
+				<button ng-click="signup()" type="submit" class="">sign up</button>
+			</div>
+			end .card-body
+		</div>
+	</form>
+</div>
+<br />
+<br />
+
+
+로그인
+<div class="">
+	<form class="">
+		<div class="">
+			<div class="">
+				<div class="">
+					<input ng-model="user.email" type="text" class="" id="email">
+					<label for="Username">email</label>
+				</div>
+				<div class="">
+					<input ng-model="user.password" type="password" class=""
+						id="password"> <label for="Password">password</label>
+				</div>
+				<div class="">
+					<label> <input type="checkbox" value=""> <span>Remember
+							me</span>
+					</label>
+				</div>
+				<button ng-click="signin()" type="submit" class="">sign in</button>
+			</div>
+		</div>
+	</form>
+</div>
+
+<br />
+<br />
+
+
+
+로그아웃
+<br />
+<li>{{user.email}}</li>
+<button ng-click="signout(user.email)" type="button" class="">sign
+	out</button>
+
+
+<br />
+<br />
+현재상태 -->
+<!--end sign in form -->

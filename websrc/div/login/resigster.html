@@ -1,9 +1,13 @@
 <!--start register form -->
 <div class="">
-	<form class="">
+	<div ng-show = "error">
+	{{error}}
+	</div>
+	
+	<form class="" ng-submit = "register()" >
 		<div class="">
 			<div class="">
-				<div class="">
+				<div class="" ng-class = "{'">
 					<input type="text" class="" id="email">
 					<label for="Username">email</label>
 				</div>

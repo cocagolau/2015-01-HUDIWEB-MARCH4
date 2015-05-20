@@ -17,9 +17,8 @@
 			}
 		};
 	}
-
-	march4.app.config([ '$routeProvider', '$locationProvider',
-			'$controllerProvider', function($routeProvider, $locationProvider) {
+	
+	march4.app.config([ '$routeProvider', '$locationProvider','$controllerProvider', function($routeProvider, $locationProvider) {
 				$routeProvider.when('/', {
 					templateUrl : '/div/frontpage',
 					controller : 'frontpageController',
@@ -44,7 +43,7 @@
 					redirectTo : document.location.pathname
 				});
 
-				$locationProvider.html5Mode(true).hashPrefix('!');
+				$locationProvider.html5Mode(true).hashPrefix('!');//?
 			} ]);
 
 	march4.app.run([
