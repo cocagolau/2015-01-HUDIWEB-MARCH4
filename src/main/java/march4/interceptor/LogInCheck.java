@@ -1,5 +1,7 @@
 package march4.interceptor;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,7 +19,9 @@ public class LogInCheck extends HandlerInterceptorAdapter {
 		log.debug("enter interceptor ----------------------");
 		log.debug("session : {}", request.getSession().getAttribute("email"));
 		if (request.getSession().getAttribute("email") == null) {
-			response.sendRedirect("/");
+			PrintWriter wr = response.getWriter();
+			wr.write("fuck");
+			wr.flush();
 			return false;
 		}
 		return true;

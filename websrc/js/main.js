@@ -5,7 +5,7 @@
             $controllerProvider.register(sName,fController);
         };
     });
-
+    
     march4.app.controller('mainController',function($scope){
     	$scope.user = {};
     });
