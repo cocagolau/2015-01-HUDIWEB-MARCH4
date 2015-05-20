@@ -1,26 +1,47 @@
-<!--start  tooltips above login form -->
+<--start gate of login-->
 <div id="">
 	<div class="container">
 		<div class="">
+			<!--start  tooltips above login form -->
 			<div
 				ng-class="{ 'alert': flash, 
                'alert-success': flash.type === 'success', 
                'alert-danger': flash.type === 'error' }"
 				ng-if="flash" ng-bind="flash.message"></div>
-				
+			<!--end tooltips above login form -->
+
 			<!--start login container -->
-			<div ng-view></div>
+			<div>
+				<h2>Login</h2>
+				<div ng-show="error" class="alert alert-danger">{{error}}</div>
+				<form name="" ng-submit="signIn()">
+					<div
+						ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+						<label for="email">email</label> <input type="text" name="email"
+							id="email" ng-model="user.email" required /> <span
+							ng-show="form.email.$dirty && form.email.$error.required">email
+							is required</span>
+					</div>
+					<div
+						ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+						<label for="password">Password</label> <input type="password"
+							name="password" id="password" class="form-control"
+							ng-model="user.password" required /> <span
+							ng-show="form.password.$dirty && form.password.$error.required">Password
+							is required</span>
+					</div>
+
+					<div class="btnAction">
+						<button type="submit"
+							ng-disabled="form.$invalid || dataLoading" >Sign in</button>
+					</div>
+				</form>
+			</div>
 			<!--end login container -->
 		</div>
 	</div>
 </div>
-<!--end tooltips above login form -->
-
-<script src="/js/loginService/app.js"></script>
-<script src="/js/loginService/authentication.service.js"></script>
-<script src="/js/loginService/flash.service.js"></script>
-<script src="/js/loginService/user.service.js"></script>
-
+<--end gate of login-->
 <!--start sign in form -->
 <!-- 회원가입
 <div class="">
