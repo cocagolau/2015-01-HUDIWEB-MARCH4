@@ -20,7 +20,7 @@ public class QuestService {
 		return questDao.selectBypID(pId);
 	}
 	
-	public void swapOrder(int qId1, int qId2) {
+	public String swapOrder(int qId1, int qId2) {
 		int order1 = questDao.getOrderOf(qId1);
 		int order2 = questDao.getOrderOf(qId2);
 		int temp = questDao.getMaxOrder();
@@ -30,6 +30,6 @@ public class QuestService {
 		questDao.changeOrder(qId1, temp);
 		questDao.changeOrder(qId2, order1);
 		questDao.changeOrder(qId1, order2);
-		System.out.println(order2+" , "+order1);
+		return order2+" , "+order1;
 	}
 }
