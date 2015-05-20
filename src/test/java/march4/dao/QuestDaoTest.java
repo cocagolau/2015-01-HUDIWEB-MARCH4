@@ -30,20 +30,13 @@ public class QuestDaoTest {
 	public void dataSource(){
 		assertNotNull(dataSource);
 	}
-	
-//	@Test
-//	public void insert() {
-//		Quest quest = new Quest(93, 1, 0, 0, 1, "tt", "2015-01-01 00:00:00");
-//		questDao.insert(quest);
-//		log.debug("Insert quest : {}", quest);
-//	}
-//	
-//	@Test
-//	public void insertContentsOnly() {
-//		Quest quest = new Quest("test");
-//		questDao.insertContentsOnly(quest);
-//		log.debug("Insert quest : {}", quest);
-//	}
+
+	@Test
+	public void insert() {
+		Quest quest = new Quest(1, 0, 0, 1, "tt", "2015-01-01 00:00:00");
+		questDao.insert(quest);
+		log.debug("Insert quest : {}", quest);
+	}
 	
 	@Test
 	public void select(){
