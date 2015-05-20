@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import march4.model.Dummy;
 import march4.model.Quest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +56,16 @@ public class QuestDao {
 		return quests;
 	}
 	
+	public int getOrderOf(int qId) {
+		return jdbcTemplate.queryForObject("SELECT `order` FROM quest WHERE qId = ?", Integer.class, qId);
+	}
 	
+	public void changeOrder(int qId, int order) {
+		String sql = "update quest set `order` = ? where qId = ?";
+		jdbcTemplate.update(sql, order, qId);
+	}
+	
+	public int getMaxOrder() {
+		return jdbcTemplate.queryForObject("SELECT max(`order`)+1 FROM quest", Integer.class);
+	}
 }
