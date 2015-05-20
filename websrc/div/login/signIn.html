@@ -16,10 +16,10 @@
 				<div ng-show="error" class="alert alert-danger">{{error}}</div>
 				<form name="" ng-submit="signIn()">
 					<div
-						ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
+						ng-class="{ 'has-error': form.user.email.$dirty && form.user.email.$error.required }">
 						<label for="email">email</label> <input type="text" name="email"
 							id="email" ng-model="user.email" required /> <span
-							ng-show="form.email.$dirty && form.email.$error.required">email
+							ng-show="form.user.email.$dirty && form.user.email.$error.required">email
 							is required</span>
 					</div>
 					<div
@@ -27,7 +27,7 @@
 						<label for="password">Password</label> <input type="password"
 							name="password" id="password" class="form-control"
 							ng-model="user.password" required /> <span
-							ng-show="form.password.$dirty && form.password.$error.required">Password
+							ng-show="form.user.password.$dirty && form.user.password.$error.required">Password
 							is required</span>
 					</div>
 
@@ -58,11 +58,9 @@
 		</div>
 	</div>
 </div>
-
-
-
-
 <!--end gate of login-->
+
+
 <!--start sign in form -->
 <!-- 회원가입
 <div class="">
@@ -87,35 +85,6 @@
 </div>
 <br />
 <br />
-
-
-로그인
-<div class="">
-	<form class="">
-		<div class="">
-			<div class="">
-				<div class="">
-					<input ng-model="user.email" type="text" class="" id="email">
-					<label for="Username">email</label>
-				</div>
-				<div class="">
-					<input ng-model="user.password" type="password" class=""
-						id="password"> <label for="Password">password</label>
-				</div>
-				<div class="">
-					<label> <input type="checkbox" value=""> <span>Remember
-							me</span>
-					</label>
-				</div>
-				<button ng-click="signin()" type="submit" class="">sign in</button>
-			</div>
-		</div>
-	</form>
-</div>
-
-<br />
-<br />
-
 
 
 로그아웃
