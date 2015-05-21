@@ -19,7 +19,57 @@
 		};
 	}
 
-	 march4.app.factory('HttpInterceptor', function ($q,$location) {
+	march4.app.config([ '$routeProvider', '$locationProvider',
+			function($routeProvider, $locationProvider) {
+				$routeProvider.when('/', {
+					templateUrl : '/div/frontpage',
+					controller : 'frontpageController',
+					resolve : addControllerJs()
+				}).when('/world/:worldId?', {
+					templateUrl : '/div/world',
+					controller : 'worldController',
+					resolve : addControllerJs()
+				}).when('/building/:buildingId?/:panel?/:panelId?', {
+					templateUrl : '/div/building',
+					controller : 'buildingController',
+					resolve : addControllerJs()
+				}).when('/projects/:pId/quests', {
+					templateUrl : '/div/roadmap',
+					controller : 'roadmapController',
+					resolve : addControllerJs()
+				}).when('/dummy/:dummyId?/:panel?/:panelId?', {
+					templateUrl : '/div/dummy',
+					controller : 'dummyController',
+					resolve : addControllerJs()
+				}).when('/signup', {
+					templateUrl : '/div/signup',
+					controller : 'signupController',
+					resolve : addControllerJs()
+				}).when('/signin', {
+					templateUrl : '/div/signin',
+					controller : 'signinController',
+					resolve : addControllerJs()
+				}).otherwise({
+					redirectTo : document.location.pathname
+				});
+
+				$locationProvider.html5Mode(true).hashPrefix('!');
+			}]);
+
+	march4.app.run([ '$route', '$rootScope', '$location',
+		function($route, $rootScope, $location) {
+			march4.util.setPathNoReloading = function(path) {
+				var lastRoute = $route.current;
+				var un = $rootScope.$on('$locationChangeSuccess',
+						function() {
+							$route.current = lastRoute;
+							un();
+						});
+				return $location.path(path);
+			};
+		} ]);
+	
+	march4.app.factory('HttpInterceptor', function ($q,$location) {
 	    return {
 	        response: function (response) {
 	        	console.log(response.status);
@@ -40,50 +90,4 @@
 	        }
 	    };
 	});
-	    
-    
-	march4.app.config([ '$routeProvider', '$locationProvider','$controllerProvider','$httpProvider', 
-		function($routeProvider, $locationProvider, $controllerProvider, $httpProvider) {
-			$httpProvider.interceptors.push('HttpInterceptor');
-			
-			$routeProvider.when('/', {
-				templateUrl : '/div/frontpage',
-				controller : 'frontpageController',
-				resolve : addControllerJs()
-			}).when('/world/:worldId?', {
-				templateUrl : '/div/world',
-				controller : 'worldController',
-				resolve : addControllerJs()
-			}).when('/building/:buildingId?/:panel?/:panelId?', {
-				templateUrl : '/div/building',
-				controller : 'buildingController',
-				resolve : addControllerJs()
-			}).when('/projects/:pId/quests', {
-				templateUrl : '/div/roadmap',
-				controller : 'roadmapController',
-				resolve : addControllerJs()
-			}).when('/dummy/:dummyId?/:panel?/:panelId?', {
-				templateUrl : '/div/dummy',
-				controller : 'dummyController',
-				resolve : addControllerJs()
-			}).otherwise({
-				redirectTo : document.location.pathname
-			});
-
-			$locationProvider.html5Mode(true).hashPrefix('!');
-		}]);
-
-	march4.app.run([ '$route', '$rootScope', '$location',
-		function($route, $rootScope, $location) {
-			march4.util.setPathNoReloading = function(path) {
-				var lastRoute = $route.current;
-				var un = $rootScope.$on('$locationChangeSuccess',
-						function() {
-							$route.current = lastRoute;
-							un();
-						});
-
-				return $location.path(path);
-			};
-		} ]);
 }());

@@ -14,7 +14,7 @@ public class DivController {
 			.getLogger(DivController.class);
 
 	@RequestMapping(value = { "", "/", "/world/**", "/building/**", "/user/**",
-			"/dummy/**", "/projects/**", "/sign/**" })
+			"/dummy/**", "/projects/**", "/signup/**" })
 	public String index() {
 		log.debug("index requested.");
 		return "index";

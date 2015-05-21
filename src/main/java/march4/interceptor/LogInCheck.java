@@ -13,9 +13,8 @@ public class LogInCheck extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-		
+	
 		log.debug(request.getHeader("accept"));
-;
 		log.debug("enter interceptor ----------------------");
 		log.debug("session : {}", request.getSession().getAttribute("email"));
 
