@@ -13,13 +13,19 @@ public class LogInCheck extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request,
 			HttpServletResponse response, Object handler) throws Exception {
-/*
+	
+		log.debug(request.getHeader("accept"));
 		log.debug("enter interceptor ----------------------");
 		log.debug("session : {}", request.getSession().getAttribute("email"));
+
 		if (request.getSession().getAttribute("email") == null) {
+			if (request.getHeader("accept").contains("application/json")) {
+				response.setStatus(401);
+				return false;
+			}
 			response.sendRedirect("/");
 			return false;
-		}*/
+		}
 		return true;
 	}
 }

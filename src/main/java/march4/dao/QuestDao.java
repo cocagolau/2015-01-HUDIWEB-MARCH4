@@ -27,7 +27,6 @@ public class QuestDao {
 	}
 
 	public int insert(Quest quest) {
-		System.out.println("hi");
 		String sql = "insert into quest values (NULL, ?, ?, ?, ?, ?, ?)";
 		jdbcTemplate.update(sql, quest.getpId(), 
 				quest.getPosX(), quest.getPosY(), quest.getOrder(), quest.getContents(), quest.getDue());
@@ -53,7 +52,7 @@ public class QuestDao {
 	
 	
 	public List<Quest> selectBypID(String pId) {
-		String sql = "select * from quest where pId = "+pId;
+		String sql = "select * from quest where pId = "+pId+" order by `order`";
 		List<Quest> quests = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Quest>(Quest.class));
 		return quests;
 	}

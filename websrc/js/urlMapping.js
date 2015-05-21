@@ -4,6 +4,7 @@
 	function addControllerJs() {
 		return {
 			load : function($q, $route, $rootScope) {
+				console.log($route);
 				var deferred = $q.defer();
 				var controllerPath = '/js/';
 				var controllerName = $route.current.$$route.controller;
@@ -53,23 +54,40 @@
 				});
 
 				$locationProvider.html5Mode(true).hashPrefix('!');
-				// graceful way? whichever?
-			} ]);
+			}]);
 
-	march4.app.run([
-			'$route',
-			'$rootScope',
-			'$location',
-			function($route, $rootScope, $location) {
-				march4.util.setPathNoReloading = function(path) {
-					var lastRoute = $route.current;
-					var un = $rootScope.$on('$locationChangeSuccess',
-							function() {
-								$route.current = lastRoute;
-								un();//?
-							});
-
-					return $location.path(path);
-				};
-			} ]);
+	march4.app.run([ '$route', '$rootScope', '$location',
+		function($route, $rootScope, $location) {
+			march4.util.setPathNoReloading = function(path) {
+				var lastRoute = $route.current;
+				var un = $rootScope.$on('$locationChangeSuccess',
+						function() {
+							$route.current = lastRoute;
+							un();
+						});
+				return $location.path(path);
+			};
+		} ]);
+	
+	march4.app.factory('HttpInterceptor', function ($q,$location) {
+	    return {
+	        response: function (response) {
+	        	console.log(response.status);
+	        	if(response.status === 401){
+	        		console.log(1);
+	        		$location.path('/');
+	        	}
+	            return response;
+	        },
+	        responseError: function (response) {
+                console.log("error");
+                console.log(response.status);
+	            if(response.status === 401){
+	        		console.log(1);
+	        		$location.path('/');
+	        	}
+	            return response;
+	        }
+	    };
+	});
 }());
