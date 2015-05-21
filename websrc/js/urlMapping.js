@@ -22,7 +22,7 @@
 			function($routeProvider, $locationProvider) {
 				$routeProvider.when('/', {
 					templateUrl : '/div/frontpage',
-					controller : 'frontpageCtrl',
+					controller : 'frontpageController',
 					resolve : addControllerJs()
 				}).when('/world/:worldId?', {
 					templateUrl : '/div/world',
@@ -40,13 +40,13 @@
 					templateUrl : '/div/dummy',
 					controller : 'dummyController',
 					resolve : addControllerJs()
-				}).when('/register', {
-					templateUrl : '/div/login/register',
-					controller : 'signupCtrl',
+				}).when('/signup', {
+					templateUrl : '/div/signup',
+					controller : 'signupController',
 					resolve : addControllerJs()
 				}).when('/signin', {
-					templateUrl : '/div/login/signin',
-					controller : 'signinCtrl',
+					templateUrl : '/div/signin',
+					controller : 'signinController',
 					resolve : addControllerJs()
 				}).otherwise({
 					redirectTo : document.location.pathname

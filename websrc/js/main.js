@@ -16,5 +16,5 @@
             name 		: "dummyUser",
             email 		: "dummyUser@gmail.com"
         };
-    });
+    });	
 }());

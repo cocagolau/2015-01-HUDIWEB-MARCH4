@@ -1,10 +1,10 @@
 (function() {
 	'use strict';
-	march4.app.registerController('frontpageCtrl', function($scope, $http) {
+	march4.app.registerController('frontpageController', function($scope, $http) {
 		$scope.user ={};
         $scope.signout = signout;
        
-        funtion signout(){
+        function signout(){
         	//
         } 
 	});

@@ -17,7 +17,7 @@
 				<div ng-show="error" class="alert alert-danger">{{error}}{{signupMessage}}
 				</div>
 				<!-- asap:to apply this css class effect, link in minimum bootstrap  -->
-				<form name="" ng-submit="register()">
+				<form name="" ng-submit="signup()">
 					<div
 						ng-class="{ 'has-error': form.user.email.$dirty && form.user.email.$error.required }">
 						<label for="email">email</label> <input type="text" name="email"
