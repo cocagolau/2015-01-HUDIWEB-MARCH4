@@ -17,11 +17,12 @@
 			}
 		};
 	}
-	
-	march4.app.config([ '$routeProvider', '$locationProvider','$controllerProvider', function($routeProvider, $locationProvider) {
+
+	march4.app.config([ '$routeProvider', '$locationProvider',
+			function($routeProvider, $locationProvider) {
 				$routeProvider.when('/', {
 					templateUrl : '/div/frontpage',
-					controller : 'frontpageController',
+					controller : 'frontpageCtrl',
 					resolve : addControllerJs()
 				}).when('/world/:worldId?', {
 					templateUrl : '/div/world',
@@ -39,11 +40,20 @@
 					templateUrl : '/div/dummy',
 					controller : 'dummyController',
 					resolve : addControllerJs()
+				}).when('/register', {
+					templateUrl : '/div/login/register',
+					controller : 'signupCtrl',
+					resolve : addControllerJs()
+				}).when('/signin', {
+					templateUrl : '/div/login/signin',
+					controller : 'signinCtrl',
+					resolve : addControllerJs()
 				}).otherwise({
 					redirectTo : document.location.pathname
 				});
 
-				$locationProvider.html5Mode(true).hashPrefix('!');//?
+				$locationProvider.html5Mode(true).hashPrefix('!');
+				// graceful way? whichever?
 			} ]);
 
 	march4.app.run([
@@ -56,7 +66,7 @@
 					var un = $rootScope.$on('$locationChangeSuccess',
 							function() {
 								$route.current = lastRoute;
-								un();
+								un();//?
 							});
 
 					return $location.path(path);

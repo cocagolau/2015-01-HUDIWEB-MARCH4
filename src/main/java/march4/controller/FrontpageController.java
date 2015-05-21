@@ -64,7 +64,8 @@ public class FrontpageController {
 		log.debug(user.toString());
 		log.debug(session.toString());
 		session.removeAttribute("email");
-
+		log.debug("check wheter email session is removed" +session.toString());
+		
 		if (!userDao.loginSuccess(user)) {
 			log.debug("로그인 실패");
 			if (userDao.existEmail(user)) {

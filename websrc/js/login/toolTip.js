@@ -1,12 +1,6 @@
-﻿(function () {
-    'use strict';
-
-    angular
-        .module('app')
-        .factory('FlashService', FlashService);
-
-    FlashService.$inject = ['$rootScope'];
-    function FlashService($rootScope) {
+(function() {
+	'use strict';
+	march4.app.factory('ToolTip', function('$rootScope') {
         var service = {};
 
         service.Success = Success;
@@ -49,6 +43,7 @@
                 keepAfterLocationChange: keepAfterLocationChange
             };
         }
-    }
-
-})();
+        
+      
+	});
+}());

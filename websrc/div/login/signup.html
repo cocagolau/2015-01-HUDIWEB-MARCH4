@@ -14,7 +14,8 @@
 			<!--start register container -->
 			<div>
 				<h2>Register</h2>
-				<div ng-show="error" class="alert alert-danger">{{error}}</div>
+				<div ng-show="error" class="alert alert-danger">{{error}}{{signupMessage}}
+				</div>
 				<!-- asap:to apply this css class effect, link in minimum bootstrap  -->
 				<form name="" ng-submit="register()">
 					<div
