@@ -4,7 +4,6 @@
 	function addControllerJs() {
 		return {
 			load : function($q, $route, $rootScope) {
-				console.log($route);
 				var deferred = $q.defer();
 				var controllerPath = '/js/';
 				var controllerName = $route.current.$$route.controller;
