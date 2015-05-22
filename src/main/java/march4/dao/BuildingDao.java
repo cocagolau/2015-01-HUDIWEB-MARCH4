@@ -27,7 +27,7 @@ public class BuildingDao {
 	}
 
 	public List<Building> getDefaultBuildingList(int uid) {
-		String sql = "select * from project where uid = ?";
+		String sql = "select * from project where host_uId  = ?";
 		Object[] args = new Object[] { uid };
 
 		List<Building> building = jdbcTemplate.query(sql, args,
