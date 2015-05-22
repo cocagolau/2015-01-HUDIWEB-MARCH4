@@ -23,10 +23,8 @@
 	                        $location.path('/signin');
 	                    }
 	        		}else{
-	        			
-	        			
-	        			
-	        		};
+	        			//do something	
+	        		}
 	        	});
         } 
 	});

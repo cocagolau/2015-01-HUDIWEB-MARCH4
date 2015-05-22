@@ -46,7 +46,7 @@ march4.app.registerController('buildingController', function ($scope, $window, $
             var posY = parseInt(i / col) * $scope.pageSet.buildingBox.y + $scope.pageSet.buildingBox.margin * parseInt(i / col);
             $(".buildingArea li").eq(i).css("left", posX);
             $(".buildingArea li").eq(i).css("top", posY);
-        };
+        }
     };
 
     $scope.recalc = function (no) {
@@ -62,18 +62,17 @@ march4.app.registerController('buildingController', function ($scope, $window, $
             data: $scope.uid
         }).
         success(function (data, status, headers, config) {
-            console.log(data);
             $scope.Buildings = data;
-            for (var i = 0; i < $scope.Buildings.length; i++) {
-                (function (i) {
-                    $scope.Buildings[i].hide = true;
-                    $timeout(function () {
-                        $scope.Buildings[i].hide = false;
-                    }, i * 150);
-                })(i);
-            };
-            $timeout($scope.setPosition, 0);
 
+            function closure(i) {
+                $scope.Buildings[i].hide = true;
+                $timeout(function () {
+                    $scope.Buildings[i].hide = false;
+                }, i * 150);
+            }
+
+            for (var i = 0; i < $scope.Buildings.length; i++) closure(i);
+            $timeout($scope.setPosition, 0);
         }).
         error(function (data, status, headers, config) {
             if (status == 400) {
@@ -133,13 +132,13 @@ march4.app.registerController('buildingController', function ($scope, $window, $
         });
     };
 
-    $scope.resizeId;
+    $scope.resizeId = null;
     $(window).resize(function () {
         if ($scope.resizeId) $timeout.cancel($scope.resizeId);
 
         $scope.resizeId = $timeout(function () {
             $timeout($scope.setPosition, 0);
-        }, 500)
+        }, 500);
     });
     
     $scope.openFloatingForm = function (){
@@ -148,7 +147,7 @@ march4.app.registerController('buildingController', function ($scope, $window, $
         $(".bd-overlay").css("opacity", 1);
         $("header").addClass("blur");
         $(".bd-overlay ~ div").addClass("blur");
-    }
+    };
     
     $scope.closeFloatingForm = function(){
         $scope.floatingForm.show = false;
@@ -156,7 +155,7 @@ march4.app.registerController('buildingController', function ($scope, $window, $
         $(".bd-overlay").css("opacity", 0);
         $("header").removeClass("blur");
         $(".bd-overlay ~ div").removeClass("blur");
-    }
+    };
     
     $scope.default();
 });
