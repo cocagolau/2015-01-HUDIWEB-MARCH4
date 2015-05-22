@@ -13,16 +13,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-@RequestMapping(value = "/building", headers = {"content-type=application/json"})
+@RequestMapping(value = "/building", headers = {"Accept=application/json"})
 public class BuildingController {
 	
 	@Autowired
@@ -86,22 +88,11 @@ public class BuildingController {
 	}
 	
 	
-	@RequestMapping(value = "/default", method = RequestMethod.POST)
-	public @ResponseBody List<Building> defaultBuilding(@RequestBody String body, String name) {
-		Map<String,String> map = new HashMap<String,String>();
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			map = mapper.readValue(body, new TypeReference<HashMap<String,String>>(){});
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		log.debug(map.get("uid"));
-		
-		//uid가 문자열일 때의 예외처리 필요.
-		//uid가 아무것도 없을 때 예외처리 필요.
-		List<Building> buildings = buildingService.getDefaultBuilding(Integer.parseInt(map.get("uid")));
+	@RequestMapping(value = "/default", method = RequestMethod.GET)
+	public @ResponseBody List<Building> defaultBuilding(@RequestParam("uid") String uid) {
+		List<Building> buildings = buildingService.getDefaultBuilding(Integer.parseInt(uid));
+		log.debug(uid);
 		log.debug("building {}", buildings);
-		
 		return buildings;
 	}
 }

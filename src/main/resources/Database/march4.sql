@@ -24,16 +24,10 @@ DROP TABLE IF EXISTS `mydb`.`user` ;
 
 CREATE TABLE IF NOT EXISTS `mydb`.`user` (
   `uId` INT NOT NULL AUTO_INCREMENT,
-<<<<<<< HEAD
-  `email` VARCHAR(45) NULL,
-  `pw` VARCHAR(45) NULL,
-  PRIMARY KEY (`uId`))
-=======
   `email` VARCHAR(45) NOT NULL,
   `pw` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`uId`),
   UNIQUE KEY (`email`))
->>>>>>> 3d384f27a213234b471d14c945857180cc8d1b8b
 ENGINE = InnoDB;
 
 

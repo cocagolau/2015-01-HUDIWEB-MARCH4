@@ -18,6 +18,7 @@ public class LogInCheck extends HandlerInterceptorAdapter {
 		log.debug("enter interceptor ----------------------");
 		log.debug("session : {}", request.getSession().getAttribute("email"));
 
+<<<<<<< Updated upstream
 		if (request.getSession().getAttribute("email") == null) {
 			if (request.getHeader("accept").contains("application/json")) {
 				response.setStatus(401);
@@ -28,6 +29,16 @@ public class LogInCheck extends HandlerInterceptorAdapter {
 			log.debug("http");
 			return false;
 		}
+=======
+//		if (request.getSession().getAttribute("email") == null) {
+//			if (request.getHeader("accept").contains("application/json")) {
+//				response.setStatus(401);
+//				return false;
+//			}
+//			response.sendRedirect("/");
+//			return false;
+//		}
+>>>>>>> Stashed changes
 		return true;
 	}
 }

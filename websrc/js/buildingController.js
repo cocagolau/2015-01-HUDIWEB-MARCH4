@@ -57,9 +57,9 @@ march4.app.registerController('buildingController', function ($scope, $window, $
 
     $scope.default = function () {
         $http({
-            method: 'POST',
+            method: 'GET',
             url: '/building/default',
-            data: $scope.uid
+            params: $scope.uid
         }).
         success(function (data, status, headers, config) {
             $scope.Buildings = data;
