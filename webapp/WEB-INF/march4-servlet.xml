@@ -31,6 +31,8 @@
 			<mvc:exclude-mapping path="/img/**"/>
 			<mvc:exclude-mapping path="/css/**"/>
 			<mvc:exclude-mapping path="/div/frontpage"/>
+			<mvc:exclude-mapping path="/errorPage/**"/>
+			<mvc:exclude-mapping path="/div/errorPage/**"/>
 			<bean class="march4.interceptor.LogInCheck"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>

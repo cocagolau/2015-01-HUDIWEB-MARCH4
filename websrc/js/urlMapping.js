@@ -18,8 +18,8 @@
 		};
 	}
 
-	march4.app.config([ '$routeProvider', '$locationProvider',
-			function($routeProvider, $locationProvider) {
+	march4.app.config([ '$routeProvider', '$locationProvider', '$httpProvider', '$provide',
+			function($routeProvider, $locationProvider, $httpProvider, $provide) {
 				$routeProvider.when('/', {
 					templateUrl : '/div/frontpage',
 					controller : 'frontpageController',
@@ -48,11 +48,22 @@
 					templateUrl : '/div/signin',
 					controller : 'signinController',
 					resolve : addControllerJs()
+				}).when('/errorPage/:errorNumber?', {
+					templateUrl : '/div/errorPage/',
+					controller : 'errorController',
+					resolve : addControllerJs()
 				}).otherwise({
 					redirectTo : document.location.pathname
 				});
 
 				$locationProvider.html5Mode(true).hashPrefix('!');
+				$httpProvider.interceptors.push('HttpInterceptor');
+				$provide.decorator('$templateRequest', function($delegate) {
+					var mySilentProvider = function(tpl, ignoreRequestError) {
+					  return $delegate(tpl, true);
+					};
+					return mySilentProvider;
+				});
 			}]);
 
 	march4.app.run([ '$route', '$rootScope', '$location',
@@ -66,26 +77,18 @@
 						});
 				return $location.path(path);
 			};
-		} ]);
+		}
+	]);
 	
 	march4.app.factory('HttpInterceptor', function ($q,$location) {
 	    return {
 	        response: function (response) {
-	        	console.log(response.status);
-	        	if(response.status === 401){
-	        		console.log(1);
-	        		$location.path('/');
-	        	}
+				//do something
 	            return response;
 	        },
-	        responseError: function (response) {
-                console.log("error");
-                console.log(response.status);
-	            if(response.status === 401){
-	        		console.log(1);
-	        		$location.path('/');
-	        	}
-	            return response;
+	        responseError: function (rejection) {
+                $location.path('/errorPage/'+rejection.status);
+	            return $q.reject(rejection);
 	        }
 	    };
 	});

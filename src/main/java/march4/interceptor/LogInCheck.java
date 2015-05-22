@@ -21,9 +21,11 @@ public class LogInCheck extends HandlerInterceptorAdapter {
 		if (request.getSession().getAttribute("email") == null) {
 			if (request.getHeader("accept").contains("application/json")) {
 				response.setStatus(401);
+				log.debug("json");
 				return false;
 			}
 			response.sendRedirect("/");
+			log.debug("http");
 			return false;
 		}
 		return true;
